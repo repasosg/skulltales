@@ -506,139 +506,328 @@ window.mostrarSeccion = function(seccion) {
 
 
 /* ============================================================
-   NUEVAS FUNCIONALIDADES v2.0
-   - Modo Oscuro (persistente en localStorage)
-   - Búsqueda rápida de MN por número
+   NUEVAS FUNCIONALIDADES v2.1
+   - Modo Oscuro (por defecto oscuro, persistente)
+   - Búsqueda rápida de MN
+   - Dado virtual (d6 piratas)
+   - Breadcrumb de navegación
+   - Atajos de teclado
    ============================================================ */
 
-// ---- Modo Oscuro ----
+// ── Modo Oscuro ──────────────────────────────────────────────
 const ModoOscuro = {
   KEY: 'skullTales_modoOscuro',
 
   init: function () {
-    const activo = localStorage.getItem(this.KEY) === '1';
-    if (activo) document.body.classList.add('modo-oscuro');
+    const saved = localStorage.getItem(this.KEY);
+    // Por defecto: oscuro (sin clase). Claro solo si guardado '0'
+    if (saved === '0') {
+      document.body.classList.add('modo-claro');
+      document.body.classList.remove('modo-oscuro');
+    } else {
+      document.body.classList.add('modo-oscuro');
+      document.body.classList.remove('modo-claro');
+    }
     this.inyectarBoton();
   },
 
   toggle: function () {
-    const activo = document.body.classList.toggle('modo-oscuro');
-    localStorage.setItem(this.KEY, activo ? '1' : '0');
-    this.actualizarBoton(activo);
+    const esClaro = document.body.classList.toggle('modo-claro');
+    document.body.classList.toggle('modo-oscuro', !esClaro);
+    localStorage.setItem(this.KEY, esClaro ? '0' : '1');
+    this.actualizarBoton(esClaro);
   },
 
   inyectarBoton: function () {
     if (document.getElementById('btn-modo-oscuro')) return;
     const btn = document.createElement('button');
     btn.id = 'btn-modo-oscuro';
-    btn.title = 'Alternar modo día/noche';
+    btn.title = 'Alternar día / noche  [Atajo: D]';
     btn.onclick = () => ModoOscuro.toggle();
-    this.actualizarBoton(document.body.classList.contains('modo-oscuro'), btn);
+    this.actualizarBoton(document.body.classList.contains('modo-claro'), btn);
     document.body.appendChild(btn);
   },
 
-  actualizarBoton: function (activo, btn) {
+  actualizarBoton: function (esClaro, btn) {
     const el = btn || document.getElementById('btn-modo-oscuro');
-    if (el) el.textContent = activo ? '☀️' : '🌙';
+    if (el) el.textContent = esClaro ? '🌙' : '☀️';
   }
 };
 
-// ---- Búsqueda de MN ----
+// ── Búsqueda de MN ───────────────────────────────────────────
 const BuscadorMN = {
   init: function () {
     if (document.getElementById('mn-buscar-panel')) return;
-
     const panel = document.createElement('div');
     panel.id = 'mn-buscar-panel';
-    panel.title = 'Ir directamente a un MN por número';
+    panel.title = 'Ir a un MN por número  [Atajo: /]';
     panel.innerHTML = `
-      <span style="font-size:0.9rem; color: var(--marron, #6b3d1e); opacity:0.7;">MN</span>
-      <input id="mn-buscar-input" type="text" placeholder="Nº ej: 65"
+      <span style="font-size:0.82rem;opacity:0.6;">MN</span>
+      <input id="mn-buscar-input" type="text" placeholder="Nº"
              inputmode="numeric" maxlength="6"
              onkeydown="BuscadorMN.onKeyDown(event)" />
-      <button id="mn-buscar-btn" title="Buscar MN" onclick="BuscadorMN.buscar()">🔍</button>
+      <button id="mn-buscar-btn" title="Buscar" onclick="BuscadorMN.buscar()">🔍</button>
     `;
     document.body.appendChild(panel);
   },
 
-  onKeyDown: function (e) {
-    if (e.key === 'Enter') this.buscar();
-  },
+  onKeyDown: function (e) { if (e.key === 'Enter') this.buscar(); },
 
   buscar: function () {
     const input = document.getElementById('mn-buscar-input');
     if (!input) return;
-
-    let valor = input.value.trim().toUpperCase();
-    // Acepta "65", "MN65", "mn065", "065"
-    valor = valor.replace(/^MN/i, '');  // quitar prefijo si lo puso
+    let valor = input.value.trim().replace(/^MN/i, '');
     const num = parseInt(valor, 10);
-
-    if (isNaN(num) || num < 1) {
-      this.feedback('⚠ Escribe un número válido', 'error');
-      return;
-    }
-
-    const idNormal = 'MN' + num;
-
-    // Intentar cargarlo directamente
-    const contenedor = document.getElementById('texto');
-    if (!contenedor) {
-      this.feedback('⚠ No disponible en esta página', 'error');
-      return;
-    }
-
-    // Si ya está en caché, cargarlo
-    if (ChapterLoader.cache[idNormal.toLowerCase()]) {
-      cargarTexto(idNormal);
-      this.feedback('✓ ' + idNormal, 'ok');
-      input.value = '';
-      return;
-    }
-
-    // Si no está en caché, intentar cargarlo
-    cargarTexto(idNormal);
-    this.feedback('⏳ Cargando ' + idNormal + '…', 'ok');
+    if (isNaN(num) || num < 1) { this.feedback('⚠ Número inválido', true); return; }
+    const id = 'MN' + num;
+    cargarTexto(id);
+    this.feedback('↩ ' + id, false);
     input.value = '';
-
-    // Scroll al texto después de un breve delay
     setTimeout(() => {
-      if (contenedor) contenedor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const c = document.getElementById('texto');
+      if (c) c.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 350);
   },
 
-  feedback: function (msg, tipo) {
+  feedback: function (msg, error) {
     const panel = document.getElementById('mn-buscar-panel');
     if (!panel) return;
-
-    // Eliminar feedback previo
-    const prev = document.getElementById('mn-buscar-feedback');
+    const prev = document.getElementById('mn-feedback');
     if (prev) prev.remove();
-
     const span = document.createElement('span');
-    span.id = 'mn-buscar-feedback';
+    span.id = 'mn-feedback';
     span.textContent = msg;
-    span.style.cssText = `
-      font-size: 0.78rem;
-      font-family: Georgia, serif;
-      color: ${tipo === 'error' ? '#c03020' : '#306030'};
-      white-space: nowrap;
-      animation: fadeIn 0.2s ease-out;
-    `;
+    span.style.cssText = `font-size:0.75rem;font-family:Georgia,serif;color:${error?'#d04030':'#50a850'};white-space:nowrap;`;
     panel.appendChild(span);
+    setTimeout(() => span.remove(), 2200);
+  },
 
-    setTimeout(() => span.remove(), 2500);
+  focus: function () {
+    const input = document.getElementById('mn-buscar-input');
+    if (input) { input.focus(); input.select(); }
   }
 };
 
-// ---- Inicialización automática al cargar el DOM ----
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', function () {
+// ── Dado Virtual ─────────────────────────────────────────────
+const DadoVirtual = {
+  CARAS: ['⚀','⚁','⚂','⚃','⚄','⚅'],
+
+  init: function () {
+    if (document.getElementById('dado-panel')) return;
+    const panel = document.createElement('div');
+    panel.id = 'dado-panel';
+    panel.title = 'Lanzar dado  [Atajo: Espacio]';
+    panel.innerHTML = `
+      <div id="dado-cara" onclick="DadoVirtual.lanzar()" title="Clic o Espacio para lanzar">⚄</div>
+      <div id="dado-resultado"></div>
+    `;
+    document.body.appendChild(panel);
+    this.inyectarEstilos();
+  },
+
+  lanzar: function () {
+    const cara = document.getElementById('dado-cara');
+    const res  = document.getElementById('dado-resultado');
+    if (!cara) return;
+
+    // Animación de shake
+    cara.style.animation = 'none';
+    void cara.offsetWidth;
+    cara.style.animation = 'dadoRoll 0.45s ease-out';
+
+    let ticks = 0;
+    const intervalo = setInterval(() => {
+      const r = Math.floor(Math.random() * 6);
+      cara.textContent = this.CARAS[r];
+      ticks++;
+      if (ticks >= 8) {
+        clearInterval(intervalo);
+        const final = Math.floor(Math.random() * 6);
+        cara.textContent = this.CARAS[final];
+        if (res) res.textContent = (final + 1);
+      }
+    }, 55);
+  },
+
+  inyectarEstilos: function () {
+    if (document.getElementById('dado-styles')) return;
+    const style = document.createElement('style');
+    style.id = 'dado-styles';
+    style.textContent = `
+      #dado-panel {
+        position: fixed;
+        bottom: 70px;
+        left: 20px;
+        z-index: 50;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+        background: linear-gradient(to bottom, #2a1e0c, #1a1208);
+        border: 2px solid var(--oro, #c9a84c);
+        border-radius: 12px;
+        padding: 6px 10px 4px;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.55);
+        cursor: pointer;
+        transition: transform 0.12s;
+      }
+      body.modo-claro #dado-panel {
+        background: linear-gradient(to bottom, #f2e5c0, #deca98);
+      }
+      #dado-panel:hover { transform: scale(1.06); }
+      #dado-cara {
+        font-size: 2rem;
+        line-height: 1;
+        user-select: none;
+        filter: drop-shadow(0 1px 3px rgba(0,0,0,0.5));
+      }
+      #dado-resultado {
+        font-family: 'Pirata One', cursive;
+        font-size: 0.85rem;
+        color: var(--oro, #c9a84c);
+        min-height: 1em;
+        text-align: center;
+      }
+      @keyframes dadoRoll {
+        0%   { transform: rotate(0deg) scale(1); }
+        25%  { transform: rotate(-20deg) scale(1.2); }
+        50%  { transform: rotate(18deg) scale(0.9); }
+        75%  { transform: rotate(-12deg) scale(1.15); }
+        100% { transform: rotate(0deg) scale(1); }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+};
+
+// ── Breadcrumb ───────────────────────────────────────────────
+const Breadcrumb = {
+  init: function () {
+    if (document.getElementById('breadcrumb')) return;
+
+    // Detectar campaña y capítulo desde ChapterLoader
+    const camp = ChapterLoader.currentCampaign;
+    const cap  = ChapterLoader.currentChapter;
+    if (!camp) return;
+
+    // Mapas de nombres amigables
+    const CAMPS = {
+      'sombras-del-caribe':       '🌊 Sombras del Caribe',
+      'el-caldero-del-diablo':    '🔥 El Caldero del Diablo',
+      'la-ira-de-tlanchana':      '🌀 La Ira de Tlanchana',
+      'la-maldicion-de-vane':     '💀 La Maldición de Vane',
+      'el-contador-de-historias': '📖 El Contador de Historias',
+    };
+    const campNombre = CAMPS[camp] || camp;
+    const capNombre  = cap ? cap.replace('cap', 'Cap.').replace('an', 'Anexo ').toUpperCase() : '';
+
+    const bc = document.createElement('nav');
+    bc.id = 'breadcrumb';
+    bc.innerHTML = `
+      <a href="../index.htm">☠ Inicio</a>
+      <span class="bc-sep">›</span>
+      <span class="bc-camp">${campNombre}</span>
+      ${capNombre ? `<span class="bc-sep">›</span><span class="bc-cap">${capNombre}</span>` : ''}
+    `;
+    // Insertar antes del primer hijo del container
+    const container = document.querySelector('.container');
+    if (container) container.insertBefore(bc, container.firstChild);
+
+    this.inyectarEstilos();
+  },
+
+  inyectarEstilos: function () {
+    if (document.getElementById('bc-styles')) return;
+    const style = document.createElement('style');
+    style.id = 'bc-styles';
+    style.textContent = `
+      #breadcrumb {
+        font-size: 0.82rem;
+        padding: 6px 2px 10px;
+        opacity: 0.7;
+        font-family: Georgia, serif;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        flex-wrap: wrap;
+      }
+      #breadcrumb a { color: var(--oro, #c9a84c); text-decoration: none; font-weight: normal; }
+      #breadcrumb a:hover { text-decoration: underline; }
+      .bc-sep { opacity: 0.4; }
+      .bc-camp, .bc-cap { color: inherit; opacity: 0.9; }
+      .bc-cap { font-style: italic; }
+    `;
+    document.head.appendChild(style);
+  }
+};
+
+// ── Atajos de Teclado ────────────────────────────────────────
+const Atajos = {
+  init: function () {
+    document.addEventListener('keydown', function (e) {
+      // No activar si el foco está en un input o textarea
+      const tag = document.activeElement.tagName;
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+
+      switch (e.key) {
+        case 'd':
+        case 'D':
+          // Dado
+          DadoVirtual.lanzar();
+          break;
+
+        case '/':
+          // Foco en buscador MN
+          e.preventDefault();
+          BuscadorMN.focus();
+          break;
+
+        case ' ':
+          // Espacio también lanza el dado (si no hay scroll activo)
+          if (!e.target.closest('button')) {
+            e.preventDefault();
+            DadoVirtual.lanzar();
+          }
+          break;
+
+        case 'ArrowRight':
+        case 'ArrowLeft': {
+          // Navegar entre secciones del capítulo
+          const secciones = ['intro', 'travesia', 'preparacion', 'mn', 'exito'];
+          const botones = secciones.map(s => document.getElementById('boton' + s.charAt(0).toUpperCase() + s.slice(1))).filter(Boolean);
+          if (botones.length === 0) break;
+          const activo = botones.findIndex(b => b.classList.contains('activo'));
+          const siguiente = e.key === 'ArrowRight'
+            ? (activo + 1) % botones.length
+            : (activo - 1 + botones.length) % botones.length;
+          botones[siguiente].click();
+          break;
+        }
+
+        case 'Escape':
+          // Cerrar popup de imagen si está abierto
+          if (typeof cerrarPopupImagen === 'function') cerrarPopupImagen();
+          break;
+      }
+    });
+  }
+};
+
+// ── Inicialización automática ─────────────────────────────────
+(function arrancar() {
+  function setup() {
     ModoOscuro.init();
     BuscadorMN.init();
-  });
-} else {
-  // DOM ya listo (script cargado al final del body)
-  ModoOscuro.init();
-  BuscadorMN.init();
-}
+    DadoVirtual.init();
+    Atajos.init();
+    // Breadcrumb necesita que ChapterLoader ya tenga campaña/capítulo
+    // Se llama con pequeño delay para dejar que window.onload lo inicialice
+    setTimeout(() => Breadcrumb.init(), 100);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setup);
+  } else {
+    setup();
+  }
+})();
