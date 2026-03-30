@@ -1,0 +1,9 @@
+﻿ChapterLoader.registerContent('mn56', `*La sacristía también parece haber sido víctima de un asalto, aunque en este caso más de tipo religioso. Numerosos ornamentos de la divinidad han desaparecido, así como las trazas de cualquier estampilla o crucifijo que fuera susceptible de transportarse. Supones que los aldeanos, aterrorizados por la maldición, recurrieron a la fe para intentar salvar sus almas, cuando vieron que sus cuerpos estaban condenados. En un lateral de la habitación hay una puerta en cuya clave hay pintada una rudimentaria cruz, como si quisieran proteger lo que hay detrás.*
+--
+Coloca una puerta en la <img src="variosimg/xazul.png" width=36 style="vertical-align: middle;"> hacia el borde de la loseta. Cuando un personaje abra la puerta, sigue leyendo.
+--
+*El hedor de los cementerios invade tus fosas nasales, pues eso es lo que se oculta detrás de la puerta. Las lápidas de varias generaciones de colonos descansan aquí, pero eso no es todo. Los restos de lo que antaño fue el párroco de la ciudad se alzan desafiantes en el centro del cementerio, convertido por los poderes impíos en una momia cuyos dedos parecen cuchillas afiladas. Sin sentido alguno, una enorme puerta de piedra está dispuesta en un lateral del cementerio. Parece haber aparecido allí por arte de magia.*
+--
+<img src="losetas/MN 056.png" alt="Loseta" class="imagen-loseta">
+Coloca la <strong>Loseta s2</strong> tal y como se indica en la imagen. La Momia es el Guardián de la Puerta. Mientras esté viva, al principio de la Fase de Sucesos se coloca un Esqueleto en el cementerio, adyacente a un personaje (si lo hay) o en una casilla vacía (si no hay personajes en el cementerio), a elección del capitán. <strong>La puerta no puede abrirse mientras la Momia siga con vida.</strong> Una vez la Momia haya sido eliminada, la puerta de piedra puede abrirse de forma normal. Cuando se abra, lee el <button onclick="cargarTexto('MN37')">037</button>.`);
+

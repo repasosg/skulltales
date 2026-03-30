@@ -1,0 +1,5 @@
+ChapterLoader.registerContent('mn137', `
+*Tras llegar al puerto y reuniros con vuestra recién contratada tripulación, buscáis vuestro barco entre los amarraderos. Justo al final del puerto lo encontráis, con las velas recién cosidas y el casco reparado. Parece que al final el Gobernador ha decidido quedarse con el navío, porque está recién aprovisionado. Con una sonrisa lobuna, os apresuráis a tomar el barco. Los pocos soldados que vigilan el navío no son adversarios para toda vuestra tripulación y antes de que cunda la alarma por el puerto el barco ya navega rumbo a aguas abiertas. Demasiado tarde comienzan a sonar disparos desde el muelle y un surtidor de agua surge al lado del barco mientras una bala de cañón falla su blanco. ¡Demasiado tarde, pues ya sorteáis la bocana del puerto! Un barco inicia la persecución, pero no es rival para vosotros y pronto lo dejáis atrás. Los gritos de júbilo recorren la cubierta mientras ponéis rumbo de nuevo a Tortuga.*
+--
+Consulta la <button onclick="mostrarSeccion('exito')">Tabla de Éxitos</button>.  
+`);

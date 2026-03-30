@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+      <meta charset="utf-8">
+      <title>Sombras del Caribe - Capítulo 3: Exilio</title>
+      <link href="../css/estilos-1.css?v=1.2" rel="stylesheet">
+      <link href="../css2?family=Pirata+One&amp;display=swap" rel="stylesheet">
+</head>
+
+<body>
+      <div class="container">
+            <center>
+                  <h1>Sombras del Caribe</h1>
+            </center>
+            <h2>☠️ Capítulo 3: Exilio</h2>
+
+            <!-- Botones Principales -->
+            <div style="text-align: center; margin-bottom: 20px;">
+                  <!-- Fila 1 -->
+                  <button onclick="mostrarSeccion('aventura'); cargarTexto('intro')">Comienzo del capítulo</button>
+                  <button class="boton-dorado" id="botonTravesia" onclick="toggleTabla('tablaTravesia')">Mostrar
+                        Travesía</button>
+                  <button class="boton-dorado" id="botonPreparacion" onclick="toggleTabla('tablaPreparacion')">Mostrar
+                        Preparación de Aventura</button>
+
+                  <div style="margin-top: 10px;">
+                        <button class="boton-dorado" id="botonMN" onclick="mostrarSeccion('mn')">Mostrar Momentos
+                              Narrativos</button>
+                        <button class="boton-dorado" id="botonExito" onclick="mostrarSeccion('exito')">Mostrar
+                              Éxitos</button>
+                        <button class="boton-dorado" id="botonObjetivos" onclick="toggleTabla('tablaObjetivos')">Mostrar
+                              Objetivos</button>
+                        <button class="boton-dorado" id="botonEnemigos" onclick="toggleTabla('tablaEnemigos')">Aparición
+                              de
+                              Enemigos</button>
+                        <button class="boton-dorado" id="botonTrampas" onclick="toggleTabla('tablaTrampas')">Trampas</button>
+                  </div>
+
+                  <!-- Contenedores Ocultos -->
+                  <div class="tabla-oculta" id="tablaTravesia"></div>
+                  <div class="tabla-oculta" id="tablaPreparacion"></div>
+                  <div class="tabla-oculta" id="tablaExito"></div>
+                  <div class="tabla-oculta" id="tablaObjetivos"></div>
+                  <div class="tabla-oculta" id="tablaEnemigos"></div>
+                  <div class="tabla-oculta" id="tablaTrampas"></div>
+            </div>
+
+            <!-- Contenedor de Aventura (Intro + Texto) -->
+            <div id="contenedor-aventura">
+                  <!-- Tabla de Momentos Narrativos (Oculta por defecto, carga dinámica) -->
+                  <div id="tablaMN" class="tabla-oculta" style="margin-top: 20px;"></div>
+
+                  <!-- Introducción -->
+                  <div id="introducciones" style="margin-top: 20px;">
+                        <center>
+                              <h3>Historia</h3>
+                        </center>
+                  </div>
+                  <!-- Área de texto principal -->
+                  <div class="texto" id="texto"></div>
+            </div>
+
+            <!-- Tracker de Progreso MN -->
+            <div id="mn-tracker-container">
+                  <center>
+                        <h3>Progreso de Historia</h3>
+                  </center>
+            </div>
+      </div>
+      <a class="boton-retorno" href="../index.html">← Listado de Campañas</a>
+      <script src="../js/chapter-loader.js?v=1.0"></script>
+      <img alt="Rosa de los Vientos" class="rosa-vientos" src="../img/rosa-vientos.png">
+      <script>
+            function mostrarSeccion(seccion) {
+                  const divAventura = document.getElementById('contenedor-aventura');
+                  const divTravesia = document.getElementById('tablaTravesia');
+                  const divPreparacion = document.getElementById('tablaPreparacion');
+                  const divExito = document.getElementById('tablaExito');
+
+                  if (seccion === 'aventura') {
+                        // Mostrar Aventura
+                        divAventura.style.display = 'block';
+                        // Asegurar que las otras están cerradas
+                        if (divTravesia.classList.contains('visible')) toggleTabla('tablaTravesia');
+                        if (divPreparacion.classList.contains('visible')) toggleTabla('tablaPreparacion');
+                        if (divExito.classList.contains('visible')) toggleTabla('tablaExito');
+
+                        // Resetear estado interno de Aventura (Para que se vea la Intro y no la tabla MN)
+                        document.getElementById('tablaMN').classList.remove('visible');
+                        document.getElementById('botonMN').textContent = "Mostrar Momentos Narrativos";
+                        document.getElementById('introducciones').style.display = 'block';
+                        document.getElementById('texto').style.display = 'block';
+
+                  } else if (seccion === 'travesia') {
+                        // Ocultar Aventura
+                        divAventura.style.display = 'none';
+                        // Cerrar otras si están abiertas
+                        if (divPreparacion.classList.contains('visible')) toggleTabla('tablaPreparacion');
+                        if (divExito.classList.contains('visible')) toggleTabla('tablaExito');
+                        // Toggle Travesía
+                        toggleTabla('tablaTravesia');
+
+                  } else if (seccion === 'preparacion') {
+                        // Ocultar Aventura
+                        divAventura.style.display = 'none';
+                        // Cerrar otras
+                        if (divTravesia.classList.contains('visible')) toggleTabla('tablaTravesia');
+                        if (divExito.classList.contains('visible')) toggleTabla('tablaExito');
+                        // Toggle Preparación
+                        toggleTabla('tablaPreparacion');
+
+                  } else if (seccion === 'exito') {
+                        // Ocultar Aventura
+                        divAventura.style.display = 'none';
+                        // Cerrar otras
+                        if (divTravesia.classList.contains('visible')) toggleTabla('tablaTravesia');
+                        if (divPreparacion.classList.contains('visible')) toggleTabla('tablaPreparacion');
+                        // Toggle Exito
+                        toggleTabla('tablaExito');
+
+                  } else if (seccion === 'mn') {
+                        // Lógica de MN integrada
+
+                        // A. Asegurar que estamos en Aventura
+                        if (divAventura.style.display === 'none') {
+                              divAventura.style.display = 'block';
+                              // Cerrar otros
+                              if (divTravesia.classList.contains('visible')) toggleTabla('tablaTravesia');
+                              if (divPreparacion.classList.contains('visible')) toggleTabla('tablaPreparacion');
+                              if (divExito.classList.contains('visible')) toggleTabla('tablaExito');
+                        }
+
+                        // B. Toggle interno MN vs Intro
+                        const tablaMN = document.getElementById('tablaMN');
+                        const isVisibleMN = tablaMN.classList.contains('visible');
+
+                        if (!isVisibleMN) {
+                              // Mostrar tabla MN
+                              if (!ChapterLoader.cache['mn']) {
+                                    ChapterLoader.loadContent('mn', 'mn');
+                              } else {
+                                    tablaMN.innerHTML = ChapterLoader.cache['mn'];
+                              }
+                              tablaMN.classList.add('visible');
+                              document.getElementById('botonMN').textContent = "Ocultar Momentos Narrativos";
+
+                              // Ocultar intro y texto principal
+                              document.getElementById('introducciones').style.display = 'none';
+                              document.getElementById('texto').style.display = 'none';
+                        } else {
+                              // Ocultar tabla MN y volver a Intro
+                              tablaMN.classList.remove('visible');
+                              tablaMN.innerHTML = '';
+                              document.getElementById('botonMN').textContent = "Mostrar Momentos Narrativos";
+
+                              // Restaurar intro y cargar intro
+                              document.getElementById('introducciones').style.display = 'block';
+                              document.getElementById('texto').style.display = 'block';
+                              cargarTexto('intro');
+                        }
+                  }
+            }
+      </script>
+
+      <!-- Popup para imágenes de losetas -->
+      <div class="popup-imagen" id="popupImagen" onclick="cerrarPopupImagen()">
+            <img id="popupImagenContenido" alt="Loseta">
+      </div>
+
+      <script>
+            // Inicialización
+            ChapterLoader.init('sombras-del-caribe', 'cap3', '../');
+            cargarTexto('intro');
+
+            // Inicializar Tracker MN (Capítulo 3)
+            const mns = ['MN10', 'MN117', 'MN126', 'MN128', 'MN143', 'MN24', 'MN27', 'MN3', 'MN32', 'MN52', 'MN59', 'MN67', 'MN89'];
+            ChapterLoader.initTracker(mns);
+      </script>
+
+</body>
+
+</html>
+
+
+

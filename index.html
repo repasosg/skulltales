@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Skull Tales, a toda Vela. APP no oficial.</title>
+  <link href="css/estilos.css?v=1.5" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      font-family: 'Georgia', serif;
+      display: flex;
+      justify-content: center;
+    }
+
+    main {
+      width: 100%;
+      max-width: 800px;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+      color: #000000;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <div class="campaña">
+      <h1 align="center">Selecciona una Aventura</h1>
+      <div style="text-align: center; margin-bottom: 20px;">
+        <a href="perfil.html" class="boton-continuar"
+          style="background:#b89b65; color:black; text-decoration:none; padding:10px 20px; border-radius:5px; font-weight:bold;">
+          ⚓ Ir a mi Perfil / Cuaderno de Bitácora
+        </a>
+      </div>
+      <ul>
+        <li>
+          <a href="#" onclick="toggleCapitulos(event)">Sombras del Caribe (Campaña Core)</a>
+          <ul class="lista-capitulos" id="capitulos-core" style="display: none;">
+            <li><a href="capitulos/sombras-del-caribe-cap1.html?v=1.5">Capítulo 1: El Secreto del Capitán Jones</a></li>
+            <li><a href="capitulos/sombras-del-caribe-cap2.html?v=1.5">Capítulo 2: Despertar de la Oscuridad</a></li>
+            <li><a href="capitulos/sombras-del-caribe-cap3.html?v=1.5">Capítulo 3: Exilio</a></li>
+            <li><a href="capitulos/sombras-del-caribe-cap4.html?v=1.5">Capítulo 4: El Cristal Alquímico</a></li>
+            <li><a href="capitulos/sombras-del-caribe-cap5.html?v=1.5">Capítulo 5: La Isla Maldita</a></li>
+            <li><a href="capitulos/sombras-del-caribe-cap6.html?v=1.5">Capítulo 6: El Señor de los Caminos</a></li>
+            <li><a href="capitulos/sombras-del-caribe-cap7.html?v=1.5">Capítulo 7: Piratas de Honor</a></li>
+            <li><a href="capitulos/sombras-del-caribe-cap8.html?v=1.5">Capítulo 8: El emisario de Yemaná</a></li>
+            <li><a href="capitulos/sombras-del-caribe-cap9.html?v=1.5">Capítulo 9: Una extraña alianza</a></li>
+            <li><a href="capitulos/sombras-del-caribe-cap10.html?v=1.5">Capítulo 10: La última canción pirata</a></li>
+            <li><a href="capitulos/sombras-del-caribe-an1.html?v=1.5">Anexo I: Naufragio</a></li>
+            <li><a href="capitulos/sombras-del-caribe-an2.html?v=1.5">Anexo II: Escapando de la muerte</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="campaña">
+      <ul>
+        <li>
+          <a href="#" onclick="toggleCapitulos(event)">El Caldero del Diablo (Campaña II)</a>
+          <ul class="lista-capitulos" id="capitulos-caldero" style="display: none;">
+            <li><a href="capitulos/caldero-cap0.html?v=1.5">Capítulo 0: Prólogo</a></li>
+            <li><a href="capitulos/caldero-cap1.html?v=1.5">Capítulo 1: Entre llamas</a></li>
+            <li><a href="capitulos/caldero-cap2.html?v=1.5">Capítulo 2: La Isla del Diablo</a></li>
+            <li><a href="capitulos/caldero-cap3.html?v=1.5">Capítulo 3: El Templo del Horror</a></li>
+            <li><a href="capitulos/caldero-cap4.html?v=1.5">Capítulo 4: Piel de Cordero</a></li>
+            <li><a href="capitulos/caldero-cap5.html?v=1.5">Capítulo 5: El Pozo del Infierno</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="campaña">
+      <ul>
+        <li>
+          <a href="#" onclick="toggleCapitulos(event)">La ira de TlanchanI (Campaña III)</a>
+          <ul class="lista-capitulos" id="capitulos-ira" style="display: none;">
+            <li><a href="capitulos/la-ira-de-tlanchana-cap0.html?v=1.5">Capítulo 0: Prólogo</a></li>
+            <li><a href="capitulos/la-ira-de-tlanchana-cap1.html?v=1.5">Capítulo 1: Marejada</a></li>
+            <li><a href="capitulos/la-ira-de-tlanchana-cap2.html?v=1.5">Capítulo 2: Palabra de Cobarde</a></li>
+            <li><a href="capitulos/la-ira-de-tlanchana-cap3.html?v=1.5">Capítulo 3: La Cueva de la Locura</a></li>
+            <li><a href="capitulos/la-ira-de-tlanchana-cap4.html?v=1.5">Capítulo 4: El Cuenco de Acan</a></li>
+            <li><a href="capitulos/la-ira-de-tlanchana-cap5.html?v=1.5">Capítulo 5: Adios, amigos</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="campaña">
+      <ul>
+        <li>
+          <a href="#" onclick="toggleCapitulos(event)">La Maldición de Vane (Campaña IV)</a>
+          <ul class="lista-capitulos" id="capitulos-vane" style="display: none;">
+            <li><a href="capitulos/la-maldicion-de-vane-cap0.html?v=1.5">Capítulo 0: Prólogo</a></li>
+            <li><a href="capitulos/la-maldicion-de-vane-cap1.html?v=1.5">Capítulo 1: Incursion y rescate</a></li>
+            <li><a href="capitulos/la-maldicion-de-vane-cap2.html?v=1.5">Capítulo 2: Las Cuevas del Lamento</a></li>
+            <li><a href="capitulos/la-maldicion-de-vane-cap3.html?v=1.5">Capítulo 3: El Secreto Inmortal</a></li>
+            <li><a href="capitulos/la-maldicion-de-vane-cap4.html?v=1.5">Capítulo 4: El Pacto del Diablo</a></li>
+            <li><a href="capitulos/la-maldicion-de-vane-cap5.html?v=1.5">Capítulo 5: Réquiem</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="campaña">
+      <ul>
+        <li>
+          <a href="#" onclick="toggleCapitulos(event)">El Contador de Historias (Campaña V)</a>
+          <ul class="lista-capitulos" id="capitulos-ctd" style="display: none;">
+            <li><a href="capitulos/el-contador-de-historias-cap0.html?v=1.5">Capítulo 0: Prólogo</a></li>
+            <li><a href="capitulos/el-contador-de-historias-cap1.html?v=1.5">Capítulo 1: La Traición</a></li>
+            <li><a href="capitulos/el-contador-de-historias-cap2.html?v=1.5">Capítulo 2: El Templo de Anansi</a></li>
+            <li><a href="capitulos/el-contador-de-historias-cap3.html?v=1.5">Capítulo 3: Más allá del Fin del Mundo</a>
+            </li>
+            <li><a href="capitulos/el-contador-de-historias-cap4.html?v=1.5">Capítulo 4: Ix Chel</a></li>
+            <li><a href="capitulos/el-contador-de-historias-cap5.html?v=1.5">Capítulo 5: Cuentos y Leyendas</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="campaña">
+      <ul>
+        <li>
+          <a href="capitulos/la-x-marca-el-lugar.html?v=1.5">La X marca el lugar Aventura Fan made (Celebfin)</a>
+        </li>
+      </ul>
+    </div>
+    <ul>
+      <li>
+        <a href="descargas.html">📥 Zona de Descargas (STLs y Ayudas)</a>
+      </li>
+      <li>
+        <a href="videos.html">🎬 Vídeos Skull Tales</a>
+      </li>
+      <li>
+        <a href="pintura.html">🖌️ Pintura de Miniaturas</a>
+      </li>
+
+    </ul>
+    </div>
+
+
+
+
+
+    <footer style="margin-top: 40px; font-size: 0.9rem; text-align: center; color: #666;">
+      <hr style="margin-bottom: 10px;" />
+      <p><strong>La vida pirata, la vida mejor</strong> - App creada por <em>Julius Draco</em> para su uso con
+        <strong>Skull Tales ¡A toda vela!</strong>.
+      </p>
+      <p>Loas y Gloria para <strong>David Illescas</strong>, el creador del juego.</p>
+      <p><strong>Eclipse y Draco Ideas</strong>, por llevar este juego a nuestras casas.</p>
+      <hr />
+      <p><strong>Celebfin</strong>, presentando la mejor aventura fan que ha hecho él mismo para el juego.</p>
+      <p><strong>Eduardo</strong>, por su colaboración con los textos y Momentos Narrativos.</p>
+      <p><strong>Riojano2002</strong>, por proporcionar el manual y elementos gráficos.</p>
+      <p><strong>Rubiwan</strong>, por su incansable búsqueda de la voz adecuada.</p>
+      <p><strong>Jorge, Carlos Martínez y Veleras</strong>, por sus ayudas y revisiones.</p>
+      <p><strong>Alfredo</strong>, por sus ideas aportadas.</p>
+    </footer>
+  </main>
+
+
+
+
+  <img alt="Rosa de los Vientos" class="rosa-vientos" src="img/rosa-vientos.png" />
+  <script>
+    function toggleCapitulos(event) {
+      event.preventDefault(); // Prevent default anchor behavior
+      const campaña = event.currentTarget.closest(".campaña");
+      const lista = campaña.querySelector(".lista-capitulos");
+      const isVisible = lista && lista.style.display === "block";
+
+      // Hide all first (accordion behavior)
+      document.querySelectorAll(".lista-capitulos").forEach(l => {
+        l.style.display = "none";
+      });
+
+      // If it wasn't visible before, show it now. If it was visible, it remains hidden (toggled off).
+      if (lista && !isVisible) {
+        lista.style.display = "block";
+      }
+    }
+  </script>
+</body>
+
+</html>

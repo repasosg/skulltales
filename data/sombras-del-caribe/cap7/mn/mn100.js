@@ -1,0 +1,8 @@
+ChapterLoader.registerContent('mn100', `
+*Apartas unos muebles y te inclinas para mirar detrás de los mismos. De repente, sientes un impacto en la cabeza. Al girarte para descubrir al agresor te sorprendes al encontrarte a un niño de unos siete años que 
+ha salido de su escondite y te mira desafiante mientras te apunta con su tirachinas. Su rostro ceñudo es una versión rejuvenecida de Franky Sands: se trata de Luan.– No os temo, pirata, mi tío me ha advertido sobre la gente como vos. Aquí no hay nada que podáis llevaros. Idos en hora mala.*
+--
+Recibes una <img src="variosimg/Herida.png" width=36 style="vertical-align: middle;">. Supera una tirada de <img src="variosimg/carisma.png" width=36 style="vertical-align: middle;"> 6 para convencerle de que eres un amigo y <strong>suma +3</strong> a la tirada si Violette está contigo. Si fallas, pierdes todo tu próximo turno en lograr que abandone su actitud defensiva y se una a ti. Si lo consigues, el chico se une a ti inmediatamente.
+Consigues el <strong>Objetivo 2</strong>. Colócalo sobre la Cruz para representar a Luan. Se mueve antes o después del turno del personaje que lo controla, tiene <img src="variosimg/Movimiento.png" width=36 style="vertical-align: middle;"> 5 y puede realizar un ataque por turno con su tirachinas (1 <img src="variosimg/Distancia.png" width=36 style="vertical-align: middle;">, 1 <img src="variosimg/Herida.png" width=36 style="vertical-align: middle;">, Rango 2). 
+Si el personaje que lo controla queda <img src="variosimg/KO.png" width=36 style="vertical-align: middle;">, Luan no podrá realizar ninguna acción hasta que un personaje activo se coloque en una casilla adyacente para empezar a controlarlo.
+`);

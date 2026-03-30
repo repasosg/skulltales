@@ -1,0 +1,6 @@
+﻿ChapterLoader.registerContent('mn31', `
+*Durante un segundo detienes tu búsqueda pues te parece haber visto algo extraño en el suelo. Tras despejar la zona de hierbajos te das cuenta de que hay una serie de losas distribuidas por el suelo de toda la zona. Los restos de pintura en su superficie te hacen pensar que forman parte de algún tipo de imagen mayor, como si en un pasado las losetas hubieran formado un dibujo y alguien las hubiera dispersado. Pronto te das cuenta de que una de las losas está fuertemente anclada al suelo y que las otras pueden encajarse a su alrededor, aunque lograr que sus dibujos coincidan y tomen una forma lógica llevaría un tiempo, seguramente más del que tengas para escapar. Te preguntas si merecerá la pena perder el escaso tiempo que tienes en intentar reconstruir el jeroglífico o si será mejor continuar tu camino.*
+--
+Cualquier personaje en la loseta puede gastar 2 <img src="variosimg/Acciones.png" width=36 style="vertical-align: middle;"> para intentar resolver el jeroglífico del suelo realizando una tirada de <img src="variosimg/Inteligencia.png" width=36 style="vertical-align: middle;"> 5. Si la supera, lee el <button onclick="cargarTexto('MN144')">144</button>. 
+`);
+

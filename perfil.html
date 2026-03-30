@@ -1,0 +1,431 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>Perfil de Capitán - Skull Tales</title>
+    <link href="css/estilos.css?v=1.5" rel="stylesheet">
+    <link href="css2?family=Pirata+One&display=swap" rel="stylesheet">
+    <style>
+        /* Nuevo color beige más oscuro */
+        .panel {
+            background: #e6ddc5;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #b89b65;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .form-col {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #3e2723;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #8d6e63;
+            border-radius: 4px;
+            font-size: 1rem;
+            background-color: #fffaf0;
+        }
+
+        .section-title {
+            border-bottom: 2px solid #8b0000;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            color: #8b0000;
+            font-family: 'Pirata One', cursive;
+            font-size: 1.5rem;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .checkbox-group input {
+            width: auto;
+        }
+
+        .btn-action {
+            background-color: #8b0000;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-family: 'Georgia', serif;
+        }
+
+        .btn-action:hover {
+            background-color: #a52a2a;
+        }
+
+        .list-item {
+            border-bottom: 1px solid #b89b65;
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <a class="boton-retorno" href="index.html">← Volver al Menú Principal</a>
+
+        <center>
+            <h1 style="font-family: 'Pirata One', cursive; font-size: 3rem;">Cuaderno de Bitácora</h1>
+        </center>
+
+        <!-- Lista de Personajes -->
+        <div class="panel">
+            <h2 class="section-title">🏴‍☠️ Tripulación Registrada</h2>
+            <div id="pj-list"></div>
+        </div>
+
+        <!-- Formulario de Edición/Creación -->
+        <div class="panel">
+            <h2 class="section-title">📝 Ficha de Personaje</h2>
+            <form id="pj-form">
+                <input type="hidden" id="pj-id">
+
+                <!-- Datos Básicos -->
+                <div class="form-row">
+                    <div class="form-col form-group">
+                        <label>Nombre del Pirata:</label>
+                        <input type="text" id="pj-name" required="">
+                    </div>
+                    <div class="form-col form-group">
+                        <label>Clase (PJ):</label>
+                        <select id="pj-class">
+                            <option value="Sicario">Sicario</option>
+                            <option value="Hombre de Mar">Hombre de Mar</option>
+                            <option value="Artillero">Artillero</option>
+                            <option value="Cirujano">Cirujano</option>
+                            <option value="Vudú">Vudú</option>
+                            <option value="Grumete">Grumete</option>
+                        </select>
+                    </div>
+                    <div class="form-col form-group">
+                        <label>Nombre del Jugador:</label>
+                        <input type="text" id="pj-player">
+                    </div>
+                </div>
+
+                <div class="form-group checkbox-group">
+                    <label>¿Es Capitán?</label>
+                    <input type="checkbox" id="pj-captain"> Sí
+                </div>
+
+                <!-- Atributos -->
+                <div class="form-row">
+                    <div class="form-col form-group">
+                        <label>Cuerpo a Cuerpo:</label>
+                        <input type="number" id="stats-melee" value="0">
+                    </div>
+                    <div class="form-col form-group">
+                        <label>Distancia:</label>
+                        <input type="number" id="stats-ranged" value="0">
+                    </div>
+                    <div class="form-col form-group">
+                        <label>Acciones:</label>
+                        <input type="number" id="stats-actions" value="0">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-col form-group">
+                        <label>Carisma:</label>
+                        <input type="number" id="stats-charisma" value="0">
+                    </div>
+                    <div class="form-col form-group">
+                        <label>Fuerza:</label>
+                        <input type="number" id="stats-strength" value="0">
+                    </div>
+                    <div class="form-col form-group">
+                        <label>Destreza:</label>
+                        <input type="number" id="stats-dexterity" value="0">
+                    </div>
+                    <div class="form-col form-group">
+                        <label>Inteligencia:</label>
+                        <input type="number" id="stats-intelligence" value="0">
+                    </div>
+                    <div class="form-col form-group">
+                        <label>Percepción:</label>
+                        <input type="number" id="stats-perception" value="0">
+                    </div>
+                </div>
+
+                <!-- Heridas Permanentes -->
+                <h3 class="section-title" style="font-size: 1.2rem;">🩹 Heridas Permanentes</h3>
+                <div class="form-row">
+                    <div class="form-col checkbox-group"><input type="checkbox" id="wound-leye"> Ojo Izq.</div>
+                    <div class="form-col checkbox-group"><input type="checkbox" id="wound-reye"> Ojo Der.</div>
+                    <div class="form-col checkbox-group"><input type="checkbox" id="wound-lhand"> Mano Izq.</div>
+                    <div class="form-col checkbox-group"><input type="checkbox" id="wound-rhand"> Mano Der.</div>
+                    <div class="form-col checkbox-group"><input type="checkbox" id="wound-lleg"> Pierna Izq.</div>
+                    <div class="form-col checkbox-group"><input type="checkbox" id="wound-rleg"> Pierna Der.</div>
+                </div>
+
+                <!-- Inventario y Estado -->
+                <div class="form-row">
+                    <div class="form-col form-group">
+                        <label>Oro:</label>
+                        <input type="number" id="pj-gold" value="0">
+                    </div>
+                    <div class="form-col form-group">
+                        <label>Prestigio/Heridas:</label>
+                        <input type="text" id="pj-wounds" placeholder="Ej: 5 Prestigio">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Equipo:</label>
+                    <textarea id="pj-equipment" rows="3"></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-col form-group">
+                        <label>Cartas de Estrategia:</label>
+                        <textarea id="pj-strategy" rows="2"></textarea>
+                    </div>
+                    <div class="form-col form-group">
+                        <label>Cartas de Rumor:</label>
+                        <textarea id="pj-rumors" rows="2"></textarea>
+                    </div>
+                </div>
+
+                <!-- Aliados -->
+                <h3 class="section-title" style="font-size: 1.2rem;">🤝 Aliados</h3>
+                <div class="form-row">
+                    <div class="form-col form-group"><input type="text" id="ally-1" placeholder="Aliado 1"></div>
+                    <div class="form-col form-group"><input type="text" id="ally-2" placeholder="Aliado 2"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-col form-group"><input type="text" id="ally-3" placeholder="Aliado 3"></div>
+                    <div class="form-col form-group"><input type="text" id="ally-4" placeholder="Aliado 4"></div>
+                </div>
+
+
+                <button type="submit" class="btn-action" style="font-size: 1.2rem; width: 100%;">💾 Guardar
+                    Cambios</button>
+            </form>
+        </div>
+
+        <!-- Sección Copia de Seguridad -->
+        <div class="panel" style="border-left: 5px solid #2c3e50; background: #d0d0d0;">
+            <h2>💾 Copia de Seguridad</h2>
+            <p>Tus datos se guardan en este navegador. Para no perderlos, descarga tu copia.</p>
+
+            <button onclick="descargarCopia()" class="btn-action" style="background-color: #2c3e50;">⬇️ Descargar Copia
+                (JSON)</button>
+
+            <div style="margin-top: 15px;">
+                <input type="file" id="import-file" style="display: none;" onchange="importarCopia(this)">
+                <button onclick="document.getElementById('import-file').click()" class="btn-action" style="background-color: #d35400;">⬆️ Importar Copia</button>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="js/auth.js"></script>
+    <script>
+        // --- Lógica del Formulario Expandido ---
+
+        document.getElementById('pj-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Recoger todos los datos
+            const pj = {
+                id: document.getElementById('pj-id').value || null,
+                name: document.getElementById('pj-name').value,
+                class: document.getElementById('pj-class').value,
+                player: document.getElementById('pj-player').value,
+                isCaptain: document.getElementById('pj-captain').checked,
+
+                stats: {
+                    melee: document.getElementById('stats-melee').value,
+                    ranged: document.getElementById('stats-ranged').value,
+                    actions: document.getElementById('stats-actions').value,
+                    charisma: document.getElementById('stats-charisma').value,
+                    strength: document.getElementById('stats-strength').value,
+                    dexterity: document.getElementById('stats-dexterity').value,
+                    intelligence: document.getElementById('stats-intelligence').value,
+                    perception: document.getElementById('stats-perception').value
+                },
+
+                wounds: {
+                    leye: document.getElementById('wound-leye').checked,
+                    reye: document.getElementById('wound-reye').checked,
+                    lhand: document.getElementById('wound-lhand').checked,
+                    rhand: document.getElementById('wound-rhand').checked,
+                    lleg: document.getElementById('wound-lleg').checked,
+                    rleg: document.getElementById('wound-rleg').checked
+                },
+
+                gold: document.getElementById('pj-gold').value,
+                status: document.getElementById('pj-wounds').value,
+                equipment: document.getElementById('pj-equipment').value,
+                strategy: document.getElementById('pj-strategy').value,
+                rumors: document.getElementById('pj-rumors').value,
+
+                allies: [
+                    document.getElementById('ally-1').value,
+                    document.getElementById('ally-2').value,
+                    document.getElementById('ally-3').value,
+                    document.getElementById('ally-4').value
+                ]
+            };
+
+            Auth.savePj(pj);
+
+            // Reset id to avoid overwriting next time unless edit clicked
+            document.getElementById('pj-id').value = '';
+            document.getElementById('pj-form').reset();
+
+            renderPjs();
+            alert('Pirata guardado con éxito.');
+        });
+
+        function renderPjs() {
+            const pjs = Auth.getPjs();
+            const container = document.getElementById('pj-list');
+            container.innerHTML = '';
+
+            if (pjs.length === 0) {
+                container.innerHTML = '<p>No tienes personajes registrados.</p>';
+                return;
+            }
+
+            pjs.forEach(pj => {
+                const div = document.createElement('div');
+                div.className = 'list-item';
+                div.innerHTML = `
+                <div>
+                    <strong style="font-size:1.1rem; color:#8b0000;">${pj.name}</strong> (${pj.class})<br>
+                    <span>Jugador: ${pj.player || '-'} | Oro: ${pj.gold || 0}</span>
+                </div>
+                <div>
+                     <button class="btn-action" onclick="loadPjIntoForm('${pj.id}')" style="background-color: #555;">Editar</button>
+                    <button class="btn-action" onclick="deletePj('${pj.id}')" style="background-color: #333;">Borrar</button>
+                </div>
+            `;
+                container.appendChild(div);
+            });
+        }
+
+        function loadPjIntoForm(id) {
+            const pjs = Auth.getPjs();
+            const pj = pjs.find(p => p.id === id);
+            if (!pj) return;
+
+            document.getElementById('pj-id').value = pj.id;
+            document.getElementById('pj-name').value = pj.name;
+            document.getElementById('pj-class').value = pj.class;
+            document.getElementById('pj-player').value = pj.player || '';
+            document.getElementById('pj-captain').checked = pj.isCaptain || false;
+
+            if (pj.stats) {
+                document.getElementById('stats-melee').value = pj.stats.melee;
+                document.getElementById('stats-ranged').value = pj.stats.ranged;
+                document.getElementById('stats-actions').value = pj.stats.actions;
+                document.getElementById('stats-charisma').value = pj.stats.charisma;
+                document.getElementById('stats-strength').value = pj.stats.strength;
+                document.getElementById('stats-dexterity').value = pj.stats.dexterity;
+                document.getElementById('stats-intelligence').value = pj.stats.intelligence;
+                document.getElementById('stats-perception').value = pj.stats.perception;
+            }
+
+            if (pj.wounds) {
+                document.getElementById('wound-leye').checked = pj.wounds.leye;
+                document.getElementById('wound-reye').checked = pj.wounds.reye;
+                document.getElementById('wound-lhand').checked = pj.wounds.lhand;
+                document.getElementById('wound-rhand').checked = pj.wounds.rhand;
+                document.getElementById('wound-lleg').checked = pj.wounds.lleg;
+                document.getElementById('wound-rleg').checked = pj.wounds.rleg;
+            }
+
+            document.getElementById('pj-gold').value = pj.gold || 0;
+            document.getElementById('pj-wounds').value = pj.status || '';
+            document.getElementById('pj-equipment').value = pj.equipment || '';
+            document.getElementById('pj-strategy').value = pj.strategy || '';
+            document.getElementById('pj-rumors').value = pj.rumors || '';
+
+            if (pj.allies) {
+                document.getElementById('ally-1').value = pj.allies[0] || '';
+                document.getElementById('ally-2').value = pj.allies[1] || '';
+                document.getElementById('ally-3').value = pj.allies[2] || '';
+                document.getElementById('ally-4').value = pj.allies[3] || '';
+            }
+
+            window.scrollTo(0, document.getElementById('pj-form').offsetTop);
+        }
+
+        function deletePj(id) {
+            if (confirm('¿Seguro que quieres borrar a este pirata?')) {
+                Auth.deletePj(id);
+                renderPjs();
+            }
+        }
+
+        // --- Funciones Exportar/Importar ---
+        function descargarCopia() {
+            const data = Auth.exportData();
+            const blob = new Blob([data], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `skull-tales-backup-${new Date().toISOString().slice(0, 10)}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
+        function importarCopia(input) {
+            const file = input.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const content = e.target.result;
+                if (Auth.importData(content)) {
+                    alert('¡Datos importados correctamente! La página se recargará.');
+                    location.reload();
+                } else {
+                    alert('Error al importar el archivo. Asegúrate de que es un JSON válido de Skull Tales.');
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        // Init
+        renderPjs();
+    </script>
+</body>
+
+</html>

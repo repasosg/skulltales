@@ -1,0 +1,6 @@
+﻿ChapterLoader.registerContent('mn80', `
+*Abriéndote paso por el estrecho sendero comienzas a escuchar, en algún punto indeterminado por delante de ti, el característico sonido de unos güiros acompañados por la rítmica percusión de un tambor. Avanzas con cuidado hasta que la espesura se abre a un claro donde un grupo de caníbales está ejecutando una danza tribal al son de la música que te ha atraído hasta aquí. De vez en cuando, alguno de los bailarines se detiene y se arroja de rodillas frente a un manantial que surge del suelo. La tercera vez que ocurre, el indígena bebe un trago de agua y la música se detiene. Tras unos segundos de expectación, el nativo emite un salvaje grito de celebración y se gira hacia sus compañeros, momento en el que te descubre al borde del claro. No necesitas entender qué le dice a sus camaradas a continuación para saber que si no desenvainas tu arma estarás muerto en un suspiro.*
+--
+Cualquier personaje puede beber del manantial situándose adyacente a la <img src="variosimg/xamarilla.png" width=36 style="vertical-align: middle;"> y gastando 1 <img src="variosimg/Acciones.png" width=36 style="vertical-align: middle;">. En ese caso, leerá el <button onclick="cargarTexto('MN53')">053</button>.
+`);
+

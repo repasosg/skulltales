@@ -1,0 +1,3 @@
+ChapterLoader.registerContent('mn14', `*Está claro que este despacho ha sido escenario de un cruento combate. Las estanterías han sido derribadas y los restos destrozados de una silla están tirados entre los papeles tirados por el suelo. Hay manchas de sangre salpicando las paredes y en un gran charco junto a la mesa, aunque no hay ningún cuerpo. En cualquier caso, sus ocupantes habituales se fueron con premura y, por suerte para ti, entre los restos destrozados de una librería encontráis una bolsa de oro bien surtida que alguien se dejó atrás... Será mejor que se la guardemos nosotros.*
+--
+Consigues 30 <img src="variosimg/oro.png" width=36 style="vertical-align: middle;">`);

@@ -1,0 +1,953 @@
+/* ============================================================
+   SKULL TALES - CSS MEJORADO
+   Mismas clases, mejor aspecto y usabilidad
+   ============================================================ */
+
+/* ---- Variables de color (paleta pirata unificada) ---- */
+:root {
+  --oro:          #c9a84c;
+  --oro-claro:    #f0d080;
+  --oro-oscuro:   #8b6914;
+  --marron:       #6b3d1e;
+  --marron-claro: #a0714a;
+  --marron-fondo: #3a2010;
+  --crema:        #fdf3dc;
+  --crema-oscuro: #ede0bb;
+  --papel:        #f8eed6;
+  --papel-oscuro: #eddbb0;
+  --texto:        #2e1a0a;
+  --texto-suave:  #5c3d1a;
+  --marino:       #0d3352;
+  --marino-claro: #1a5276;
+  --sombra:       rgba(30, 12, 0, 0.35);
+  --sombra-suave: rgba(30, 12, 0, 0.15);
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+body {
+  font-family: 'Georgia', serif;
+  background-color: var(--crema);
+  /* Textura de papel sutil con gradiente */
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 28px,
+      rgba(180,140,80,0.06) 28px,
+      rgba(180,140,80,0.06) 29px
+    );
+  color: var(--texto);
+  margin: 0;
+  padding: 20px;
+  line-height: 1.6;
+}
+
+a {
+  color: var(--marron);
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: var(--marron-fondo);
+  text-decoration: underline;
+}
+
+h1, h2, h3 {
+  font-family: 'Pirata One', cursive;
+  color: var(--marron-fondo);
+  /* Sombra suave para dar profundidad */
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.18);
+}
+
+h1 { font-size: 2.2rem; margin-bottom: 0.4em; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.5rem; }
+
+/* ============================================================
+   CONTENEDOR PRINCIPAL
+   ============================================================ */
+.container {
+  max-width: 900px;
+  margin: auto;
+}
+
+/* ============================================================
+   BOTONES - más diferenciados y legibles
+   ============================================================ */
+
+/* Base de todos los botones */
+button {
+  background-color: var(--crema-oscuro);
+  background-image: linear-gradient(to bottom, #f2e5c0, #deca98);
+  border: 2px solid var(--oro);
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-size: 0.92rem;
+  cursor: pointer;
+  z-index: 20;
+  box-shadow: 0 3px 6px var(--sombra-suave), inset 0 1px 0 rgba(255,255,255,0.4);
+  font-style: italic;
+  font-family: 'Georgia', serif;
+  margin: 4px;
+  color: var(--texto);
+  transition: background 0.18s, transform 0.12s, box-shadow 0.18s;
+}
+
+button:hover {
+  background-image: linear-gradient(to bottom, #f8edcc, #e8d4a0);
+  box-shadow: 0 5px 10px var(--sombra), inset 0 1px 0 rgba(255,255,255,0.5);
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 4px var(--sombra-suave);
+}
+
+button.activo {
+  background-image: linear-gradient(to bottom, #8b5e34, #6b3d1e);
+  color: #f8e4b0;
+  border-color: var(--oro-oscuro);
+  box-shadow: 0 2px 8px var(--sombra), inset 0 1px 0 rgba(255,255,255,0.15);
+}
+
+/* Botón dorado - acción importante */
+.boton-dorado {
+  background-image: linear-gradient(to bottom, #f7dc74, #d4a832);
+  border: 2px solid #b08820;
+  color: #3a2000;
+  font-weight: bold;
+}
+
+.boton-dorado:hover {
+  background-image: linear-gradient(to bottom, #ffe880, #e0b830);
+  border-color: #8b6000;
+}
+
+/* Botón especial - acción secundaria (turquesa) */
+.boton-especial {
+  background-image: linear-gradient(to bottom, #b8ddd4, #7cbcaa);
+  border: 2px solid #3d8878;
+  color: #0d2f28;
+  font-weight: bold;
+}
+
+.boton-especial:hover {
+  background-image: linear-gradient(to bottom, #c8ece4, #8dcab8);
+}
+
+/* Botón continuar */
+.boton-continuar {
+  display: inline-block;
+  margin: 20px auto 0;
+  padding: 13px 28px;
+  font-size: 1.1rem;
+  background-image: linear-gradient(to bottom, #b8895a, #8b5e34);
+  color: #f8e8c0;
+  border: 2px solid var(--oro-oscuro);
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: 'Georgia', serif;
+  font-weight: bold;
+  letter-spacing: 0.03em;
+  box-shadow: 0 4px 10px var(--sombra);
+  transition: background-image 0.2s, transform 0.12s, box-shadow 0.2s;
+}
+
+.boton-continuar:hover {
+  background-image: linear-gradient(to bottom, #cc9a6a, #9b6e44);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px var(--sombra);
+  text-decoration: none;
+  color: #fffae0;
+}
+
+/* Botón retorno - fijo esquina inferior izquierda */
+.boton-retorno {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background-image: linear-gradient(to bottom, #f2e5c0, #d8c080);
+  border: 2px solid var(--oro);
+  border-radius: 12px;
+  padding: 9px 14px;
+  font-size: 1rem;
+  cursor: pointer;
+  z-index: 20;
+  box-shadow: 0 3px 8px var(--sombra);
+  color: var(--texto);
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-image 0.18s, transform 0.12s;
+}
+
+.boton-retorno:hover {
+  background-image: linear-gradient(to bottom, #f8edcc, #e8d090);
+  transform: translateY(-2px);
+  color: var(--marron-fondo);
+}
+
+/* ============================================================
+   ÁREA DE TEXTO PRINCIPAL
+   ============================================================ */
+#texto {
+  margin-top: 20px;
+  max-width: 900px;
+  /* Efecto pergamino */
+  background-color: var(--papel);
+  background-image:
+    linear-gradient(to right, rgba(180,120,60,0.07) 0%, transparent 3%),
+    linear-gradient(to left,  rgba(180,120,60,0.07) 0%, transparent 3%);
+  padding: 20px 24px;
+  border-radius: 8px;
+  border: 1px solid var(--oro);
+  border-left: 4px solid var(--marron-claro);
+  font-size: 1.1rem;
+  line-height: 1.85;
+  text-align: justify;
+  box-shadow: 0 4px 12px var(--sombra-suave);
+  transition: opacity 0.4s ease;
+}
+
+/* ============================================================
+   CLASES DE TEXTO NARRATIVO
+   ============================================================ */
+.narrativa {
+  font-style: italic;
+  margin-bottom: 1.1em;
+  font-family: 'Georgia', serif;
+  font-size: 1.35rem;
+  text-align: justify;
+  color: #2a1200;
+  line-height: 1.9;
+}
+
+.instrucciones {
+  font-style: normal;
+  font-weight: normal;
+  white-space: pre-line;
+  background-color: #f6eed8;
+  background-image: linear-gradient(135deg, #fdf8ec 0%, #f0e0b0 100%);
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--oro);
+  border-left: 4px solid var(--marron-claro);
+  font-family: 'Arial', sans-serif;
+  font-size: 1.05rem;
+  text-align: justify;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+
+/* ============================================================
+   TABLA OCULTA / SECCIONES DESPLEGABLES
+   ============================================================ */
+.tabla-oculta {
+  display: none;
+  background-color: var(--papel);
+  background-image: linear-gradient(to bottom, #fdf8ec, #f5e8c8);
+  border: 1px solid var(--oro);
+  border-top: 3px solid var(--marron-claro);
+  border-radius: 8px;
+  padding: 18px;
+  margin-top: 16px;
+  box-shadow: 0 4px 14px var(--sombra-suave);
+  animation: fadeIn 0.3s ease-out;
+}
+
+.tabla-oculta.visible {
+  display: block;
+}
+
+/* ============================================================
+   TABLAS
+   ============================================================ */
+table th, table td {
+  text-align: center;
+  padding: 6px 8px;
+}
+
+table thead th {
+  background-color: var(--marron-fondo);
+  color: var(--oro-claro);
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+  letter-spacing: 0.04em;
+}
+
+table tbody tr:nth-child(even) {
+  background-color: rgba(180,140,70,0.08);
+}
+
+table tbody tr:hover {
+  background-color: rgba(180,140,70,0.15);
+}
+
+.tabla-mn td, .tabla-mn th {
+  font-size: 1.05rem;
+  padding: 5px;
+}
+
+/* ============================================================
+   OBJETIVO - Recuadro azul marino dorado
+   ============================================================ */
+.objetivo {
+  background: linear-gradient(135deg, #0d3352 0%, #1a5276 100%);
+  border: 3px solid var(--oro);
+  border-radius: 12px;
+  padding: 18px 22px;
+  margin: 20px 0;
+  color: var(--oro-claro);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,215,80,0.15);
+  font-family: 'Georgia', serif;
+  font-size: 1.1rem;
+  text-align: center;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+
+/* ============================================================
+   TRACKER DE MOMENTOS NARRATIVOS
+   ============================================================ */
+#mn-tracker-container {
+  width: 100%;
+  margin-top: 24px;
+  margin-bottom: 20px;
+  overflow-x: auto;
+}
+
+.tracker-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 5px;
+  margin: 0 auto;
+  table-layout: fixed;
+}
+
+.tracker-cell {
+  background-image: linear-gradient(to bottom, #e8d8a8, #cfc090);
+  border: 2px solid var(--oro);
+  padding: 10px 6px;
+  text-align: center;
+  font-family: 'Georgia', serif;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 7px;
+  transition: all 0.2s;
+  box-shadow: 0 2px 4px var(--sombra-suave);
+  color: var(--texto);
+}
+
+.tracker-cell:hover {
+  background-image: linear-gradient(to bottom, #f5e8b8, #ddd090);
+  transform: scale(1.06);
+  box-shadow: 0 4px 10px var(--sombra);
+}
+
+.tracker-cell.reset-cell {
+  background-image: linear-gradient(to bottom, #f0aaaa, #d06060);
+  border-color: #a02020;
+  color: #5a0000;
+  width: 40px;
+}
+
+.tracker-cell.reset-cell:hover {
+  background-image: linear-gradient(to bottom, #f06060, #c03030);
+  color: white;
+}
+
+.tracker-cell.visited {
+  background-image: linear-gradient(to bottom, #9a8c6a, #7a6c50);
+  color: #f0e0c0;
+  border-color: #5c4e30;
+  opacity: 0.85;
+}
+
+.tracker-cell.last-visited {
+  background-image: linear-gradient(to bottom, #f0aaaa, #d06060);
+  border-color: #a02020;
+  color: #5a0000;
+  font-weight: bold;
+  transform: scale(1.08);
+  box-shadow: 0 0 12px rgba(180, 50, 40, 0.4);
+}
+
+.tracker-cell.empty {
+  background-image: none;
+  background-color: rgba(210, 190, 140, 0.2);
+  border: 1px dashed var(--oro);
+  cursor: default;
+  box-shadow: none;
+}
+
+.tracker-cell.empty:hover {
+  transform: none;
+  background-color: rgba(210, 190, 140, 0.2);
+}
+
+/* ============================================================
+   REPRODUCTOR DE AUDIO
+   ============================================================ */
+.reproductor-opcional {
+  background-image: linear-gradient(135deg, #f8edd4, #ead4a0);
+  border: 2px solid var(--oro);
+  border-radius: 20px 20px 20px 5px;
+  padding: 14px 20px;
+  margin: 20px auto;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: 0;
+  box-shadow: 2px 4px 10px var(--sombra-suave);
+  font-size: 0.95rem;
+}
+
+.audio-titulo {
+  margin: 0 0 10px 0;
+  padding-bottom: 8px;
+  font-size: 0.95rem;
+  color: var(--texto-suave);
+  border-bottom: 2px solid var(--oro);
+  font-weight: bold;
+}
+
+.reproductor-opcional audio {
+  max-width: 340px;
+  height: 50px;
+  border-radius: 8px;
+  flex-grow: 1;
+  margin-top: 8px;
+  background: linear-gradient(to bottom, #d4ba87 0%, #b89b65 100%);
+  border: 2px solid #8b5e3c;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.2), 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.reproductor-opcional audio::-webkit-media-controls-panel {
+  background: linear-gradient(to bottom, #d4ba87 0%, #b89b65 100%);
+  border-radius: 6px;
+}
+
+.reproductor-opcional audio::-webkit-media-controls-play-button,
+.reproductor-opcional audio::-webkit-media-controls-pause-button {
+  background-color: #5c3d1a;
+  border-radius: 50%;
+  filter: brightness(1.1);
+}
+
+.reproductor-opcional audio::-webkit-media-controls-play-button:hover,
+.reproductor-opcional audio::-webkit-media-controls-pause-button:hover {
+  background-color: #8b5e3c;
+  filter: brightness(1.3);
+}
+
+.reproductor-opcional audio::-webkit-media-controls-current-time-display,
+.reproductor-opcional audio::-webkit-media-controls-time-remaining-display {
+  color: #5c3d1a;
+  text-shadow: 0 1px 2px rgba(255,255,255,0.5);
+  font-weight: bold;
+  font-family: 'Georgia', serif;
+}
+
+.reproductor-opcional audio::-webkit-media-controls-timeline {
+  background: #8b5e3c;
+  border-radius: 10px;
+  height: 6px;
+}
+
+.reproductor-opcional audio::-webkit-media-controls-volume-slider {
+  background: #8b5e3c;
+  border-radius: 10px;
+}
+
+.reproductor-opcional audio::-webkit-media-controls-mute-button {
+  background-color: transparent;
+  filter: brightness(0.8) sepia(0.5);
+}
+
+.reproductor-opcional audio::-webkit-media-controls-mute-button:hover {
+  filter: brightness(1.1) sepia(0.7);
+}
+
+.reproductor-opcional audio::-moz-range-track {
+  background: #8b5e3c;
+  border-radius: 10px;
+  height: 6px;
+}
+
+.reproductor-opcional audio::-moz-range-thumb {
+  background: #5c3d1a;
+  border: 2px solid #d4ba87;
+  border-radius: 50%;
+  width: 14px;
+  height: 14px;
+}
+
+/* ============================================================
+   SELECTOR PIRATA (dropdown)
+   ============================================================ */
+.selector-pirata {
+  background-color: var(--papel);
+  border: 2px solid var(--oro);
+  border-radius: 8px;
+  padding: 10px;
+  font-family: 'Georgia', serif;
+  font-size: 1.1rem;
+  color: var(--texto-suave);
+  width: 80%;
+  max-width: 400px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px var(--sombra-suave);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.selector-pirata:focus {
+  outline: none;
+  border-color: var(--marron);
+  box-shadow: 0 0 0 3px rgba(107,61,30,0.2);
+}
+
+.objetivos-container {
+  text-align: center;
+  padding: 10px;
+}
+
+/* ============================================================
+   RECOMPENSA
+   ============================================================ */
+.recompensa-box {
+  margin-top: 20px;
+  background: linear-gradient(135deg, #d8f0c0 0%, #b8e090 100%);
+  border: 2px solid #6a9e30;
+  border-radius: 10px;
+  padding: 16px;
+  font-size: 1.2rem;
+  color: #234010;
+  animation: fadeIn 0.5s ease-out;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.12);
+}
+
+/* ============================================================
+   POPUP DE IMAGEN
+   ============================================================ */
+.popup-imagen {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.82);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(3px);
+}
+
+.popup-imagen.visible {
+  display: flex;
+}
+
+.popup-imagen img {
+  max-width: 90%;
+  max-height: 90%;
+  border: 4px solid var(--oro);
+  box-shadow: 0 0 30px rgba(0,0,0,0.8);
+  border-radius: 6px;
+}
+
+/* ============================================================
+   DECORACIONES FIJAS
+   ============================================================ */
+.rosa-vientos {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  width: 140px;
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 10;
+  filter: sepia(0.2);
+}
+
+.mascara-pirata {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  width: 120px;
+  opacity: 0.22;
+  pointer-events: none;
+  z-index: 10;
+  filter: sepia(0.3);
+}
+
+/* ============================================================
+   ICONOS E IMÁGENES
+   ============================================================ */
+.icono-cartel {
+  width: 180px;
+  height: 120px;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+.icono-personaje {
+  width: 60px;
+  height: 60px;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+.icono-personaje2 {
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+.icono-texto {
+  width: 45px;
+  height: auto;
+  vertical-align: middle;
+  margin: 0 2px;
+}
+
+.imagen-loseta {
+  width: 90%;
+  max-width: 90%;
+  height: auto;
+  display: block;
+  margin: 15px auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px var(--sombra);
+}
+
+.imagen-loseta2 {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 15px auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px var(--sombra);
+}
+
+/* ============================================================
+   CAPITULOS / CAMPAÑA (página índice)
+   ============================================================ */
+.capitulos {
+  margin-left: 20px;
+  margin-top: 10px;
+}
+
+/* ============================================================
+   BOTÓN ELIMINAR MN
+   ============================================================ */
+.delete-mn-btn {
+  margin-top: 4px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  color: #bf2111;
+  opacity: 0.6;
+  transition: opacity 0.2s, transform 0.15s;
+  font-weight: bold;
+}
+
+.delete-mn-btn:hover {
+  opacity: 1;
+  transform: scale(1.2);
+  color: #ff0000;
+}
+
+/* ============================================================
+   ANIMACIONES
+   ============================================================ */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================================
+   RESPONSIVE - móvil
+   ============================================================ */
+@media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+
+  button {
+    width: 100%;
+    font-size: 1.05rem;
+    padding: 13px;
+  }
+
+  #texto {
+    font-size: 1.05rem;
+    padding: 12px;
+  }
+
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.35rem; }
+  h3 { font-size: 1.3rem; }
+
+  .boton-retorno {
+    bottom: 12px;
+    left: 12px;
+    font-size: 0.9rem;
+    padding: 8px 10px;
+  }
+
+  .rosa-vientos {
+    width: 90px;
+    opacity: 0.25;
+  }
+
+  .reproductor-opcional {
+    max-width: 100%;
+  }
+}
+
+/* ============================================================
+   MODO OSCURO - se activa con clase .modo-oscuro en <body>
+   ============================================================ */
+
+body.modo-oscuro {
+  --crema:        #1e1510;
+  --crema-oscuro: #2a1e10;
+  --papel:        #231a0e;
+  --papel-oscuro: #2e2210;
+  --texto:        #e8d8b0;
+  --texto-suave:  #c8a870;
+  --oro:          #b08830;
+  --oro-claro:    #d4a840;
+  --sombra:       rgba(0,0,0,0.6);
+  --sombra-suave: rgba(0,0,0,0.4);
+  background-color: #1a1208;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent, transparent 28px,
+      rgba(100,70,20,0.08) 28px, rgba(100,70,20,0.08) 29px
+    );
+  color: #e8d8b0;
+}
+
+body.modo-oscuro a {
+  color: #d4a840;
+}
+body.modo-oscuro a:hover {
+  color: #f0c860;
+}
+
+body.modo-oscuro h1,
+body.modo-oscuro h2,
+body.modo-oscuro h3 {
+  color: #e8c870;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+}
+
+body.modo-oscuro button {
+  background-image: linear-gradient(to bottom, #3a2a12, #2a1c0a);
+  border-color: #8a6820;
+  color: #e8d098;
+}
+body.modo-oscuro button:hover {
+  background-image: linear-gradient(to bottom, #4a3418, #342210);
+  color: #f0e0a0;
+}
+body.modo-oscuro button.activo {
+  background-image: linear-gradient(to bottom, #c09040, #906820);
+  color: #1a1208;
+}
+
+body.modo-oscuro .boton-dorado {
+  background-image: linear-gradient(to bottom, #9a7020, #705010);
+  color: #f8e898;
+  border-color: #705010;
+}
+body.modo-oscuro .boton-dorado:hover {
+  background-image: linear-gradient(to bottom, #b08828, #886018);
+}
+
+body.modo-oscuro #texto {
+  background-color: #231a0e;
+  background-image:
+    linear-gradient(to right, rgba(100,70,20,0.1) 0%, transparent 3%),
+    linear-gradient(to left,  rgba(100,70,20,0.1) 0%, transparent 3%);
+  border-color: #8a6820;
+  border-left-color: #a07830;
+  color: #e0d0a8;
+}
+
+body.modo-oscuro .instrucciones {
+  background-color: #2a1e0e;
+  background-image: linear-gradient(135deg, #2e2210 0%, #221808 100%);
+  border-color: #8a6820;
+  color: #d8c898;
+}
+
+body.modo-oscuro .narrativa {
+  color: #e8d8a0;
+}
+
+body.modo-oscuro .tabla-oculta {
+  background-color: #221808;
+  background-image: linear-gradient(to bottom, #281e0c, #1e1608);
+  border-color: #8a6820;
+  border-top-color: #a07830;
+  color: #e0d0a8;
+}
+
+body.modo-oscuro table thead th {
+  background-color: #100c04;
+  color: #d4a840;
+}
+body.modo-oscuro table tbody tr:nth-child(even) {
+  background-color: rgba(100,70,20,0.15);
+}
+body.modo-oscuro table tbody tr:hover {
+  background-color: rgba(100,70,20,0.25);
+}
+
+body.modo-oscuro .objetivo {
+  background: linear-gradient(135deg, #050d1a 0%, #081830 100%);
+  border-color: #8a6820;
+  color: #d4a840;
+}
+
+body.modo-oscuro .tracker-cell {
+  background-image: linear-gradient(to bottom, #3a2a10, #2a1e08);
+  border-color: #8a6820;
+  color: #e0c880;
+}
+body.modo-oscuro .tracker-cell:hover {
+  background-image: linear-gradient(to bottom, #4a3618, #342410);
+}
+body.modo-oscuro .tracker-cell.visited {
+  background-image: linear-gradient(to bottom, #4a3a20, #3a2a14);
+  color: #c8a860;
+}
+body.modo-oscuro .tracker-cell.empty {
+  background-color: rgba(100,70,20,0.1);
+  border-color: rgba(138,104,32,0.4);
+}
+
+body.modo-oscuro .boton-retorno {
+  background-image: linear-gradient(to bottom, #3a2a12, #2a1c0a);
+  border-color: #8a6820;
+  color: #e0c880;
+}
+
+body.modo-oscuro .reproductor-opcional {
+  background-image: linear-gradient(135deg, #2e2210, #1e1608);
+  border-color: #8a6820;
+}
+
+body.modo-oscuro .recompensa-box {
+  background: linear-gradient(135deg, #1a2a10 0%, #142008 100%);
+  border-color: #4a8020;
+  color: #98d060;
+}
+
+/* ---- Botón de toggle modo oscuro ---- */
+#btn-modo-oscuro {
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  z-index: 100;
+  background: none;
+  border: 2px solid var(--oro);
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 2px 6px var(--sombra-suave);
+  font-style: normal;
+  line-height: 1;
+  transition: background 0.2s, transform 0.12s;
+}
+#btn-modo-oscuro:hover {
+  transform: scale(1.08);
+}
+
+/* ============================================================
+   BÚSQUEDA DE MN - panel flotante
+   ============================================================ */
+
+#mn-buscar-panel {
+  position: fixed;
+  top: 14px;
+  right: 170px; /* a la izquierda de la rosa de vientos */
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(to bottom, #f2e5c0, #deca98);
+  border: 2px solid var(--oro);
+  border-radius: 20px;
+  padding: 5px 12px;
+  box-shadow: 0 2px 8px var(--sombra-suave);
+  transition: box-shadow 0.2s;
+}
+
+#mn-buscar-panel:focus-within {
+  box-shadow: 0 4px 14px var(--sombra);
+}
+
+#mn-buscar-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: 'Georgia', serif;
+  font-size: 0.9rem;
+  color: var(--texto);
+  width: 80px;
+  transition: width 0.2s;
+}
+
+#mn-buscar-input:focus {
+  width: 120px;
+}
+
+#mn-buscar-input::placeholder {
+  color: #a07840;
+  opacity: 0.8;
+}
+
+#mn-buscar-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: none;
+  line-height: 1;
+  color: var(--marron);
+  font-style: normal;
+}
+#mn-buscar-btn:hover {
+  transform: scale(1.15);
+  background: none;
+  box-shadow: none;
+}
+
+body.modo-oscuro #mn-buscar-panel {
+  background: linear-gradient(to bottom, #3a2a12, #2a1c0a);
+  border-color: #8a6820;
+}
+body.modo-oscuro #mn-buscar-input {
+  color: #e0c880;
+}
+body.modo-oscuro #mn-buscar-input::placeholder {
+  color: #806030;
+}
+body.modo-oscuro #mn-buscar-btn {
+  color: #c09040;
+}

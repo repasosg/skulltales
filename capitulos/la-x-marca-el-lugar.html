@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>La X marca el lugar</title>
+	<link rel="stylesheet" href="../css/estilos-1.css?v=1.2">
+	<link href="../css2?family=Pirata+One&display=swap" rel="stylesheet">
+</head>
+<body>
+	<div class="container">
+		<h1 align="center">La X marca el lugar</h1>
+		<!-- Momentos Narrativos -->
+		<div id="momentos-narrativos" style="margin-top: 20px;">
+			<table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+				<thead>
+					<tr>
+						<th style="border: 1px solid #b89b65;" colspan="2">Desencadenante/MN</th>
+						<th style="border: 1px solid #b89b65;" colspan="2">Desencadenante/MN</th>
+					</tr>
+				</thead>
+			<tbody>
+				<tr>
+					<td style="border: 1px solid #b89b65;" colspan="2">Fase de Travesía</td>
+					<td style="border: 1px solid #b89b65;" colspan="2"><button onclick="cargarTexto('intro')">Travesía</button></td>
+				</tr>
+				<tr>
+					<td style="border: 1px solid #b89b65;">Objetivo 1</td>
+					<td style="border: 1px solid #b89b65;"><button onclick="cargarTexto('MN8')">MN 8</button></td>
+					<td style="border: 1px solid #b89b65;">Objetivo 2</td>
+					<td style="border: 1px solid #b89b65;"><button onclick="cargarTexto('MN11')">MN 11</button></td>
+				</tr>
+				<tr>
+					<td style="border: 1px solid #b89b65;">Fase de Aventura: Intro</td>
+					<td style="border: 1px solid #b89b65;"><button onclick="cargarTexto('MN9')">MN 9</button></td>
+					<td style="border: 1px solid #b89b65;">Loseta i9</td>
+					<td style="border: 1px solid #b89b65;"><button onclick="cargarTexto('MN7')">MN 7</button></td>
+				</tr>
+				<tr>
+					<td style="border: 1px solid #b89b65;">Loseta i8</td>
+					<td style="border: 1px solid #b89b65;"><button onclick="cargarTexto('MN2')">MN 2</button></td>
+					<td style="border: 1px solid #b89b65;">Loseta i13</td>
+					<td style="border: 1px solid #b89b65;"><button onclick="cargarTexto('MN6')">MN 6</button></td>
+				</tr>
+				<tr>
+					<td style="border: 1px solid #b89b65;">Loseta i16</td>
+					<td style="border: 1px solid #b89b65;"><button onclick="cargarTexto('MN4')">MN 4</button></td>
+					<td style="border: 1px solid #b89b65;">Loseta i12</td>
+					<td style="border: 1px solid #b89b65;"><button onclick="cargarTexto('MN1')">MN 1</button></td>
+				</tr>
+				<tr>
+					<td style="border: 1px solid #b89b65;" colspan="4">
+						<button onclick="cargarTexto('MN3')">MN 3</button>
+						<button onclick="cargarTexto('MN5')">MN 5</button>
+						<button onclick="cargarTexto('MN10')">MN 10</button>
+						<hr>
+						<button onclick="cargarTexto('Exito')">Tabla de Éxitos</button>
+						<button onclick="cargarTexto('Enemigos')">Aparición de Enemigos</button>
+					</td>
+				</tr>
+			</tbody>
+			</table>
+		</div>
+	<!-- Este div es necesario para mostrar el texto dinámico -->
+	<div id="texto" class="texto"></div>	<script src="../js/la_x_marca_el_lugar.js?v=1.2"></script>
+	</div>
+	<a href="../index.html" class="boton-retorno">← Listado de Campañas</a>
+	<script src="../js/la_x_marca_el_lugar.js?v=1.2"></script>
+	<img src="../img/rosa-vientos.png" alt="Rosa de los Vientos" class="rosa-vientos">
+	<script>
+		window.onload = function() {
+			cargarTexto('intro');
+		};
+	</script>
+</body>
+</html>
+
+
+

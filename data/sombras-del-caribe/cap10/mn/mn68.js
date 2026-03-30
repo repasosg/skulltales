@@ -1,0 +1,3 @@
+ChapterLoader.registerContent('mn68', `*Sin señal previa alguna, la fuente comienza a burbujear con fuerza hasta que toda la superficie de la charca se agita como un caldero a fuego vivo. Temiendo la amenaza de algún tipo de criatura acuática, retrocedes y te apresuras a empuñar tus armas, pero el ataque que esperas no se produce. En su lugar, el agua se remansa y al hacerlo descubres algo que antes no estaba allí. Es una caracola de increíbles pigmentos, que sin dilación recoges. Al girarla en tu mano te parece que los colores que la cubren tornasolan símbolos de olas, agua y seres acuáticos; mas si pausas tu mirada en ella y la examinas, nada de ello manifiesta.*
+--
+<strong>Consigues el Objetivo 2.</strong>`);

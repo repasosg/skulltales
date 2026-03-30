@@ -1,0 +1,6 @@
+ChapterLoader.registerContent('mn70', `
+*Cuando parecía que toda esperanza se desvanecía, cuando vuestros brazos cansados apenas conservaban las fuerzas para mantener levantadas vuestras armas cubiertas de sangre y el suelo cubierto de cadáveres casi no permitía sostenerse en pie, el sonido de los disparos en el exterior del cuartel supuso un soplo de esperanza para todos vosotros. Reuniendo vuestras últimas fuerzas, os esforzáis por mantener la posición mientras el sonido de los mosquetes se aproximaba, desviando la atención de los engendros. Todo un destacamento de Casacas Rojas, con el capitán Alexander al frente, irrumpe en el cuartel, acabando con las bestias que os habían arrinconado. Tras matar la última criatura, agotados, os dejáis caer allí donde estáis, permitiéndoos el descanso que os es tan necesario, mientras los muchachos salen corriendo de su escondite y se abrazan a su tío sonriendo.*
+*– Señores, os debo gratitud de por vida. Habéis demostrado ser hombres de honor. En agradecimiento por vuestro servicio seréis recompensados. Tenéis mi eterna amistad para cualquier cosa que se os ofrezca.*
+--
+Consulta la <button onclick="mostrarSeccion('exito')">Tabla de Éxitos</button>
+`);

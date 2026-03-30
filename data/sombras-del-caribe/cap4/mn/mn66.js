@@ -1,0 +1,8 @@
+ChapterLoader.registerContent('mn66', `
+*Durante el viaje de regreso, Paolo se reúne con vosotros en el camarote del Capitán y allí os muestra el secreto que se oculta en el interior del cristal. Tras desmontar el catalejo de vuestro vigía y gracias a dos lámparas colocadas en una posición muy concreta, el mercader logra enfocar dos haces de luz que atraviesan el artefacto y proyectan una sombra sobre la mesa. Esa sombra, en conjunción con los otros fragmentos del mapa, revela el paradero del tesoro que Lobo Jones y sus fieles amigos decidieron ocultar.*
+*Animados por el hallazgo, decidís festejarlo en cubierta, pero Paolo os interrumpe con tono sombrío y os pide que escuchéis su advertencia – Cuidaos del oro maldito, de la ambición sin medida y de la deshonra. Perderéis la razón, os sentiréis desorientados, y tendréis que enfrentaros a criaturas surgidas del mar que jamás vieron vuestros ojos. Aunque quizás consigáis algo de ayuda si encontráis al bueno de Franky Sands…*
+*Un día más tarde, hacéis una breve escala en un pequeño puerto comercial donde Paolo, en sentida deuda con vosotros y gracias a un contacto cuyo nombre no quiere revelar, os hace efectivo su agradecimiento. Más ricos que antes, zarpáis hacia Tortuga mientras él se despide agitando su chambergo desde el muelle.*
+--
+Todos los Personajes ganan 20 <img src="variosimg/oro.png" width=36 style="vertical-align: middle;"> además de las indicadas en la Tabla de Éxito y el Capitán suma 100 <img src="variosimg/oro.png" width=36 style="vertical-align: middle;"> al botín de la tripulación.
+<center><button onclick="mostrarSeccion('exito')">Tabla de Éxitos</button></center>
+`);

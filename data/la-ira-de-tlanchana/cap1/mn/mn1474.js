@@ -1,0 +1,7 @@
+ChapterLoader.registerContent('MN1474', `
+<div class="narrativa">
+    <p>Los restos animados de lo que en otro tiempo fueron marineros, ahora putrefactos y cubiertos de algas, deambulan por esta zona. El hedor que emana de estos repulsivos seres profana tus fosas nasales, haciéndote rememorar la peor de las resacas. Vagan desorientados alrededor de un hombre maduro encadenado a un mástil, con aspecto de haber tenido una vida mejor. No resulta complicado de entender que su mirada implora su muerte antes de seguir con tal tormento.</p></div>
+<div class="instrucciones">
+    <p>Coloca un Ahogado en cada <img src="variosimg/6046444303951185874_109.jpg" class="icono-inline" style="width: 35px; height: 35px;"> y un Oficial en la <img src="variosimg/xamarilla.png" class="icono-inline" style="width: 35px; height: 35px;">, que representa al Teniente Stewart. El teniente se encuentra prisionero y no se moverá. Una vez la loseta haya sido despejada de Enemigos, un Personaje puede intentar liberar al Teniente Stewart de sus cadenas colocándose en una casilla adyacente y gastando 2 <img src="variosimg/Acciones.png" class="icono-inline" style="width: 35px; height: 35px;"> para realizar una Tirada de <img src="variosimg/Inteligencia.png" class="icono-inline" style="width: 35px; height: 35px;"> 4. Si la supera, lee el <button class="ojo-button" onclick="ChapterLoader.mostrarMN('MN1852')">1852</button>.</p>
+</div>
+`);

@@ -1,0 +1,7 @@
+﻿ChapterLoader.registerContent('mn57', `
+*La pared de piedra que custodiaban los nativos forma un enorme mural de relieves y frescos que contiene glifos tribales de significado desconocido para ti y representaciones de diferentes manifestaciones de la naturaleza como el fuego, la lluvia, el sol, las fases lunares, incluso plantas y animales. La extensión y el detalle del mural resultan impresionantes y está claro por la vegetación que comienza a cubrirlo que fue labrado hace muchos años.*
+*Observando con más detalle te percatas de tres símbolos conjuntos que representan una especie de río flamígero, un manantial y a la diosa Yemayá. Recuerdas haberlos visto en el diario de Lobo Jones cuando este pasó por tus manos al tratar de colaborar junto al resto de la tripulación en su descifrado y sabes que dichos símbolos son la clave para habilitar el acceso oculto al Templo secreto del que os habló Paolo... la ruta al tesoro. ¿Serás lo suficientemente osado como para ser quien se abra camino en primer lugar?*
+--
+Obtienes el <strong>Objetivo 1</strong>. Cuando algún personaje haya bebido del Agua de las Almas y haya purificado su espíritu con el Calor del Fuego Profundo, dicho personaje podrá abrir la entrada al templo colocándose en una casilla adyacente a la <img src="variosimg/xroja.png" width=36 style="vertical-align: middle;"> y gastando 1 <img src="variosimg/Acciones.png" width=36 style="vertical-align: middle;">. En ese caso, leerá el <button onclick="cargarTexto('MN7')">007</button>.
+`);
+

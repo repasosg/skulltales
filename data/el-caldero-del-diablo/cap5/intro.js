@@ -1,0 +1,8 @@
+ChapterLoader.registerContent('intro', `
+<div class="narrativa">
+    <p>La lluvia arrecia en una noche tormentosa. Parece que hemos avivado la cólera de los cielos y el mundo está a punto de ser engullido entre truenos y un diluvio impropio de la estación. La cantina que nos sirve como refugio destila miedo entre los asistentes; solo el incesante ruido del goteo resuena entre las paredes, mientras esperamos la resolución por parte de la Cofradía de los Hermanos de la Costa, que determinará el destino final que nos aguarda a todos. Una vida de lujo bajo la maldición del Caldero del Diablo o acabar de una vez por todas con esta herramienta del demonio.</p>
+    <p>Las puertas que nos separan del salón del Consejo de la Cofradía se abren de par en par, y tras algunos capitanes, aparece la bruja y consejera llamada Marie Laveau.</p>
+    <p>- Estimados hermanos, hemos tomado una decisión. No podemos permitirnos anteponer nuestra ambición por el oro, a romper el equilibrio entre el bien y el mal. Hasta ahora, nos hemos mantenido al margen de este tipo de conflictos, pero en esta ocasión, podríamos perder nuestra libertad si no hacemos algo para acabar con el espíritu que se encuentra atrapado dentro del caldero.</p>
+    <p>Debéis navegar hasta el archipiélago del Tuerto; en una pequeña cala, encontraréis una entrada a una cueva. Buscad el Puente del Susurro, que os llevará a las entradas de un demoníaco templo en el que hallaréis el Pozo del Infierno, y arrojad ese maldito caldero a sus profundas aguas. Tened cuidado, ya que el espíritu del caldero hará lo imposible por confundir vuestras mentes y acabar con vuestras vidas...</p>
+</div>
+`);

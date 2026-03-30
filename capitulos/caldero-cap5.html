@@ -1,0 +1,279 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>El Caldero del Diablo - Capítulo 5: El Pozo del Infierno</title>
+    <link href="../css/estilos-1.css?v=1.2" rel="stylesheet">
+    <link href="../css2?family=Pirata+One&amp;display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <center>
+            <h1>El Caldero del Diablo</h1>
+        </center>
+        <h2>☠️ CAPÍTULO V: El Pozo del Infierno</h2>
+
+        <!-- Botones Principales -->
+        <div style="text-align: center; margin-bottom: 20px;">
+            <!-- Fila 1 -->
+            <button onclick="mostrarSeccion('aventura'); cargarTexto('intro')">Comienzo del capítulo</button>
+            <button class="boton-dorado" id="botonTravesia" onclick="mostrarSeccion('travesia')">Mostrar
+                Travesía</button>
+            <button class="boton-dorado" id="botonPreparacion" onclick="mostrarSeccion('preparacion')">Mostrar
+                Preparación de Aventura</button>
+
+            <div style="margin-top: 10px;">
+                <button class="boton-dorado" id="botonMN" onclick="mostrarSeccion('mn')">Mostrar Momentos
+                    Narrativos</button>
+                <button class="boton-dorado" id="botonExito" onclick="mostrarSeccion('exito')">Mostrar Éxitos</button>
+                <button class="boton-dorado" id="botonObjetivos" onclick="toggleTabla('tablaObjetivos')">Mostrar
+                    Objetivos</button>
+                <button class="boton-dorado" id="botonEnemigos" onclick="toggleTabla('tablaEnemigos')">Aparición de
+                    Enemigos</button>
+            </div>
+
+            <!-- Contenedores Ocultos -->
+            <div class="tabla-oculta" id="tablaTravesia"></div>
+            <div class="tabla-oculta" id="tablaPreparacion"></div>
+            <div class="tabla-oculta" id="tablaExito"></div>
+            <div class="tabla-oculta" id="tablaObjetivos"></div>
+            <div class="tabla-oculta" id="tablaEnemigos"></div>
+        </div>
+
+        <!-- Contenedor de Aventura (Intro + Texto) -->
+        <div id="contenedor-aventura">
+            <!-- Tabla de Momentos Narrativos (Oculta por defecto, carga dinámica) -->
+            <div id="tablaMN" class="tabla-oculta" style="margin-top: 20px;"></div>
+
+            <!-- Introducción -->
+            <div id="introducciones" style="margin-top: 20px;">
+                <center>
+                    <h3>Historia</h3>
+                </center>
+            </div>
+            <!-- Área de texto principal -->
+            <div class="texto" id="texto"></div>
+        </div>
+    </div>
+    <a class="boton-retorno" href="../index.html">← Listado de Campañas</a>
+    <script src="../js/chapter-loader.js?v=1.0"></script>
+    <img alt="Rosa de los Vientos" class="rosa-vientos" src="../img/rosa-vientos.png">
+    <script>
+        function mostrarSeccion(seccion) {
+            const divAventura = document.getElementById('contenedor-aventura');
+            const divTravesia = document.getElementById('tablaTravesia');
+            const divPreparacion = document.getElementById('tablaPreparacion');
+            const divExito = document.getElementById('tablaExito');
+
+            if (seccion === 'aventura') {
+                // Mostrar Aventura
+                divAventura.style.display = 'block';
+                // Asegurar que las otras están cerradas
+                if (divTravesia.classList.contains('visible')) toggleTabla('tablaTravesia');
+                if (divPreparacion.classList.contains('visible')) toggleTabla('tablaPreparacion');
+                if (divExito.classList.contains('visible')) toggleTabla('tablaExito');
+
+                // Resetear estado interno de Aventura (Para que se vea la Intro y no la tabla MN)
+                document.getElementById('tablaMN').classList.remove('visible');
+                document.getElementById('botonMN').textContent = "Mostrar Momentos Narrativos";
+                document.getElementById('introducciones').style.display = 'block';
+                document.getElementById('texto').style.display = 'block';
+
+            } else if (seccion === 'travesia') {
+                // Ocultar Aventura
+                divAventura.style.display = 'none';
+                // Cerrar otras si están abiertas
+                if (divPreparacion.classList.contains('visible')) toggleTabla('tablaPreparacion');
+                if (divExito.classList.contains('visible')) toggleTabla('tablaExito');
+                // Toggle Travesía
+                toggleTabla('tablaTravesia');
+
+            } else if (seccion === 'preparacion') {
+                // Ocultar Aventura
+                divAventura.style.display = 'none';
+                // Cerrar otras
+                if (divTravesia.classList.contains('visible')) toggleTabla('tablaTravesia');
+                if (divExito.classList.contains('visible')) toggleTabla('tablaExito');
+                // Toggle Preparación
+                toggleTabla('tablaPreparacion');
+
+            } else if (seccion === 'exito') {
+                // Ocultar Aventura
+                divAventura.style.display = 'none';
+                // Cerrar otras
+                if (divTravesia.classList.contains('visible')) toggleTabla('tablaTravesia');
+                if (divPreparacion.classList.contains('visible')) toggleTabla('tablaPreparacion');
+                // Toggle Exito
+                toggleTabla('tablaExito');
+
+            } else if (seccion === 'mn') {
+                // Lógica de MN integrada
+
+                // A. Asegurar que estamos en Aventura
+                if (divAventura.style.display === 'none') {
+                    divAventura.style.display = 'block';
+                    // Cerrar otros
+                    if (divTravesia.classList.contains('visible')) toggleTabla('tablaTravesia');
+                    if (divPreparacion.classList.contains('visible')) toggleTabla('tablaPreparacion');
+                    if (divExito.classList.contains('visible')) toggleTabla('tablaExito');
+                }
+
+                // B. Toggle interno MN vs Intro
+                const mnDiv = document.getElementById('tablaMN');
+                const btn = document.getElementById('botonMN');
+                const introDiv = document.getElementById('introducciones');
+                const textoDiv = document.getElementById('texto');
+
+                // Cargar contenido si está vacío
+                if (!mnDiv.hasChildNodes() && !mnDiv.innerHTML) {
+                    if (!ChapterLoader.cache['mn']) {
+                        ChapterLoader.loadContent('mn', 'mn');
+                    } else {
+                        // Si está en caché, usar registerContent para que vaya al div correcto
+                        ChapterLoader.registerContent('mn', ChapterLoader.cache['mn']);
+                    }
+                }
+
+                if (mnDiv.classList.contains('visible')) {
+                    // Ocultar MN -> Mostrar Historia
+                    mnDiv.classList.remove('visible');
+                    btn.textContent = "Mostrar Momentos Narrativos";
+                    introDiv.style.display = 'none'; // ocultar
+                    textoDiv.style.display = 'none'; // ocultar
+                    // No restaurar intro, dejar vacío como pide el usuario
+                } else {
+                    // Mostrar MN -> Ocultar Historia
+                    mnDiv.classList.add('visible');
+                    btn.textContent = "Ocultar Momentos Narrativos";
+                    introDiv.style.display = 'none';
+                    textoDiv.style.display = 'none';
+
+                    // Re-chequeo por seguridad
+                    if (mnDiv.innerHTML === '' && ChapterLoader.cache['mn']) {
+                        mnDiv.innerHTML = ChapterLoader.cache['mn'];
+                    }
+                }
+            }
+        }
+
+        window.onload = function () {
+            ChapterLoader.init('el-caldero-del-diablo', 'cap5', '../');
+            // Iniciar en modo Aventura
+            mostrarSeccion('aventura');
+            cargarTexto('intro');
+
+            // Inicializar Tracker MN
+            const mns = ['MN1303', 'MN2740', 'MN1924', 'MN1751', 'MN1770', 'MN2461', 'MN1192', 'MN1648', 'MN2748', 'MN2913', 'MN1270', 'MN1834', 'MN2873', 'MN1299', 'MN1278'];
+            ChapterLoader.initTracker(mns);
+        };
+    </script>
+
+    <!-- Tracker Persistente -->
+    <div class="container" style="margin-top: 0; padding-top: 0;">
+        <center>
+            <h3>Progreso de Historia</h3>
+        </center>
+        <div id="mn-tracker-container"></div>
+    </div>
+
+    <!-- Popup Imagen -->
+    <div id="popupImagen" class="popup-imagen" onclick="cerrarPopupImagen()">
+        <div class="popup-contenido">
+            <img id="popupImagenContenido" src="" alt="Imagen Loseta">
+            <p class="instruccion-cerrar">Haz clic para cerrar</p>
+        </div>
+    </div>
+
+    <!-- Popup Genérico (HTML) -->
+    <div id="popupGenerico" class="popup-imagen" onclick="cerrarPopupGenerico()">
+        <div class="popup-contenido" id="popupGenericoContenido" onclick="event.stopPropagation()">
+            <!-- Contenido Dinámico -->
+        </div>
+    </div>
+
+    <!-- Contenidos Ocultos para Popups -->
+    <div style="display: none;">
+        <div id="contenidoTablaEspiritu">
+            <div style="background-color: rgba(0, 0, 0, 0.95); padding: 20px; border: 2px solid #d4af37; border-radius: 8px; box-shadow: 0 0 15px rgba(0,0,0,0.8);">
+                <h3 style="color: #d4af37; text-align: center; margin-top: 0;">La influencia del Espíritu del Caldero
+                </h3>
+                <table class="tabla-generica" style="width: 100%; color: #e0e0e0; border-collapse: collapse;">
+                    <tr>
+                        <td style="padding: 8px; border-bottom: 1px solid #555; text-align: center; width: 30px;">
+                            <strong>6</strong>
+                        </td>
+                        <td style="padding: 8px; border-bottom: 1px solid #555;">Ataca a cualquier otro Personaje de tu
+                            elección que se encuentre en la misma loseta.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px; border-bottom: 1px solid #555; text-align: center;"><strong>5</strong>
+                        </td>
+                        <td style="padding: 8px; border-bottom: 1px solid #555;">Duplica tus <img src="../variosimg/Acciones.png" class="icono-texto" style="height: 1.2em; vertical-align: middle;">. Si se trata de un Aliado, puede
+                            realizar una acción extra. Al final de tu turno, recibes una <img src="../variosimg/Herida.png" class="icono-texto" style="height: 1.2em; vertical-align: middle;">.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px; border-bottom: 1px solid #555; text-align: center;"><strong>4</strong>
+                        </td>
+                        <td style="padding: 8px; border-bottom: 1px solid #555;">Resta 1 a todos tus valores en este
+                            turno.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px; border-bottom: 1px solid #555; text-align: center;"><strong>3</strong>
+                        </td>
+                        <td style="padding: 8px; border-bottom: 1px solid #555;">Durante este turno sólo puedes realizar
+                            las siguientes acciones: Movimiento, Saltar, Empujar y Separarse.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px; border-bottom: 1px solid #555; text-align: center;"><strong>2</strong>
+                        </td>
+                        <td style="padding: 8px; border-bottom: 1px solid #555;">No puedes moverte.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px; border-bottom: 1px solid #555; text-align: center; border-bottom: none;">
+                            <strong>1</strong>
+                        </td>
+                        <td style="padding: 8px; border-bottom: 1px solid #555; border-bottom: none;">Si tienes el
+                            Caldero del Diablo, deberás soltarlo (1 <img src="../variosimg/Acciones.png" class="icono-texto" style="height: 1.2em; vertical-align: middle;">) en una casilla
+                            adyacente, y no
+                            podrás cogerlo de nuevo hasta que otro Personaje lo suelte. Si no tienes el Caldero, resta 1
+                            a cualquier tirada que realices durante este turno.</td>
+                    </tr>
+                </table>
+                <p style="text-align: center; margin-top: 15px; cursor: pointer; color: #aaa; font-size: 0.9em;" onclick="cerrarPopupGenerico()"><em>(Haz clic fuera o aquí para cerrar)</em></p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+    // Corrección para inicializar tracker con strings
+    window.onload = function () {
+        ChapterLoader.init('el-caldero-del-diablo', 'cap5', '../');
+        mostrarSeccion('aventura');
+        cargarTexto('intro');
+
+        const mns = ['MN1303', 'MN2740', 'MN1924', 'MN1751', 'MN1770', 'MN2461', 'MN1192', 'MN1648', 'MN2748', 'MN2913', 'MN1270', 'MN1834', 'MN2873', 'MN1299', 'MN1278'];
+        ChapterLoader.initTracker(mns);
+    };
+
+    function mostrarPopupGenerico(idContenido) {
+        const popup = document.getElementById('popupGenerico');
+        const contenidoDiv = document.getElementById('popupGenericoContenido');
+        const fuente = document.getElementById(idContenido);
+
+        if (popup && contenidoDiv && fuente) {
+            contenidoDiv.innerHTML = fuente.innerHTML;
+            popup.classList.add('visible');
+        }
+    }
+
+    function cerrarPopupGenerico() {
+        const popup = document.getElementById('popupGenerico');
+        if (popup) {
+            popup.classList.remove('visible');
+        }
+    }
+</script>

@@ -1,0 +1,6 @@
+﻿ChapterLoader.registerContent('mn2418', `
+*La espesura de la selva cede terreno ante un claro iluminado por un sol implacable. Allí donde detienes tu mirada, puedes distinguir retazos de las ruinas de un antiguo poblado que, dado el avance de la vegetación, supones fue abandonado hace mucho tiempo. Algunos animalillos han hecho de las ruinas su hogar, aunque se ocultan de tu vista al percibir tu presencia. Empiezas a pensar en la posibilidad de que estas ruinas sean un buen lugar para hallar algún objeto de valor cuando un destello dorado entre las rocas atrae tu atención. Sea lo que sea, quedó sepultado hace tiempo por el derrumbamiento de alguna estructura de piedra y, aunque los sillarejos parecen muy pesados, con cierto esfuerzo, podrías apartarlos y revelar lo que se oculta debajo. Cuando te arremangas con la intención de ponerte manos a la obra, una pareja de sombralargas surge reptando por entre las rocas, siseando de forma amenazadora.*
+--
+Una vez no queden Enemigos en la loseta, cualquier Personaje puede colocarse adyacente a la <img src="variosimg/xroja.png" class="icono-personaje2"> y gastar 2 <img src="variosimg/Acciones.png" class="icono-personaje2"> para realizar una Tirada de <img src="variosimg/fuerza.png" class="icono-personaje2"> 4. Si la supera, lee el <button class="boton-mn" onclick="cargarTexto('MN1952')">1952</button>.
+`);
+

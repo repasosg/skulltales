@@ -1,0 +1,5 @@
+ChapterLoader.registerContent('MN2204', `
+<div class="narrativa">
+    <p>El vigía avisó del avistamiento de la isla desde la cofa. Todos nos asomamos a la cubierta de estribor para contemplar la construcción que surgía en mitad de la nada. Una enorme efigie coronaba el templo, con un rostro representando la carcajada de una deidad. Esta es, definitivamente, la isla que buscamos. Una vez fondeado el barco, decidimos acercarnos en una barca hasta la playa más cercana, puesto que allí mismo se abría la entrada principal del templo. El marco tenía inscritos unos extraños símbolos, como si se tratara de algún tipo de advertencia. El ambiente, húmedo y caliente, prometía ser aún más sofocante dentro del templo. Al principio de su primer turno, todos los jugadores pueden intentar leer los símbolos del marco, gastando 2 para realizar una Tirada de 3. Aquellos Personajes que tengan éxito podrán leer el <button class="ojo-button" onclick="ChapterLoader.mostrarMN('MN1109')">MN1109</button> en secreto.</p>
+</div>
+`);

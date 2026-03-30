@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>El Caldero del Diablo - Capítulo 0: Prólogo</title>
+    <link href="../css/estilos-1.css?v=1.2" rel="stylesheet">
+    <link href="../css2?family=Pirata+One&amp;display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <center>
+            <h1>El Caldero del Diablo</h1>
+        </center>
+        <h2>☠️ CAPÍTULO 0: Prólogo</h2>
+
+        <!-- Contenedor de Aventura (Solo Intro) -->
+        <div id="contenedor-aventura" style="display: block;">
+            <!-- Introducción -->
+            <div id="introducciones" style="margin-top: 20px;">
+                <center>
+                    <h3>Historia</h3>
+                </center>
+            </div>
+            <!-- Área de texto principal -->
+            <div class="texto" id="texto"></div>
+        </div>
+    </div>
+    <a class="boton-retorno" href="../index.html">← Listado de Campañas</a>
+    <script src="../js/chapter-loader.js?v=1.0"></script>
+    <img alt="Rosa de los Vientos" class="rosa-vientos" src="../img/rosa-vientos.png">
+    <script>
+        // Funciones dummy para evitar errores si el text loader intenta llamar a algo
+        function mostrarSeccion(seccion) { }
+        function toggleTabla(id) { }
+
+        window.onload = function () {
+            ChapterLoader.init('el-caldero-del-diablo', 'cap0', '../');
+            // Cargar directamente la intro
+            cargarTexto('intro');
+
+            // Asegurar que el div de texto es visible
+            document.getElementById('texto').style.display = 'block';
+        };
+    </script>
+</body>
+
+</html>
+
+
+

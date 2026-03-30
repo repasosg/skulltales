@@ -1,0 +1,3 @@
+ChapterLoader.registerContent('mn108', `*La forma espiritual de Oggun, de un enfermizo tono nacarado y con los ojos brillando con el color del infierno, atraviesa el suelo y se dirige hacia ti. Notas cómo te traspasa, una sensación nauseabunda, como si algo muerto y apestoso invadiera tu interior. Tu cuerpo tiembla al sentir cómo Oggun se abre camino en tu mente, explorando tus recuerdos, palpando e intentando que sucumbas a su locura.*
+--
+Los personajes afectados deben superar una tirada de 5 <img src="variosimg/Inteligencia.png" width=36 style="vertical-align: middle;"> o sufrir una <img src="variosimg/Herida.png" width=36 style="vertical-align: middle;">.`);

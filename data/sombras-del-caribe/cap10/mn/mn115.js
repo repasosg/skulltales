@@ -1,0 +1,3 @@
+ChapterLoader.registerContent('mn115', `*Con cuidado de no agarrarte a ningún canto suelto, desciendes directamente sobre las rocas. Con un movimiento ágil, usas parte de tu ropa para protegerte el brazo del calor y agarrar rápidamente una de ellas, volviendo sin tardanza al saliente. Allí, cubierto de sudor, contemplas tu botín. Casi esférica, la piedra negra está cubierta de surcos rojo brillante que forman intrincados dibujos que recuerdan al fuego y a la fuerza interna de la naturaleza; sus líneas parecen palpitar a la par con tu corazón. Tras unos segundos, la roca se enfría lo suficiente como para poder guardarla con seguridad en tu mochila.*
+--
+<strong>Consigues el Objetivo 4.</strong>`);
