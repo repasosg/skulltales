@@ -212,10 +212,10 @@
     ══════════════════════════════════════════ */
     .atributos-grid {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 8px;
     }
-    @media (max-width: 520px) { .atributos-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 520px) { .atributos-grid { grid-template-columns: repeat(2, 1fr); } }
 
     .atrib-box {
       text-align: center;
@@ -228,12 +228,19 @@
       background: linear-gradient(to bottom, #ede0b0, #d8c880);
     }
     .atrib-nombre {
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       color: var(--oro);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.02em;
       margin-bottom: 4px;
-      font-family: 'Pirata One', cursive;
+      font-family: 'Georgia', serif;
+      font-weight: bold;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: center;
+    }
+    @media (max-width: 520px) {
+      .atrib-nombre { font-size: 0.8rem; }
     }
     .atrib-valor {
       display: flex;
@@ -533,27 +540,34 @@
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
       gap: 14px;
+      min-width: 0;
     }
-    @media (max-width: 700px) { .barco-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 900px) { .barco-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 600px) { .barco-grid { grid-template-columns: 1fr; } }
 
     .barco-stat {
       text-align: center;
       background: linear-gradient(to bottom, #0c1428, #080e20);
       border: 1px solid #1a3a6a;
       border-radius: 8px;
-      padding: 10px 8px;
+      padding: 8px 4px;
+      min-width: 0;
+      overflow: hidden;
     }
     body.modo-claro .barco-stat {
       background: linear-gradient(to bottom, #c0d8f0, #a0c0e8);
       border-color: #4a7ab0;
     }
     .barco-stat-nombre {
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       color: #6098d0;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-bottom: 6px;
-      font-family: 'Pirata One', cursive;
+      letter-spacing: 0.02em;
+      margin-bottom: 4px;
+      font-family: 'Georgia', serif;
+      font-weight: bold;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .barco-stat-valor {
       display: flex;
@@ -563,8 +577,9 @@
     }
     .barco-num {
       font-family: 'Pirata One', cursive;
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       color: #90c0f0;
+      min-width: 24px;
     }
     body.modo-claro .barco-num { color: #0a2a5a; }
     .barco-sep { color: #4a7ab0; font-size: 1rem; }
@@ -993,9 +1008,9 @@
         <div class="panel-header">⚔ Atributos</div>
         <div class="panel-body">
           <div class="atributos-grid" style="margin-bottom:14px;">
-            ${['Fuerza','Agilidad','Inteligencia','Percepción','Carisma'].map(a=>`
+            ${['Cuerpo a Cuerpo','Distancia','Acciones','Carisma','Fuerza','Destreza','Inteligencia','Percepción'].map(a=>`
               <div class="atrib-box">
-                <div class="atrib-nombre">${a.substring(0,4)}.</div>
+                <div class="atrib-nombre" title="${a}">${a.includes(" ") ? a.split(" ").map(w=>w[0]).join("·") : a.substring(0,6)}</div>
                 <div class="atrib-valor">
                   <button class="btn-atrib" onclick="cambiarAtrib('${jid}','${a}',-1)">−</button>
                   <div class="atrib-num" id="${jid}-atrib-${a}">1</div>
@@ -1023,6 +1038,11 @@
               <span class="vida-label">⚡ PA</span>
               <div class="vida-track" id="${jid}-pa-track">
                 ${Array(5).fill(0).map((_,i)=>`<div class="vida-pip pa-pip" id="${jid}-pa-${i}" onclick="togglePA('${jid}',${i})"></div>`).join('')}
+              </div>
+              <div>
+                <button class="btn-atrib" onclick="cambiarMaxPA('${jid}',-1)">−</button>
+                <span style="font-size:0.75rem;color:var(--texto-dim);padding:0 4px;" id="${jid}-maxpa">5</span>
+                <button class="btn-atrib" onclick="cambiarMaxPA('${jid}',1)">+</button>
               </div>
             </div>
           </div>
@@ -1183,14 +1203,14 @@
         <div class="panel">
           <div class="panel-header">⚙ Estadísticas</div>
           <div class="panel-body">
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;min-width:0;">
               ${stats.map(s=>`
                 <div class="barco-stat">
                   <div class="barco-stat-nombre">${s.n}</div>
                   <div class="barco-stat-valor">
                     <button class="btn-atrib" onclick="cambiarBarcoStat('${s.id}',-1)">−</button>
                     <span class="barco-num" id="barco-stat-${s.id}">0</span>
-                    ${s.max?`<span class="barco-sep">/</span><span class="barco-max"><input type="number" id="barco-max-${s.id}" min="1" max="20" value="5" style="width:32px;background:transparent;border:none;border-bottom:1px solid #1a3a6a;color:#4a7ab0;font-size:0.78rem;text-align:center;padding:0;"></span>`:''}
+                    ${s.max?`<span class="barco-sep">/</span><span class="barco-max"><input type="number" id="barco-max-${s.id}" min="1" max="20" value="5" style="width:28px;background:transparent;border:none;border-bottom:1px solid #1a3a6a;color:#4a7ab0;font-size:0.72rem;text-align:center;padding:0;"></span>`:''}
                     <button class="btn-atrib" onclick="cambiarBarcoStat('${s.id}',1)">+</button>
                   </div>
                 </div>`).join('')}
@@ -1235,7 +1255,7 @@
         <div class="panel">
           <div class="panel-header">📦 Bodega del Barco</div>
           <div class="panel-body">
-            <div class="mercancias-grid">
+            <div class="mercancias-grid" style="grid-template-columns:repeat(2,1fr);">
               ${MERCANCIA.map(m=>`
                 <div class="mercanc-item">
                   <span class="mercanc-nombre">${m.p} ${m.n}</span>
@@ -1319,6 +1339,15 @@
     el.textContent = v;
     track.innerHTML = Array(v).fill(0).map((_,i) =>
       `<div class="vida-pip" id="${jid}-vp-${i}" onclick="toggleVida('${jid}',${i})"></div>`).join('');
+  }
+
+  function cambiarMaxPA(jid, delta) {
+    const el = document.getElementById(jid + '-maxpa');
+    const track = document.getElementById(jid + '-pa-track');
+    let v = Math.max(1, Math.min(15, parseInt(el.textContent) + delta));
+    el.textContent = v;
+    track.innerHTML = Array(v).fill(0).map((_,i) =>
+      `<div class="vida-pip pa-pip" id="${jid}-pa-${i}" onclick="togglePA('${jid}',${i})"></div>`).join('');
   }
 
   /* ═══════════════════════════════════════════════════════
@@ -1428,12 +1457,13 @@
     d.capitan = document.getElementById(jid + '-capitan-toggle').classList.contains('es-capitan');
     // Atributos
     d.atributos = {};
-    ['Fuerza','Agilidad','Inteligencia','Percepción','Carisma'].forEach(a => {
+    ['Cuerpo a Cuerpo','Distancia','Acciones','Carisma','Fuerza','Destreza','Inteligencia','Percepción'].forEach(a => {
       const el = document.getElementById(jid + '-atrib-' + a);
       if (el) d.atributos[a] = parseInt(el.textContent);
     });
     // Max vida
     d.maxVida = parseInt(document.getElementById(jid + '-maxvida').textContent);
+    d.maxPA = parseInt(document.getElementById(jid + '-maxpa').textContent);
     // Vida
     d.vida = [];
     document.querySelectorAll(`#${jid}-vida-track .vida-pip`).forEach(p => d.vida.push(p.classList.contains('lleno')));
@@ -1495,6 +1525,7 @@
       });
     }
     if (d.maxVida) cambiarMaxVida(jid, d.maxVida - 10);
+    if (d.maxPA) cambiarMaxPA(jid, d.maxPA - 5);
     if (d.vida) {
       d.vida.forEach((lleno, i) => {
         const el = document.getElementById(jid + '-vp-' + i);
