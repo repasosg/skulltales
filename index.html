@@ -347,13 +347,72 @@
       letter-spacing: 0.4em;
       opacity: 0.45;
     }
+
+    /* ---- Móvil ---- */
+    @media (max-width: 520px) {
+      body { padding: 6px; }
+
+      main {
+        padding: 1.2rem 1rem 1.5rem;
+        border-radius: 8px;
+      }
+
+      .titulo-principal { font-size: 2rem; }
+      .subtitulo        { font-size: 0.82rem; }
+      .frase-pirata     { font-size: 0.9rem; margin-bottom: 1rem; }
+
+      /* Banner continuar: apilado en móvil */
+      .continuar-wrap {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 12px 14px;
+      }
+      .btn-continuar {
+        width: 100%;
+        text-align: center;
+        padding: 12px;
+        font-size: 1rem;
+        box-sizing: border-box;
+      }
+      .continuar-nombre { font-size: 1rem; }
+
+      /* Botón perfil */
+      .boton-continuar {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        text-align: center;
+        font-size: 1rem;
+        padding: 14px;
+      }
+
+      /* Tarjetas campaña */
+      .campana-titulo   { font-size: 1.05rem; gap: 6px; }
+      .campana-badge    { font-size: 0.68rem; padding: 2px 6px; }
+      .campana-header   { padding: 11px 12px; }
+
+      /* Capítulos: área táctil grande */
+      .lista-capitulos li a {
+        padding: 11px 10px 11px 28px;
+        font-size: 1rem;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+      }
+      .cap-check {
+        width: 44px;
+        font-size: 1.1rem;
+        min-height: 44px;
+      }
+    }
   </style>
 </head>
 
 <body>
   <main>
     <h1 class="titulo-principal">☠ Skull Tales</h1>
-    <p class="subtitulo">Companion App no oficial &middot; Julius Draco</p>
+    <p class="subtitulo">Companion App no oficial</p>
 
     <p class="frase-pirata" id="frase-pirata"></p>
 
