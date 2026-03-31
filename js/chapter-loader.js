@@ -1,12 +1,12 @@
 /**
  * chapter-loader.js
- * Carga dinÃ¡mica de contenido usando inyecciÃ³n de scripts (Compatible con file://)
+ * Carga dinámica de contenido usando inyección de scripts (Compatible con file://)
  */
 
 const ChapterLoader = {
     currentCampaign: '',
     currentChapter: '',
-    rootPath: '', // Ruta raÃ­z para cargar datos (ej: '../')
+    rootPath: '', // Ruta raíz para cargar datos (ej: '../')
     cache: {}, // Almacena los textos cargados
 
     init: function (campaign, chapter, rootPath = '') {
@@ -15,11 +15,11 @@ const ChapterLoader = {
         this.rootPath = rootPath;
     },
 
-    // --- LÃ³gica del Tracker MN ---
+    // --- Lógica del Tracker MN ---
     trackerMNs: [],
 
     initTracker: function (mnList) {
-        // Ordenar numÃ©ricamente (MN4 antes que MN12, y MN23b correctamente)
+        // Ordenar numéricamente (MN4 antes que MN12, y MN23b correctamente)
         mnList.sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
         this.trackerMNs = mnList;
         this.renderTracker();
@@ -46,7 +46,7 @@ const ChapterLoader = {
     },
 
     resetTracker: function () {
-        if (confirm("Â¿Restaurar estado de Momentos Narrativos?")) {
+        if (confirm("¿Restaurar estado de Momentos Narrativos?")) {
             const key = `skullTales_visited_${this.currentCampaign}_${this.currentChapter}`;
             localStorage.removeItem(key);
             this.updateTrackerUI();
@@ -55,12 +55,12 @@ const ChapterLoader = {
 
     unvisitMN: function (index, id, event) {
         if (event) event.stopPropagation();
-        if (!confirm(`Â¿Olvidar que has visitado ${id}?`)) return;
+        if (!confirm(`¿Olvidar que has visitado ${id}?`)) return;
 
         const key = `skullTales_visited_${this.currentCampaign}_${this.currentChapter}`;
         let visited = JSON.parse(localStorage.getItem(key) || '[]');
 
-        // Eliminar por Ã­ndice para borrar solo la instancia especÃ­fica
+        // Eliminar por índice para borrar solo la instancia específica
         if (index >= 0 && index < visited.length) {
             visited.splice(index, 1);
         }
@@ -76,17 +76,17 @@ const ChapterLoader = {
         const key = `skullTales_visited_${this.currentCampaign}_${this.currentChapter}`;
         const visited = JSON.parse(localStorage.getItem(key) || '[]');
 
-        // Mapear visited con sus Ã­ndices originales para poder borrar duplicados correctamente
+        // Mapear visited con sus índices originales para poder borrar duplicados correctamente
         const mappedVisited = visited.map((id, index) => ({ id, originalIndex: index }));
 
-        // Filtrar solo los MNs que pertenecen al capÃ­tulo actual
+        // Filtrar solo los MNs que pertenecen al capítulo actual
         const displayedMNs = mappedVisited.filter(item => this.trackerMNs.includes(item.id));
 
         const mnsPerRow = 9;
         let html = '<table class="tracker-table">';
 
         if (displayedMNs.length === 0) {
-            // Fila vacÃ­a inicial de 9 celdas
+            // Fila vacía inicial de 9 celdas
             html += '<tr>';
             for (let i = 0; i < mnsPerRow; i++) {
                 html += '<td class="tracker-cell empty"></td>';
@@ -108,7 +108,7 @@ const ChapterLoader = {
 
                         html += `<td class="${clase}" onclick="cargarTexto('${mnId}')">
                                     ${mnId.replace(/^MN/i, '')}
-                                    <div class="delete-mn-btn" onclick="ChapterLoader.unvisitMN(${originalIdx}, '${mnId}', event)">â</div>
+                                    <div class="delete-mn-btn" onclick="ChapterLoader.unvisitMN(${originalIdx}, '${mnId}', event)">❌</div>
                                  </td>`;
                     } else {
                         html += '<td class="tracker-cell empty"></td>';
@@ -118,24 +118,24 @@ const ChapterLoader = {
             }
         }
 
-        // Fila extra para el botÃ³n de Reset
-        html += '<tr><td colspan="' + mnsPerRow + '" class="tracker-cell reset-cell" onclick="ChapterLoader.resetTracker()" style="width: 100%; margin-top: 10px;">â» Reiniciar Camino</td></tr>';
+        // Fila extra para el botón de Reset
+        html += '<tr><td colspan="' + mnsPerRow + '" class="tracker-cell reset-cell" onclick="ChapterLoader.resetTracker()" style="width: 100%; margin-top: 10px;">♻ Reiniciar Camino</td></tr>';
 
         html += '</table>';
         container.innerHTML = html;
     },
 
     updateTrackerUI: function () {
-        this.renderTracker(); // Re-renderizar es barato para una tabla pequeÃ±a
+        this.renderTracker(); // Re-renderizar es barato para una tabla pequeña
     },
 
-    // FunciÃ³n helper para botones en TravesÃ­a/Tablas que llaman a MNs
+    // Función helper para botones en Travesía/Tablas que llaman a MNs
     mostrarMN: function (id) {
         // Asegurar que es tratado como un MN
         this.loadContent('mn', id);
     },
 
-    // --- Fin LÃ³gica Tracker ---
+    // --- Fin Lógica Tracker ---
 
     loadContent: function (type, id) {
         // Normalizamos
@@ -151,10 +151,10 @@ const ChapterLoader = {
         let path = '';
         if (type === 'mn') {
             if (id === 'mn') {
-                // El fichero de la tabla principal estÃ¡ en la raÃ­z del capÃ­tulo
+                // El fichero de la tabla principal está en la raíz del capítulo
                 path = `${this.rootPath}data/${this.currentCampaign}/${this.currentChapter}/${id}.js`;
             } else {
-                // Los MN individuales estÃ¡n en la subcarpeta mn/
+                // Los MN individuales están en la subcarpeta mn/
                 path = `${this.rootPath}data/${this.currentCampaign}/${this.currentChapter}/mn/${id}.js`;
             }
         } else {
@@ -165,12 +165,12 @@ const ChapterLoader = {
         script.src = path;
         script.onerror = () => {
             const contenedor = document.getElementById("texto");
-            contenedor.innerHTML = `<p style="color:red">Error: No se pudo cargar el archivo ${path}. AsegÃºrate de que existe.</p>`;
+            contenedor.innerHTML = `<p style="color:red">Error: No se pudo cargar el archivo ${path}. Asegúrate de que existe.</p>`;
         };
         document.body.appendChild(script);
-        // El script ejecutarÃ¡ RegisterContent, que llamarÃ¡ a DisplayContent
+        // El script ejecutará RegisterContent, que llamará a DisplayContent
 
-        // Mostrar feedback de carga SOLO si es contenido principal (Intro o MN especÃ­fico)
+        // Mostrar feedback de carga SOLO si es contenido principal (Intro o MN específico)
         // Si es una tabla auxiliar, no tocamos el #texto principal
         if (!['objetivos', 'enemigos', 'trampas', 'travesia', 'preparacion', 'mn', 'exito', 'trastornos'].includes(id)) {
             const contenedor = document.getElementById("texto");
@@ -190,11 +190,11 @@ const ChapterLoader = {
         // Marcar como visitado si es MN
         this.markMNVisited(id);
 
-        // LÃ³gica de UI para CapÃ­tulos Refactorizados:
+        // Lógica de UI para Capítulos Refactorizados:
         // 1. Asegurar que el contenedor de texto es visible
         if (contenedor.style.display === 'none') contenedor.style.display = 'block';
 
-        // 2. Cerrar cualquier tabla auxiliar o de MN que estÃ© abierta
+        // 2. Cerrar cualquier tabla auxiliar o de MN que esté abierta
         const tablesToClose = ['MN', 'Travesia', 'Preparacion', 'Enemigos', 'Objetivos', 'Trampas', 'Trastornos', 'Exito'];
         tablesToClose.forEach(t => {
             const tableId = 'tabla' + t;
@@ -207,7 +207,7 @@ const ChapterLoader = {
                     const btn = document.getElementById('botonMN');
                     if (btn) btn.textContent = "Mostrar Momentos Narrativos";
                 } else {
-                    // Para las demÃ¡s, usamos toggleTabla para restaurar el contenedor de aventura
+                    // Para las demás, usamos toggleTabla para restaurar el contenedor de aventura
                     toggleTabla(tableId);
                 }
             }
@@ -229,7 +229,7 @@ const ChapterLoader = {
         contenedor.style.opacity = 0;
 
         setTimeout(() => {
-            // Normalizar y parsear (Misma lÃ³gica que antes)
+            // Normalizar y parsear (Misma lógica que antes)
             const limpio = textoBruto.replace(/\r\n/g, "\n").trim();
             const bloques = limpio.split(/\n--+\n/g);
             const empiezaConInstruccion = limpio.startsWith("--") || limpio.match(/^\s*--+/);
@@ -248,7 +248,7 @@ const ChapterLoader = {
 
             contenedor.innerHTML = html;
 
-            // Marcar botÃ³n activo
+            // Marcar botón activo
             document.querySelectorAll("button").forEach(btn => btn.classList.remove("activo"));
             const botones = document.querySelectorAll("button");
             botones.forEach(btn => {
@@ -263,7 +263,7 @@ const ChapterLoader = {
     }
 };
 
-// FunciÃ³n global wrapper
+// Función global wrapper
 function cargarTexto(nombre) {
     let tipo = '';
     let id = nombre.toLowerCase();
@@ -288,11 +288,11 @@ function toggleTabla(id) {
 
     // Ajuste de nombres para mostrar bonitos
     let label = nombre.charAt(0).toUpperCase() + nombre.slice(1);
-    if (nombre === 'exito') label = 'Ãxitos';
+    if (nombre === 'exito') label = 'Éxitos';
 
     const mostrar = !div.classList.contains('visible');
 
-    // Si vamos a mostrar una tabla, cerramos todas las demÃ¡s primero
+    // Si vamos a mostrar una tabla, cerramos todas las demás primero
     if (mostrar) {
         const tablasIds = ['tablaTravesia', 'tablaPreparacion', 'tablaExito', 'tablaObjetivos', 'tablaEnemigos', 'tablaTrampas', 'tablaTrastornos'];
 
@@ -301,20 +301,20 @@ function toggleTabla(id) {
             if (otroId !== id) {
                 const otraDiv = document.getElementById(otroId);
                 if (otraDiv && otraDiv.classList.contains('visible')) {
-                    toggleTabla(otroId); // RecursiÃ³n segura porque ahora 'mostrar' serÃ¡ false para esa tabla
+                    toggleTabla(otroId); // Recursión segura porque ahora 'mostrar' será false para esa tabla
                 }
             }
         });
 
-        // 2. Cerrar Momentos Narrativos si estÃ¡ abierto
+        // 2. Cerrar Momentos Narrativos si está abierto
         const tablaMN = document.getElementById('tablaMN');
         if (tablaMN && tablaMN.classList.contains('visible')) {
             tablaMN.classList.remove('visible');
             tablaMN.innerHTML = '';
             const btnMN = document.getElementById('botonMN');
             if (btnMN) btnMN.textContent = "Mostrar Momentos Narrativos";
-            // Nota: No es necesario restaurar intro/texto aquÃ­ porque si estamos abriendo una tabla auxiliar,
-            // el contenedor de aventura se ocultarÃ¡ de todos modos en el bloque de abajo.
+            // Nota: No es necesario restaurar intro/texto aquí porque si estamos abriendo una tabla auxiliar,
+            // el contenedor de aventura se ocultará de todos modos en el bloque de abajo.
 
             // Si estamos en la vista de aventura, restauramos la intro por si acaso cerramos la tabla
             const introDiv = document.getElementById('introducciones');
@@ -337,7 +337,7 @@ function toggleTabla(id) {
     }
 
     if (mostrar) {
-        // Cargar contenido si no estÃ¡
+        // Cargar contenido si no está
         if (!ChapterLoader.cache[nombre]) {
             ChapterLoader.loadContent(nombre, nombre);
         } else {
@@ -357,19 +357,19 @@ ChapterLoader.registerContent = function (id, content) {
     if (this.rootPath && typeof content === 'string') {
         const pathPrefix = this.rootPath;
         // Reemplazar: src="img/..., src='img/... preservando comillas. 
-        // AÃ±adido abc/ (cartas travesÃ­a) y audio/ (sonidos)
+        // Añadido abc/ (cartas travesía) y audio/ (sonidos)
         content = content.replace(/src=(["'])(img\/|variosimg\/|losetas\/|abc\/|audio\/)/g, `src=$1${pathPrefix}$2`);
 
-        // CorrecciÃ³n para los onclick="mostrarPopupImagen('...')"
+        // Corrección para los onclick="mostrarPopupImagen('...')"
         content = content.replace(/mostrarPopupImagen\(['"](img\/|variosimg\/|losetas\/|abc\/)/g, `mostrarPopupImagen('${pathPrefix}$1`);
 
-        // CorrecciÃ³n para estilos inline con url(...) preservando comillas (o ausencia)
+        // Corrección para estilos inline con url(...) preservando comillas (o ausencia)
         content = content.replace(/url\((['"]?)(img\/|variosimg\/|losetas\/|abc\/)/g, `url($1${pathPrefix}$2`);
 
-        // CorrecciÃ³n para atributo background="..." antiguo en tablas
+        // Corrección para atributo background="..." antiguo en tablas
         content = content.replace(/background=(["'])(img\/|variosimg\/|losetas\/|abc\/)/g, `background=$1${pathPrefix}$2`);
 
-        // CorrecciÃ³n para enlaces directos a recursos (href="img/...")
+        // Corrección para enlaces directos a recursos (href="img/...")
         content = content.replace(/href=(["'])(img\/|variosimg\/|losetas\/|abc\/|audio\/)/g, `href=$1${pathPrefix}$2`);
     }
 
@@ -379,7 +379,7 @@ ChapterLoader.registerContent = function (id, content) {
     // Si es una tabla conocida, actualizar su div especifico
     if (['objetivos', 'enemigos', 'trampas', 'travesia', 'preparacion', 'mn', 'exito', 'trastornos'].includes(id)) {
         let targetId = 'tabla' + id.charAt(0).toUpperCase() + id.slice(1);
-        if (id === 'mn') targetId = 'tablaMN'; // ExcepciÃ³n para casing correcto
+        if (id === 'mn') targetId = 'tablaMN'; // Excepción para casing correcto
         if (id === 'exito') targetId = 'tablaExito'; // Explicit naming for safety
 
         const div = document.getElementById(targetId);
@@ -405,7 +405,7 @@ function cerrarPopupImagen() {
     document.getElementById('popupImagenContenido').src = '';
 }
 
-// LÃ³gica para el Selector de Objetivos
+// Lógica para el Selector de Objetivos
 window.mostrarRecompensaObjetivo = function (select) {
     const resultadoDiv = document.getElementById('resultadoObjetivo');
     const selectedOption = select.options[select.selectedIndex];
@@ -505,11 +505,12 @@ window.mostrarSeccion = function(seccion) {
 };
 
 
+
 /* ============================================================
-   NUEVAS FUNCIONALIDADES v2.1
+   FUNCIONALIDADES v2.1
    - Modo Oscuro (por defecto oscuro, persistente)
    - Búsqueda rápida de MN
-   - Dado virtual (d6 piratas)
+   - Dado virtual (1-3 dados)
    - Breadcrumb de navegación
    - Atajos de teclado
    ============================================================ */
@@ -520,7 +521,6 @@ const ModoOscuro = {
 
   init: function () {
     const saved = localStorage.getItem(this.KEY);
-    // Por defecto: oscuro (sin clase). Claro solo si guardado '0'
     if (saved === '0') {
       document.body.classList.add('modo-claro');
       document.body.classList.remove('modo-oscuro');
@@ -542,7 +542,7 @@ const ModoOscuro = {
     if (document.getElementById('btn-modo-oscuro')) return;
     const btn = document.createElement('button');
     btn.id = 'btn-modo-oscuro';
-    btn.title = 'Alternar día / noche  [Atajo: D]';
+    btn.title = 'Alternar día / noche  [D]';
     btn.onclick = () => ModoOscuro.toggle();
     this.actualizarBoton(document.body.classList.contains('modo-claro'), btn);
     document.body.appendChild(btn);
@@ -560,14 +560,13 @@ const BuscadorMN = {
     if (document.getElementById('mn-buscar-panel')) return;
     const panel = document.createElement('div');
     panel.id = 'mn-buscar-panel';
-    panel.title = 'Ir a un MN por número  [Atajo: /]';
-    panel.innerHTML = `
-      <span style="font-size:0.82rem;opacity:0.6;">MN</span>
-      <input id="mn-buscar-input" type="text" placeholder="Nº"
-             inputmode="numeric" maxlength="6"
-             onkeydown="BuscadorMN.onKeyDown(event)" />
-      <button id="mn-buscar-btn" title="Buscar" onclick="BuscadorMN.buscar()">🔍</button>
-    `;
+    panel.title = 'Ir a un MN por número  [/]';
+    panel.innerHTML =
+      '<span style="font-size:0.82rem;opacity:0.6;">MN</span>' +
+      '<input id="mn-buscar-input" type="text" placeholder="Nº"' +
+      '       inputmode="numeric" maxlength="6"' +
+      '       onkeydown="BuscadorMN.onKeyDown(event)" />' +
+      '<button id="mn-buscar-btn" title="Buscar" onclick="BuscadorMN.buscar()">🔍</button>';
     document.body.appendChild(panel);
   },
 
@@ -576,12 +575,11 @@ const BuscadorMN = {
   buscar: function () {
     const input = document.getElementById('mn-buscar-input');
     if (!input) return;
-    let valor = input.value.trim().replace(/^MN/i, '');
+    const valor = input.value.trim().replace(/^MN/i, '');
     const num = parseInt(valor, 10);
     if (isNaN(num) || num < 1) { this.feedback('⚠ Número inválido', true); return; }
-    const id = 'MN' + num;
-    cargarTexto(id);
-    this.feedback('↩ ' + id, false);
+    cargarTexto('MN' + num);
+    this.feedback('↩ MN' + num, false);
     input.value = '';
     setTimeout(() => {
       const c = document.getElementById('texto');
@@ -597,7 +595,8 @@ const BuscadorMN = {
     const span = document.createElement('span');
     span.id = 'mn-feedback';
     span.textContent = msg;
-    span.style.cssText = `font-size:0.75rem;font-family:Georgia,serif;color:${error?'#d04030':'#50a850'};white-space:nowrap;`;
+    span.style.cssText = 'font-size:0.75rem;font-family:Georgia,serif;color:' +
+      (error ? '#d04030' : '#50a850') + ';white-space:nowrap;';
     panel.appendChild(span);
     setTimeout(() => span.remove(), 2200);
   },
@@ -610,43 +609,100 @@ const BuscadorMN = {
 
 // ── Dado Virtual ─────────────────────────────────────────────
 const DadoVirtual = {
-  CARAS: ['⚀','⚁','⚂','⚃','⚄','⚅'],
+  numDados: 1,
+  rodando: false,
+
+  // Genera el SVG de un dado con puntos (valor 1-6)
+  _uid: 0,
+
+  svgDado: function(valor, size) {
+    size = size || 64;
+    const uid = 'dg' + (++this._uid);
+    const puntos = {
+      1: [[32,32]],
+      2: [[18,18],[46,46]],
+      3: [[18,18],[32,32],[46,46]],
+      4: [[18,18],[46,18],[18,46],[46,46]],
+      5: [[18,18],[46,18],[32,32],[18,46],[46,46]],
+      6: [[18,16],[46,16],[18,32],[46,32],[18,48],[46,48]]
+    };
+    const dots = (puntos[valor] || puntos[1])
+      .map(([x,y]) => `<circle cx="${x}" cy="${y}" r="5.5" fill="#1a0c04"/>`)
+      .join('');
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="${size}" height="${size}">
+      <defs>
+        <linearGradient id="${uid}" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#f0d88a"/>
+          <stop offset="100%" style="stop-color:#c9940a"/>
+        </linearGradient>
+      </defs>
+      <rect x="4" y="4" width="56" height="56" rx="10" ry="10"
+            fill="url(#${uid})" stroke="#7a5010" stroke-width="2.5"/>
+      <rect x="4" y="4" width="56" height="20" rx="10" ry="10"
+            fill="rgba(255,255,255,0.12)"/>
+      ${dots}
+    </svg>`;
+  },
 
   init: function () {
     if (document.getElementById('dado-panel')) return;
     const panel = document.createElement('div');
     panel.id = 'dado-panel';
-    panel.title = 'Lanzar dado  [Atajo: Espacio]';
-    panel.innerHTML = `
-      <div id="dado-cara" onclick="DadoVirtual.lanzar()" title="Clic o Espacio para lanzar">⚄</div>
-      <div id="dado-resultado"></div>
-    `;
+    panel.innerHTML =
+      '<div id="dado-titulo">⚄ Dados</div>' +
+      '<div id="dado-selector">' +
+        '<button class="dado-num activo" onclick="DadoVirtual.setDados(1,this)">1d6</button>' +
+        '<button class="dado-num" onclick="DadoVirtual.setDados(2,this)">2d6</button>' +
+        '<button class="dado-num" onclick="DadoVirtual.setDados(3,this)">3d6</button>' +
+      '</div>' +
+      '<div id="dado-caras" onclick="DadoVirtual.lanzar()" title="Clic o [D] para lanzar">' +
+        this.svgDado(5, 64) +
+      '</div>' +
+      '<div id="dado-lanzar-hint">— clic o [D] —</div>' +
+      '<div id="dado-resultado"></div>';
     document.body.appendChild(panel);
     this.inyectarEstilos();
   },
 
+  setDados: function (n, btn) {
+    this.numDados = n;
+    document.querySelectorAll('.dado-num').forEach(b => b.classList.remove('activo'));
+    if (btn) btn.classList.add('activo');
+    const carasDiv = document.getElementById('dado-caras');
+    if (carasDiv) {
+      carasDiv.innerHTML = Array.from({length: n}, () => this.svgDado(5, n === 1 ? 72 : n === 2 ? 60 : 50)).join('');
+    }
+    document.getElementById('dado-resultado').textContent = '';
+    document.getElementById('dado-resultado').className = '';
+  },
+
   lanzar: function () {
-    const cara = document.getElementById('dado-cara');
-    const res  = document.getElementById('dado-resultado');
-    if (!cara) return;
+    if (this.rodando) return;
+    this.rodando = true;
+    const carasDiv = document.getElementById('dado-caras');
+    const resDiv   = document.getElementById('dado-resultado');
+    const n        = this.numDados;
+    if (!carasDiv) { this.rodando = false; return; }
 
-    // Animación de shake
-    cara.style.animation = 'none';
-    void cara.offsetWidth;
-    cara.style.animation = 'dadoRoll 0.45s ease-out';
-
+    const size = n === 1 ? 72 : n === 2 ? 60 : 50;
     let ticks = 0;
     const intervalo = setInterval(() => {
-      const r = Math.floor(Math.random() * 6);
-      cara.textContent = this.CARAS[r];
+      // Mostrar valores aleatorios mientras rueda
+      carasDiv.innerHTML = Array.from({length: n}, () =>
+        this.svgDado(Math.floor(Math.random() * 6) + 1, size)).join('');
       ticks++;
-      if (ticks >= 8) {
+      if (ticks >= 10) {
         clearInterval(intervalo);
-        const final = Math.floor(Math.random() * 6);
-        cara.textContent = this.CARAS[final];
-        if (res) res.textContent = (final + 1);
+        // Resultado final
+        const valores = Array.from({length: n}, () => Math.floor(Math.random() * 6) + 1);
+        carasDiv.innerHTML = valores.map(v => this.svgDado(v, size)).join('');
+        if (resDiv) {
+          resDiv.textContent = valores.join('   ');
+          resDiv.className = 'dado-res-anim';
+        }
+        this.rodando = false;
       }
-    }, 55);
+    }, 60);
   },
 
   inyectarEstilos: function () {
@@ -656,44 +712,168 @@ const DadoVirtual = {
     style.textContent = `
       #dado-panel {
         position: fixed;
-        bottom: 70px;
-        left: 20px;
+        bottom: 80px;
+        left: 16px;
         z-index: 50;
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 2px;
-        background: linear-gradient(to bottom, #2a1e0c, #1a1208);
-        border: 2px solid var(--oro, #c9a84c);
-        border-radius: 12px;
-        padding: 6px 10px 4px;
-        box-shadow: 0 4px 14px rgba(0,0,0,0.55);
-        cursor: pointer;
-        transition: transform 0.12s;
+        gap: 6px;
+        background: linear-gradient(160deg, #2e2010 0%, #1a1008 100%);
+        border: 2px solid #c9a84c;
+        border-radius: 16px;
+        padding: 12px 14px 10px;
+        box-shadow: 0 6px 24px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,215,80,0.1);
+        user-select: none;
+        min-width: 110px;
+        transition: box-shadow 0.2s;
       }
       body.modo-claro #dado-panel {
-        background: linear-gradient(to bottom, #f2e5c0, #deca98);
+        background: linear-gradient(160deg, #eddcac 0%, #d4c080 100%);
+        border-color: #9a7820;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.3);
       }
-      #dado-panel:hover { transform: scale(1.06); }
-      #dado-cara {
-        font-size: 2rem;
-        line-height: 1;
-        user-select: none;
-        filter: drop-shadow(0 1px 3px rgba(0,0,0,0.5));
+      #dado-panel:hover {
+        box-shadow: 0 8px 30px rgba(200,160,40,0.25), 0 4px 16px rgba(0,0,0,0.7);
       }
+      #dado-titulo {
+        font-family: 'Pirata One', cursive;
+        font-size: 1rem;
+        color: #c9a84c;
+        letter-spacing: 0.06em;
+        margin-bottom: 2px;
+      }
+      body.modo-claro #dado-titulo { color: #5c3a08; }
+      #dado-selector {
+        display: flex;
+        gap: 5px;
+      }
+      .dado-num {
+        background: rgba(0,0,0,0.35);
+        border: 1.5px solid rgba(200,160,60,0.35);
+        border-radius: 6px;
+        color: #a08830;
+        font-size: 0.78rem;
+        padding: 3px 7px;
+        cursor: pointer;
+        font-style: normal;
+        margin: 0;
+        box-shadow: none;
+        font-family: Georgia, serif;
+        transition: background 0.15s, color 0.15s;
+      }
+      body.modo-claro .dado-num {
+        background: rgba(255,255,255,0.45);
+        color: #6b3d1e;
+        border-color: rgba(100,70,10,0.4);
+      }
+      .dado-num:hover { background: rgba(180,130,30,0.3); color: #f0d070; }
+      body.modo-claro .dado-num:hover { background: rgba(200,160,40,0.35); color: #2e1a00; }
+      .dado-num.activo {
+        background: linear-gradient(to bottom, #b09030, #806810);
+        color: #fff8d0;
+        border-color: #d4b040;
+        box-shadow: 0 1px 6px rgba(200,160,40,0.4);
+      }
+      body.modo-claro .dado-num.activo {
+        background: linear-gradient(to bottom, #c9a030, #987010);
+        color: #fff8d0;
+      }
+      #dado-caras {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        cursor: pointer;
+        padding: 6px 4px;
+        border-radius: 10px;
+        transition: transform 0.12s;
+      }
+      #dado-caras:hover { transform: scale(1.05); }
+      #dado-caras:active { transform: scale(0.96); }
+      #dado-caras svg {
+        filter: drop-shadow(0 3px 5px rgba(0,0,0,0.55));
+        transition: filter 0.15s;
+      }
+      #dado-caras:hover svg {
+        filter: drop-shadow(0 4px 8px rgba(200,160,40,0.5));
+      }
+      #dado-lanzar-hint {
+        font-size: 0.68rem;
+        color: #7a6030;
+        font-style: italic;
+        font-family: Georgia, serif;
+        margin-top: -4px;
+      }
+      body.modo-claro #dado-lanzar-hint { color: #9a7830; }
       #dado-resultado {
         font-family: 'Pirata One', cursive;
-        font-size: 0.85rem;
-        color: var(--oro, #c9a84c);
-        min-height: 1em;
+        font-size: 1.3rem;
+        color: #f0d060;
+        min-height: 1.4em;
         text-align: center;
+        letter-spacing: 0.04em;
+        text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+      }
+      body.modo-claro #dado-resultado { color: #5c3a08; text-shadow: none; }
+      .dado-res-anim {
+        animation: dadoResAparecer 0.35s ease-out;
+      }
+      @keyframes dadoResAparecer {
+        from { opacity: 0; transform: scale(0.7); }
+        to   { opacity: 1; transform: scale(1); }
       }
       @keyframes dadoRoll {
-        0%   { transform: rotate(0deg) scale(1); }
-        25%  { transform: rotate(-20deg) scale(1.2); }
-        50%  { transform: rotate(18deg) scale(0.9); }
-        75%  { transform: rotate(-12deg) scale(1.15); }
-        100% { transform: rotate(0deg) scale(1); }
+        0%   { transform: rotate(0deg)   scale(1);    }
+        20%  { transform: rotate(-25deg) scale(1.3);  }
+        45%  { transform: rotate(20deg)  scale(0.8);  }
+        70%  { transform: rotate(-15deg) scale(1.2);  }
+        100% { transform: rotate(0deg)   scale(1);    }
+      }
+
+      /* ---- Responsive: móvil ---- */
+      @media (max-width: 520px) {
+        /* Dado: se mueve arriba a la derecha, más compacto */
+        #dado-panel {
+          bottom: auto;
+          top: 58px;
+          left: auto;
+          right: 12px;
+          min-width: 90px;
+          padding: 8px 10px 7px;
+          gap: 4px;
+          flex-direction: row;
+          align-items: center;
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+        #dado-titulo { font-size: 0.85rem; width: 100%; text-align: center; margin-bottom: 0; }
+        #dado-selector { gap: 3px; }
+        .dado-num { font-size: 0.72rem; padding: 3px 6px; }
+        .dado-cara { width: 44px !important; height: 44px !important; }
+        #dado-resultado { font-size: 1.1rem; width: 100%; }
+        #dado-lanzar-hint { display: none; }
+
+        /* Buscador MN: ancho completo abajo */
+        #mn-buscar-panel {
+          top: auto;
+          bottom: 60px;
+          right: 12px;
+          left: auto;
+          padding: 7px 12px;
+        }
+        #mn-buscar-input { width: 70px; font-size: 1rem; }
+        #mn-buscar-btn   { font-size: 1.1rem; }
+
+        /* Botón modo oscuro: arriba izquierda, más grande */
+        #btn-modo-oscuro {
+          top: 10px;
+          left: 10px;
+          font-size: 1.2rem;
+          padding: 6px 10px;
+        }
+
+        /* Breadcrumb: texto más pequeño */
+        #breadcrumb { font-size: 0.75rem; padding: 4px 2px 8px; }
       }
     `;
     document.head.appendChild(style);
@@ -702,34 +882,35 @@ const DadoVirtual = {
 
 // ── Breadcrumb ───────────────────────────────────────────────
 const Breadcrumb = {
+  CAMPS: {
+    'sombras-del-caribe':       '🌊 Sombras del Caribe',
+    'el-caldero-del-diablo':    '🔥 El Caldero del Diablo',
+    'la-ira-de-tlanchana':      '🌀 La Ira de Tlanchana',
+    'la-maldicion-de-vane':     '💀 La Maldición de Vane',
+    'el-contador-de-historias': '📖 El Contador de Historias',
+  },
+
   init: function () {
     if (document.getElementById('breadcrumb')) return;
-
-    // Detectar campaña y capítulo desde ChapterLoader
     const camp = ChapterLoader.currentCampaign;
     const cap  = ChapterLoader.currentChapter;
     if (!camp) return;
 
-    // Mapas de nombres amigables
-    const CAMPS = {
-      'sombras-del-caribe':       '🌊 Sombras del Caribe',
-      'el-caldero-del-diablo':    '🔥 El Caldero del Diablo',
-      'la-ira-de-tlanchana':      '🌀 La Ira de Tlanchana',
-      'la-maldicion-de-vane':     '💀 La Maldición de Vane',
-      'el-contador-de-historias': '📖 El Contador de Historias',
-    };
-    const campNombre = CAMPS[camp] || camp;
-    const capNombre  = cap ? cap.replace('cap', 'Cap.').replace('an', 'Anexo ').toUpperCase() : '';
+    const campNombre = this.CAMPS[camp] || camp;
+    const capNombre  = cap
+      ? cap.replace(/^cap(\d+)$/, 'Cap. $1')
+           .replace(/^an(\d+)$/,  'Anexo $1')
+           .toUpperCase()
+      : '';
 
     const bc = document.createElement('nav');
     bc.id = 'breadcrumb';
-    bc.innerHTML = `
-      <a href="../index.htm">☠ Inicio</a>
-      <span class="bc-sep">›</span>
-      <span class="bc-camp">${campNombre}</span>
-      ${capNombre ? `<span class="bc-sep">›</span><span class="bc-cap">${capNombre}</span>` : ''}
-    `;
-    // Insertar antes del primer hijo del container
+    bc.innerHTML =
+      '<a href="../index.htm">☠ Inicio</a>' +
+      '<span class="bc-sep"> › </span>' +
+      '<span class="bc-camp">' + campNombre + '</span>' +
+      (capNombre ? '<span class="bc-sep"> › </span><span class="bc-cap">' + capNombre + '</span>' : '');
+
     const container = document.querySelector('.container');
     if (container) container.insertBefore(bc, container.firstChild);
 
@@ -743,18 +924,16 @@ const Breadcrumb = {
     style.textContent = `
       #breadcrumb {
         font-size: 0.82rem;
-        padding: 6px 2px 10px;
-        opacity: 0.7;
+        padding: 6px 2px 12px;
+        opacity: 0.65;
         font-family: Georgia, serif;
         display: flex;
         align-items: center;
-        gap: 5px;
         flex-wrap: wrap;
       }
       #breadcrumb a { color: var(--oro, #c9a84c); text-decoration: none; font-weight: normal; }
       #breadcrumb a:hover { text-decoration: underline; }
       .bc-sep { opacity: 0.4; }
-      .bc-camp, .bc-cap { color: inherit; opacity: 0.9; }
       .bc-cap { font-style: italic; }
     `;
     document.head.appendChild(style);
@@ -765,66 +944,51 @@ const Breadcrumb = {
 const Atajos = {
   init: function () {
     document.addEventListener('keydown', function (e) {
-      // No activar si el foco está en un input o textarea
       const tag = document.activeElement.tagName;
       if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
 
       switch (e.key) {
-        case 'd':
-        case 'D':
-          // Dado
-          DadoVirtual.lanzar();
-          break;
+        case 'd': case 'D':
+          DadoVirtual.lanzar(); break;
 
         case '/':
-          // Foco en buscador MN
           e.preventDefault();
-          BuscadorMN.focus();
-          break;
+          BuscadorMN.focus(); break;
 
         case ' ':
-          // Espacio también lanza el dado (si no hay scroll activo)
           if (!e.target.closest('button')) {
             e.preventDefault();
             DadoVirtual.lanzar();
           }
           break;
 
-        case 'ArrowRight':
-        case 'ArrowLeft': {
-          // Navegar entre secciones del capítulo
-          const secciones = ['intro', 'travesia', 'preparacion', 'mn', 'exito'];
-          const botones = secciones.map(s => document.getElementById('boton' + s.charAt(0).toUpperCase() + s.slice(1))).filter(Boolean);
-          if (botones.length === 0) break;
-          const activo = botones.findIndex(b => b.classList.contains('activo'));
-          const siguiente = e.key === 'ArrowRight'
-            ? (activo + 1) % botones.length
-            : (activo - 1 + botones.length) % botones.length;
-          botones[siguiente].click();
-          break;
+        case 'ArrowRight': case 'ArrowLeft': {
+          const ids = ['botonTravesia','botonPreparacion','botonMN','botonExito'];
+          const btns = ids.map(id => document.getElementById(id)).filter(Boolean);
+          if (!btns.length) break;
+          const act = btns.findIndex(b => b.classList.contains('activo'));
+          const next = e.key === 'ArrowRight'
+            ? (act + 1) % btns.length
+            : (act - 1 + btns.length) % btns.length;
+          btns[next].click(); break;
         }
 
         case 'Escape':
-          // Cerrar popup de imagen si está abierto
-          if (typeof cerrarPopupImagen === 'function') cerrarPopupImagen();
-          break;
+          if (typeof cerrarPopupImagen === 'function') cerrarPopupImagen(); break;
       }
     });
   }
 };
 
-// ── Inicialización automática ─────────────────────────────────
+// ── Inicialización ───────────────────────────────────────────
 (function arrancar() {
   function setup() {
     ModoOscuro.init();
     BuscadorMN.init();
     DadoVirtual.init();
     Atajos.init();
-    // Breadcrumb necesita que ChapterLoader ya tenga campaña/capítulo
-    // Se llama con pequeño delay para dejar que window.onload lo inicialice
-    setTimeout(() => Breadcrumb.init(), 100);
+    setTimeout(() => Breadcrumb.init(), 120);
   }
-
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', setup);
   } else {
