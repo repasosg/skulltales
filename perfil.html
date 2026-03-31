@@ -1,431 +1,1683 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="utf-8">
-    <title>Perfil de Capitán - Skull Tales</title>
-    <link href="css/estilos.css?v=1.5" rel="stylesheet">
-    <link href="css2?family=Pirata+One&display=swap" rel="stylesheet">
-    <style>
-        /* Nuevo color beige más oscuro */
-        .panel {
-            background: #e6ddc5;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border: 1px solid #b89b65;
-        }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cuaderno de Bitácora · Skull Tales</title>
+  <link href="css/estilos.css?v=2.1" rel="stylesheet">
+  <link href="css2?family=Pirata+One&display=swap" rel="stylesheet">
+  <style>
+    /* ══════════════════════════════════════════
+       VARIABLES & BASE
+    ══════════════════════════════════════════ */
+    :root {
+      --panel-bg:      #1e1610;
+      --panel-border:  #7a5818;
+      --panel-header:  #2a1e0c;
+      --oro:           #c9a84c;
+      --oro-light:     #f0d070;
+      --texto:         #e0d0a8;
+      --texto-dim:     #9a8060;
+      --input-bg:      #150f08;
+      --input-border:  #5a4010;
+      --verde:         #3a7030;
+      --rojo:          #8a2020;
+      --azul:          #1a3a6a;
+    }
+    body.modo-claro {
+      --panel-bg:      #fdf3dc;
+      --panel-border:  #c9a84c;
+      --panel-header:  #e8d498;
+      --oro:           #9a7010;
+      --oro-light:     #5c3d1a;
+      --texto:         #2e1a0a;
+      --texto-dim:     #7a5030;
+      --input-bg:      #fffbe6;
+      --input-border:  #b89b65;
+      --verde:         #2a6020;
+      --rojo:          #8a0000;
+      --azul:          #0a2a5a;
+    }
 
-        .form-group {
-            margin-bottom: 15px;
-        }
+    * { box-sizing: border-box; }
 
-        .form-row {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
+    body {
+      font-family: 'Georgia', serif;
+      background-color: #110d07;
+      color: var(--texto);
+      margin: 0;
+      padding: 0;
+    }
+    body.modo-claro { background-color: #e8dcc0; }
 
-        .form-col {
-            flex: 1;
-            min-width: 150px;
-        }
+    /* ══════════════════════════════════════════
+       HEADER
+    ══════════════════════════════════════════ */
+    .bitacora-header {
+      background: linear-gradient(to right, #0c0804, #1a1208, #0c0804);
+      border-bottom: 3px solid var(--oro);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    body.modo-claro .bitacora-header {
+      background: linear-gradient(to right, #d8c070, #f0e098, #d8c070);
+    }
+    .bitacora-header h1 {
+      font-family: 'Pirata One', cursive;
+      color: var(--oro);
+      font-size: 1.8rem;
+      margin: 0;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    }
+    .header-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn-header {
+      background: linear-gradient(to bottom, #3a2a12, #221808);
+      border: 2px solid var(--oro);
+      border-radius: 8px;
+      color: var(--oro-light);
+      font-family: 'Georgia', serif;
+      font-size: 0.85rem;
+      padding: 7px 14px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+    body.modo-claro .btn-header {
+      background: linear-gradient(to bottom, #e0c870, #c0a840);
+      color: #2e1a00;
+    }
+    .btn-header:hover { transform: translateY(-1px); }
+    .btn-header.danger { border-color: #a03020; color: #f08060; }
 
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #3e2723;
-        }
+    /* ══════════════════════════════════════════
+       TABS DE JUGADORES
+    ══════════════════════════════════════════ */
+    .tabs-jugadores {
+      display: flex;
+      background: #0c0804;
+      border-bottom: 2px solid var(--panel-border);
+      padding: 0 16px;
+      gap: 4px;
+      overflow-x: auto;
+    }
+    body.modo-claro .tabs-jugadores {
+      background: #d8c880;
+    }
+    .tab-jugador {
+      padding: 10px 20px;
+      cursor: pointer;
+      font-family: 'Pirata One', cursive;
+      font-size: 1rem;
+      color: var(--texto-dim);
+      border-bottom: 3px solid transparent;
+      white-space: nowrap;
+      transition: color 0.2s, border-color 0.2s;
+      user-select: none;
+    }
+    .tab-jugador:hover { color: var(--oro); }
+    .tab-jugador.activo {
+      color: var(--oro-light);
+      border-bottom-color: var(--oro);
+    }
 
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #8d6e63;
-            border-radius: 4px;
-            font-size: 1rem;
-            background-color: #fffaf0;
-        }
+    /* TAB BARCO */
+    .tab-jugador.tab-barco {
+      margin-left: auto;
+      color: #6098d0;
+      border-color: transparent;
+    }
+    .tab-jugador.tab-barco.activo { color: #90c0f0; border-bottom-color: #6098d0; }
 
-        .section-title {
-            border-bottom: 2px solid #8b0000;
-            margin-bottom: 15px;
-            padding-bottom: 5px;
-            color: #8b0000;
-            font-family: 'Pirata One', cursive;
-            font-size: 1.5rem;
-        }
+    /* ══════════════════════════════════════════
+       CONTENIDO DE TABS
+    ══════════════════════════════════════════ */
+    .tab-content { display: none; padding: 16px; }
+    .tab-content.activo { display: block; }
 
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
+    /* ══════════════════════════════════════════
+       GRID PRINCIPAL DEL PERSONAJE
+    ══════════════════════════════════════════ */
+    .pj-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    @media (max-width: 700px) { .pj-grid { grid-template-columns: 1fr; } }
 
-        .checkbox-group input {
-            width: auto;
-        }
+    /* ══════════════════════════════════════════
+       PANELS
+    ══════════════════════════════════════════ */
+    .panel {
+      background-color: var(--panel-bg);
+      border: 2px solid var(--panel-border);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+    .panel-full { grid-column: 1 / -1; }
 
-        .btn-action {
-            background-color: #8b0000;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            cursor: pointer;
-            border-radius: 4px;
-            font-family: 'Georgia', serif;
-        }
+    .panel-header {
+      background: var(--panel-header);
+      padding: 8px 14px;
+      font-family: 'Pirata One', cursive;
+      font-size: 1.05rem;
+      color: var(--oro);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid var(--panel-border);
+    }
+    .panel-body { padding: 14px; }
 
-        .btn-action:hover {
-            background-color: #a52a2a;
-        }
+    /* ══════════════════════════════════════════
+       FORM ELEMENTS
+    ══════════════════════════════════════════ */
+    label {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--texto-dim);
+      margin-bottom: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    input[type=text], input[type=number], select, textarea {
+      width: 100%;
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      border-radius: 6px;
+      color: var(--texto);
+      font-family: 'Georgia', serif;
+      font-size: 0.95rem;
+      padding: 7px 10px;
+      transition: border-color 0.2s;
+    }
+    input[type=text]:focus, input[type=number]:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--oro);
+    }
+    textarea { resize: vertical; min-height: 70px; }
+    select option { background: #1a1208; }
+    body.modo-claro select option { background: #fffbe6; }
 
-        .list-item {
-            border-bottom: 1px solid #b89b65;
-            padding: 10px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-    </style>
+    .fg { margin-bottom: 10px; }
+    .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+    .row4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+
+    /* ══════════════════════════════════════════
+       ATRIBUTOS (contadores +/-)
+    ══════════════════════════════════════════ */
+    .atributos-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+    }
+    @media (max-width: 520px) { .atributos-grid { grid-template-columns: repeat(3, 1fr); } }
+
+    .atrib-box {
+      text-align: center;
+      background: linear-gradient(to bottom, #221808, #160e04);
+      border: 1px solid var(--panel-border);
+      border-radius: 8px;
+      padding: 8px 4px;
+    }
+    body.modo-claro .atrib-box {
+      background: linear-gradient(to bottom, #ede0b0, #d8c880);
+    }
+    .atrib-nombre {
+      font-size: 0.7rem;
+      color: var(--oro);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 4px;
+      font-family: 'Pirata One', cursive;
+    }
+    .atrib-valor {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+    .atrib-num {
+      font-size: 1.4rem;
+      font-family: 'Pirata One', cursive;
+      color: var(--oro-light);
+      min-width: 28px;
+      text-align: center;
+    }
+    .btn-atrib {
+      background: rgba(200,160,40,0.15);
+      border: 1px solid var(--panel-border);
+      border-radius: 4px;
+      color: var(--oro);
+      cursor: pointer;
+      font-size: 0.9rem;
+      padding: 1px 5px;
+      line-height: 1.4;
+      transition: background 0.15s;
+    }
+    .btn-atrib:hover { background: rgba(200,160,40,0.35); }
+
+    /* ══════════════════════════════════════════
+       VIDA / PA (barra con contador)
+    ══════════════════════════════════════════ */
+    .vida-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .vida-label {
+      font-family: 'Pirata One', cursive;
+      font-size: 0.85rem;
+      color: var(--texto-dim);
+      white-space: nowrap;
+    }
+    .vida-track {
+      display: flex;
+      gap: 3px;
+      flex-wrap: wrap;
+      flex: 1;
+    }
+    .vida-pip {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid #8a2020;
+      background: transparent;
+      cursor: pointer;
+      transition: background 0.15s;
+      flex-shrink: 0;
+    }
+    .vida-pip.lleno { background: #c03030; box-shadow: 0 0 5px rgba(200,50,50,0.4); }
+    .vida-pip.pa-pip { border-color: #1a5a9a; }
+    .vida-pip.pa-pip.lleno { background: #2a7ad0; box-shadow: 0 0 5px rgba(40,100,200,0.4); }
+
+    /* ══════════════════════════════════════════
+       HERIDAS PERMANENTES
+    ══════════════════════════════════════════ */
+    .heridas-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+    .herida-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.88rem;
+      padding: 5px 8px;
+      border-radius: 6px;
+      background: rgba(0,0,0,0.2);
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: background 0.15s, border-color 0.15s;
+      user-select: none;
+    }
+    .herida-item:hover { background: rgba(180,40,40,0.15); }
+    .herida-item.marcada {
+      background: rgba(180,40,40,0.25);
+      border-color: #8a2020;
+    }
+    .herida-item.marcada .herida-nombre { text-decoration: line-through; opacity: 0.6; }
+    .herida-check {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 2px solid #8a4040;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      color: #f08080;
+    }
+    .herida-item.marcada .herida-check { background: #8a2020; border-color: #c04040; }
+
+    /* ══════════════════════════════════════════
+       HABILIDADES (checkboxes en columnas)
+    ══════════════════════════════════════════ */
+    .habilidades-cols {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px 10px;
+    }
+    @media (max-width: 520px) { .habilidades-cols { grid-template-columns: repeat(2, 1fr); } }
+
+    .habil-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 4px;
+      border-radius: 4px;
+      cursor: pointer;
+      user-select: none;
+      font-size: 0.82rem;
+      transition: background 0.12s;
+    }
+    .habil-item:hover { background: rgba(200,160,40,0.1); }
+    .habil-item.aprendida { color: var(--oro-light); }
+    .habil-check {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+      border: 1.5px solid var(--input-border);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.6rem;
+      transition: background 0.15s;
+    }
+    .habil-item.aprendida .habil-check {
+      background: var(--oro);
+      border-color: var(--oro);
+      color: #1a0c04;
+    }
+    .habil-travesia { font-size: 0.65rem; opacity: 0.5; margin-left: 2px; }
+
+    /* ══════════════════════════════════════════
+       ALIADOS
+    ══════════════════════════════════════════ */
+    .aliado-row {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 8px;
+      align-items: end;
+      margin-bottom: 8px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(120,88,24,0.2);
+    }
+    .aliado-row:last-child { border-bottom: none; margin-bottom: 0; }
+
+    /* ══════════════════════════════════════════
+       MERCANCÍA
+    ══════════════════════════════════════════ */
+    .mercancias-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    @media (max-width: 520px) { .mercancias-grid { grid-template-columns: repeat(2, 1fr); } }
+
+    .mercanc-item {
+      background: rgba(0,0,0,0.2);
+      border: 1px solid var(--input-border);
+      border-radius: 6px;
+      padding: 7px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+    .mercanc-nombre { font-size: 0.82rem; }
+    .mercanc-valor {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+    .mercanc-num {
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      border-radius: 4px;
+      color: var(--texto);
+      font-family: 'Pirata One', cursive;
+      font-size: 1rem;
+      text-align: center;
+      width: 44px;
+      padding: 3px;
+    }
+
+    /* ══════════════════════════════════════════
+       EQUIPO (lista editable)
+    ══════════════════════════════════════════ */
+    .equipo-lista { display: flex; flex-direction: column; gap: 6px; }
+    .equipo-item {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+    .equipo-item input { flex: 1; }
+    .btn-del {
+      background: rgba(180,40,40,0.2);
+      border: 1px solid #8a2020;
+      border-radius: 5px;
+      color: #e06060;
+      cursor: pointer;
+      font-size: 0.85rem;
+      padding: 4px 8px;
+      flex-shrink: 0;
+      transition: background 0.15s;
+    }
+    .btn-del:hover { background: rgba(180,40,40,0.4); }
+    .btn-add {
+      background: rgba(40,120,40,0.2);
+      border: 1px solid #3a7030;
+      border-radius: 6px;
+      color: #70d060;
+      cursor: pointer;
+      font-size: 0.85rem;
+      padding: 6px 12px;
+      margin-top: 4px;
+      width: 100%;
+      transition: background 0.15s;
+      font-family: 'Georgia', serif;
+    }
+    .btn-add:hover { background: rgba(40,120,40,0.35); }
+
+    /* ══════════════════════════════════════════
+       LOGROS
+    ══════════════════════════════════════════ */
+    .logros-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .logro-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 12px;
+      border-radius: 20px;
+      border: 1.5px solid var(--input-border);
+      cursor: pointer;
+      font-size: 0.88rem;
+      user-select: none;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .logro-item:hover { border-color: var(--oro); }
+    .logro-item.conseguido {
+      background: rgba(200,160,40,0.2);
+      border-color: var(--oro);
+      color: var(--oro-light);
+    }
+    .logro-pip {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      border: 1.5px solid currentColor;
+      flex-shrink: 0;
+    }
+    .logro-item.conseguido .logro-pip { background: var(--oro); }
+
+    /* ══════════════════════════════════════════
+       ESTADOS
+    ══════════════════════════════════════════ */
+    .estados-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .estado-item {
+      padding: 5px 12px;
+      border-radius: 20px;
+      border: 1.5px solid var(--input-border);
+      cursor: pointer;
+      font-size: 0.85rem;
+      user-select: none;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .estado-item.activo.estado-mal {
+      background: rgba(180,40,40,0.3);
+      border-color: #a03030;
+      color: #f08080;
+    }
+    .estado-item.activo.estado-bien {
+      background: rgba(40,160,40,0.2);
+      border-color: #3a8030;
+      color: #80e060;
+    }
+
+    /* ══════════════════════════════════════════
+       SECCIÓN BARCO
+    ══════════════════════════════════════════ */
+    .barco-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
+    }
+    @media (max-width: 700px) { .barco-grid { grid-template-columns: 1fr; } }
+
+    .barco-stat {
+      text-align: center;
+      background: linear-gradient(to bottom, #0c1428, #080e20);
+      border: 1px solid #1a3a6a;
+      border-radius: 8px;
+      padding: 10px 8px;
+    }
+    body.modo-claro .barco-stat {
+      background: linear-gradient(to bottom, #c0d8f0, #a0c0e8);
+      border-color: #4a7ab0;
+    }
+    .barco-stat-nombre {
+      font-size: 0.72rem;
+      color: #6098d0;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+      font-family: 'Pirata One', cursive;
+    }
+    .barco-stat-valor {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .barco-num {
+      font-family: 'Pirata One', cursive;
+      font-size: 1.5rem;
+      color: #90c0f0;
+    }
+    body.modo-claro .barco-num { color: #0a2a5a; }
+    .barco-sep { color: #4a7ab0; font-size: 1rem; }
+    .barco-max { font-size: 0.8rem; color: #4a7ab0; }
+
+    .daños-barco {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 10px;
+    }
+    .daño-pip {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      border: 2px solid #1a3a6a;
+      background: transparent;
+      cursor: pointer;
+      transition: background 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Pirata One', cursive;
+      font-size: 0.75rem;
+      color: #4a7ab0;
+    }
+    .daño-pip.dañado {
+      background: #c03030;
+      border-color: #8a2020;
+      color: white;
+    }
+
+    .mejoras-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 5px;
+    }
+    .mejora-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 8px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      user-select: none;
+      border: 1px solid transparent;
+      transition: background 0.15s;
+    }
+    .mejora-item:hover { background: rgba(40,80,160,0.15); }
+    .mejora-item.instalada {
+      background: rgba(26,58,106,0.4);
+      border-color: #1a3a6a;
+      color: #90c0f0;
+    }
+    .mejora-pip {
+      width: 12px; height: 12px;
+      border-radius: 3px;
+      border: 1.5px solid #1a3a6a;
+      flex-shrink: 0;
+    }
+    .mejora-item.instalada .mejora-pip { background: #3a7ad0; border-color: #5a9af0; }
+
+    .tripulacion-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .moral-track { display: flex; gap: 4px; flex-wrap: wrap; }
+    .moral-pip {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      border: 1.5px solid #3a7030;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .moral-pip.alta { background: #2a8020; }
+
+    /* ══════════════════════════════════════════
+       DIARIO / NOTAS
+    ══════════════════════════════════════════ */
+    .diario-textarea {
+      width: 100%;
+      min-height: 120px;
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      border-radius: 6px;
+      color: var(--texto);
+      font-family: 'Georgia', serif;
+      font-size: 0.92rem;
+      padding: 10px 12px;
+      resize: vertical;
+      line-height: 1.7;
+    }
+
+    /* ══════════════════════════════════════════
+       CAPITÁN BADGE
+    ══════════════════════════════════════════ */
+    .capitan-toggle {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 2px solid var(--panel-border);
+      cursor: pointer;
+      user-select: none;
+      font-family: 'Pirata One', cursive;
+      font-size: 1rem;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .capitan-toggle.es-capitan {
+      background: rgba(200,160,40,0.2);
+      border-color: var(--oro);
+      color: var(--oro-light);
+    }
+    .capitan-pip {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      border: 2px solid var(--oro);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; color: var(--oro);
+    }
+    .capitan-toggle.es-capitan .capitan-pip { background: var(--oro); color: #1a0c04; }
+
+    /* ══════════════════════════════════════════
+       MONEDAS / BOTÍN
+    ══════════════════════════════════════════ */
+    .botin-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .botin-icon { font-size: 1.3rem; }
+    .botin-field {
+      flex: 1;
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      border-radius: 6px;
+      color: var(--texto);
+      font-family: 'Pirata One', cursive;
+      font-size: 1.1rem;
+      padding: 7px 10px;
+      text-align: center;
+    }
+
+    /* ══════════════════════════════════════════
+       TOAST GUARDADO
+    ══════════════════════════════════════════ */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: linear-gradient(to right, #1a3a10, #0c2008);
+      border: 2px solid #3a7030;
+      border-radius: 10px;
+      color: #80e060;
+      padding: 10px 20px;
+      font-family: 'Pirata One', cursive;
+      font-size: 1rem;
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: 999;
+      pointer-events: none;
+    }
+    #toast.visible { opacity: 1; }
+
+    /* ══════════════════════════════════════════
+       BOTÓN RETORNO
+    ══════════════════════════════════════════ */
+    .boton-retorno {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background-image: linear-gradient(to bottom, #f2e5c0, #d8c080);
+      border: 2px solid var(--oro);
+      border-radius: 12px;
+      padding: 9px 14px;
+      font-size: 1rem;
+      cursor: pointer;
+      z-index: 20;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.4);
+      color: #2e1a0a;
+      text-decoration: none;
+      font-weight: bold;
+      transition: transform 0.12s;
+    }
+    .boton-retorno:hover { transform: translateY(-2px); text-decoration: none; }
+
+    @media (max-width: 520px) {
+      .boton-retorno { bottom: 0; left: 0; right: 0; border-radius: 0; text-align: center; width: 100%; }
+      body { padding-bottom: 52px; }
+      .tab-jugador { padding: 8px 12px; font-size: 0.88rem; }
+      .panel-header { font-size: 0.92rem; }
+      .barco-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
-
 <body>
-    <main>
-        <a class="boton-retorno" href="index.html">← Volver al Menú Principal</a>
 
-        <center>
-            <h1 style="font-family: 'Pirata One', cursive; font-size: 3rem;">Cuaderno de Bitácora</h1>
-        </center>
+  <!-- HEADER -->
+  <div class="bitacora-header">
+    <h1>☠ Cuaderno de Bitácora</h1>
+    <div class="header-btns">
+      <button class="btn-header" onclick="guardarTodo()">💾 Guardar</button>
+      <button class="btn-header" onclick="exportarJSON()">📤 Exportar</button>
+      <button class="btn-header" onclick="importarJSON()">📥 Importar</button>
+      <button class="btn-header danger" onclick="borrarTodo()">🗑 Borrar todo</button>
+    </div>
+  </div>
 
-        <!-- Lista de Personajes -->
-        <div class="panel">
-            <h2 class="section-title">🏴‍☠️ Tripulación Registrada</h2>
-            <div id="pj-list"></div>
-        </div>
+  <!-- TABS -->
+  <div class="tabs-jugadores" id="tabs-jugadores">
+    <div class="tab-jugador activo" onclick="cambiarTab('j1',this)" id="tab-j1">⚓ Jugador 1</div>
+    <div class="tab-jugador" onclick="cambiarTab('j2',this)" id="tab-j2">⚓ Jugador 2</div>
+    <div class="tab-jugador" onclick="cambiarTab('j3',this)" id="tab-j3">⚓ Jugador 3</div>
+    <div class="tab-jugador" onclick="cambiarTab('j4',this)" id="tab-j4">⚓ Jugador 4</div>
+    <div class="tab-jugador tab-barco" onclick="cambiarTab('barco',this)" id="tab-barco">🚢 El Barco</div>
+  </div>
 
-        <!-- Formulario de Edición/Creación -->
-        <div class="panel">
-            <h2 class="section-title">📝 Ficha de Personaje</h2>
-            <form id="pj-form">
-                <input type="hidden" id="pj-id">
+  <!-- ════════════ TABS JUGADORES ════════════ -->
+  <script>
+    // Generamos los 4 tabs de jugador dinámicamente para no repetir HTML
+    const CLASES_BASE = [
+      'Lobo de Mar','Sicaria','Vigía','Artillero','Cirujano','Hombre del Vudú',
+      'Liberto','Bruja','Grumete','Cocinero','Hija del Capitán','Justiciero'
+    ];
+    const CLASES_LEYENDAS = ['Alquimista','Corsario','Chamán'];
+    const CLASES_TODAS = [...CLASES_BASE, ...CLASES_LEYENDAS];
 
-                <!-- Datos Básicos -->
-                <div class="form-row">
-                    <div class="form-col form-group">
-                        <label>Nombre del Pirata:</label>
-                        <input type="text" id="pj-name" required="">
-                    </div>
-                    <div class="form-col form-group">
-                        <label>Clase (PJ):</label>
-                        <select id="pj-class">
-                            <option value="Sicario">Sicario</option>
-                            <option value="Hombre de Mar">Hombre de Mar</option>
-                            <option value="Artillero">Artillero</option>
-                            <option value="Cirujano">Cirujano</option>
-                            <option value="Vudú">Vudú</option>
-                            <option value="Grumete">Grumete</option>
-                        </select>
-                    </div>
-                    <div class="form-col form-group">
-                        <label>Nombre del Jugador:</label>
-                        <input type="text" id="pj-player">
-                    </div>
-                </div>
+    // Habilidades por clase (base + Leyendas del Caribe)
+    const HABILIDADES = {
+      'Lobo de Mar': [
+        {n:'Arponero',t:true},{n:'Abordar',t:true},{n:'A cubierta',t:false},
+        {n:'Oficial de cubierta',t:true},{n:'Timonel',t:true},{n:'Meteorólogo',t:true},
+        {n:'Vigía',t:false},{n:'Fornido',t:false},{n:'Superviviente',t:false},
+        {n:'Luchador',t:false},{n:'Avasallador',t:false},{n:'Infatigable',t:false},
+        {n:'Resistencia',t:false},{n:'Bravucón',t:false},{n:'Cargar',t:false},
+        {n:'Imparable',t:false},{n:'Pisotear',t:false},{n:'Vigoroso',t:false},
+        {n:'Enérgico',t:false},{n:'Barrido',t:false},{n:'Vengativo',t:false},
+      ],
+      'Sicaria': [
+        {n:'Abalanzarse',t:false},{n:'Acróbata',t:false},{n:'Charlatán',t:false},
+        {n:'Elocuente',t:false},{n:'Escurridizo',t:false},{n:'Expedito',t:false},
+        {n:'Fingir muerte',t:false},{n:'Matalotaje',t:true},{n:'Observador',t:true},
+        {n:'Precavido',t:false},{n:'Reflejos felinos',t:false},{n:'Robo',t:false},
+        {n:'Salto del pollo',t:false},{n:'Sigilo',t:false},{n:'Timador',t:false},
+        {n:'Traicionero',t:false},{n:'Tramposo',t:false},{n:'Truhán',t:false},{n:'Usurero',t:false},
+      ],
+      'Vigía': [
+        {n:'Abordar por troneras',t:true},{n:'Arponero',t:true},{n:'Avasallador',t:false},
+        {n:'Barrido',t:false},{n:'Bravucón',t:false},{n:'Cargar',t:false},
+        {n:'Enérgico',t:false},{n:'Fornido',t:false},{n:'Imparable',t:false},
+        {n:'Improvisar proyectil',t:false},{n:'Infatigable',t:false},{n:'Lanzador',t:false},
+        {n:'Luchador',t:false},{n:'Nadador',t:false},{n:'Pisotear',t:false},
+        {n:'Resistencia',t:false},{n:'Superviviente',t:false},{n:'Vengativo',t:false},{n:'Vigoroso',t:false},
+      ],
+      'Artillero': [
+        {n:'Balas gruesas',t:false},{n:'Cañonero',t:true},{n:'Certero',t:false},
+        {n:'Condestable',t:true},{n:'Desenfundado rápido',t:false},{n:'Disparo anticipado',t:false},
+        {n:'Disparo a bocajarro',t:false},{n:'Disparo en carrera',t:false},{n:'Disparo incapacitante',t:false},
+        {n:'Disparo perforante',t:false},{n:'Disparo simultáneo',t:false},{n:'Ojo avizor',t:false},
+        {n:'Puntería',t:false},{n:'Tiro al blanco',t:false},{n:'Recarga rápida',t:false},{n:'Vigilante',t:true},
+      ],
+      'Cirujano': [
+        {n:'Analítico',t:false},{n:'Avispado',t:false},{n:'Cabuyería',t:true},
+        {n:'Carpintero',t:true},{n:'Cartógrafo',t:true},{n:'Comandar',t:false},
+        {n:'Contramaestre',t:true},{n:'Curación',t:false},{n:'Explorador',t:true},
+        {n:'Lumbrera',t:false},{n:'Maestro del veneno',t:false},{n:'Medicina',t:true},
+        {n:'Meteorólogo',t:true},{n:'Músico',t:true},{n:'Perspicaz',t:false},
+        {n:'Táctico',t:false},{n:'Timonel',t:true},
+      ],
+      'Hombre del Vudú': [
+        {n:'Alquimia',t:false},{n:'Azote',t:false},{n:'Bendecido',t:false},
+        {n:'Clarividencia',t:true},{n:'Conjurador',t:false},{n:'Curandero',t:false},
+        {n:'Devoto',t:false},{n:'Dominar vientos',t:true},{n:'Elegido',t:false},
+        {n:'Fabricar amuleto',t:true},{n:'Magia tótem',t:false},{n:'Magia tótem II',t:false},
+        {n:'Purgar',t:false},{n:'Sobrecogedor',t:false},{n:'Tatuaje de fuerza',t:false},
+        {n:'Trance',t:false},{n:'Vudú',t:false},{n:'Vudú nivel II',t:false},
+      ],
+      'Liberto': [
+        {n:'Ambidiestro',t:false},{n:'Atajo',t:false},{n:'Contraataque',t:false},
+        {n:'Curtido',t:false},{n:'Desuellacaras',t:false},{n:'Esgrima',t:false},
+        {n:'Estocada rápida',t:false},{n:'Finta',t:false},{n:'Golpe de gracia',t:false},
+        {n:'Hostigador',t:false},{n:'Oficial de cubierta',t:true},{n:'Oportunista',t:false},
+        {n:'Parada en cruz',t:false},{n:'Redoble',t:false},{n:'Remolino',t:false},
+        {n:'Tajo doble',t:false},{n:'Tajo preciso',t:false},{n:'Verdadera destreza',t:false},
+      ],
+      'Bruja': [
+        {n:'Alquimia',t:false},{n:'Azote',t:false},{n:'Bendecido',t:false},
+        {n:'Clarividencia',t:true},{n:'Conjurador',t:false},{n:'Curandero',t:false},
+        {n:'Devoto',t:false},{n:'Dominar vientos',t:true},{n:'Elegido',t:false},
+        {n:'Fabricar amuleto',t:true},{n:'Magia tótem',t:false},{n:'Magia tótem II',t:false},
+        {n:'Purgar',t:false},{n:'Sobrecogedor',t:false},{n:'Trance',t:false},
+        {n:'Vudú',t:false},{n:'Vudú nivel II',t:false},
+      ],
+      'Grumete': [
+        {n:'Abalanzarse',t:false},{n:'Acróbata',t:false},{n:'Abordar',t:true},
+        {n:'Expedito',t:false},{n:'Escurridizo',t:false},{n:'Fingir muerte',t:false},
+        {n:'Matalotaje',t:true},{n:'Nadador',t:false},{n:'Observador',t:true},
+        {n:'Precavido',t:false},{n:'Reflejos felinos',t:false},{n:'Robo',t:false},
+        {n:'Salto del pollo',t:false},{n:'Sigilo',t:false},{n:'Truhán',t:false},
+      ],
+      'Cocinero': [
+        {n:'Analítico',t:false},{n:'Avispado',t:false},{n:'Cabuyería',t:true},
+        {n:'Carpintero',t:true},{n:'Comandar',t:false},{n:'Contramaestre',t:true},
+        {n:'Curación',t:false},{n:'Explorador',t:true},{n:'Lumbrera',t:false},
+        {n:'Medicina',t:true},{n:'Músico',t:true},{n:'Perspicaz',t:false},
+        {n:'Táctico',t:false},{n:'Timonel',t:true},{n:'Cartógrafo',t:true},
+      ],
+      'Hija del Capitán': [
+        {n:'Abalanzarse',t:false},{n:'Acróbata',t:false},{n:'Charlatán',t:false},
+        {n:'Comandar',t:false},{n:'Elocuente',t:false},{n:'Escurridizo',t:false},
+        {n:'Expedito',t:false},{n:'Fingir muerte',t:false},{n:'Matalotaje',t:true},
+        {n:'Observador',t:true},{n:'Precavido',t:false},{n:'Reflejos felinos',t:false},
+        {n:'Robo',t:false},{n:'Salto del pollo',t:false},{n:'Sigilo',t:false},
+        {n:'Traicionero',t:false},{n:'Tramposo',t:false},{n:'Truhán',t:false},
+      ],
+      'Justiciero': [
+        {n:'Ambidiestro',t:false},{n:'Atajo',t:false},{n:'Balas gruesas',t:false},
+        {n:'Certero',t:false},{n:'Contraataque',t:false},{n:'Curtido',t:false},
+        {n:'Desenfundado rápido',t:false},{n:'Esgrima',t:false},{n:'Estocada rápida',t:false},
+        {n:'Finta',t:false},{n:'Golpe de gracia',t:false},{n:'Hostigador',t:false},
+        {n:'Oportunista',t:false},{n:'Parada en cruz',t:false},{n:'Puntería',t:false},
+        {n:'Redoble',t:false},{n:'Tajo doble',t:false},{n:'Tajo preciso',t:false},
+        {n:'Tiro al blanco',t:false},{n:'Verdadera destreza',t:false},
+      ],
+      'Alquimista': [
+        {n:'Alquimia avanzada',t:false},{n:'Bomba ácida',t:false},{n:'Bomba de humo',t:false},
+        {n:'Bomba incendiaria',t:false},{n:'Catalizador',t:false},{n:'Destilación',t:false},
+        {n:'Elixir curativo',t:false},{n:'Explosivo experimental',t:false},
+        {n:'Fórmula secreta',t:false},{n:'Grenadero',t:false},{n:'Improvisación',t:false},
+        {n:'Maestro alquimista',t:false},{n:'Poción de fuerza',t:false},{n:'Veneno concentrado',t:false},
+      ],
+      'Corsario': [
+        {n:'Abordaje experto',t:true},{n:'Capitán natural',t:false},{n:'Carta de corso',t:false},
+        {n:'Conocedor del mar',t:true},{n:'Duelo de honor',t:false},{n:'Experiencia naval',t:true},
+        {n:'Golpe maestro',t:false},{n:'Intimidación',t:false},{n:'Mando natural',t:false},
+        {n:'Negociador',t:false},{n:'Presión táctica',t:false},{n:'Veterano de guerra',t:false},
+      ],
+      'Chamán': [
+        {n:'Ancestros',t:false},{n:'Aura protectora',t:false},{n:'Bendición de guerra',t:false},
+        {n:'Clarividencia tribal',t:false},{n:'Conexión espiritual',t:false},
+        {n:'Curación tribal',t:false},{n:'Espíritu guardián',t:false},
+        {n:'Invocar tótem',t:false},{n:'Maldición antigua',t:false},
+        {n:'Rito de iniciación',t:false},{n:'Trance profético',t:false},{n:'Visión del mar',t:true},
+      ],
+    };
 
-                <div class="form-group checkbox-group">
-                    <label>¿Es Capitán?</label>
-                    <input type="checkbox" id="pj-captain"> Sí
-                </div>
+    const MERCANCIA = [
+      {n:'Oro y Joyas',p:'💰',max:null},{n:'Metales',p:'⚙️',max:null},
+      {n:'Telas y Especias',p:'🧵',max:null},{n:'Tabaco',p:'🌿',max:null},
+      {n:'Esclavos',p:'⛓️',max:null},{n:'Provisiones',p:'🍖',max:null},
+      {n:'Ron',p:'🍺',max:null},{n:'Azúcar',p:'🎲',max:null},{n:'Madera',p:'🪵',max:null},
+    ];
 
-                <!-- Atributos -->
-                <div class="form-row">
-                    <div class="form-col form-group">
-                        <label>Cuerpo a Cuerpo:</label>
-                        <input type="number" id="stats-melee" value="0">
-                    </div>
-                    <div class="form-col form-group">
-                        <label>Distancia:</label>
-                        <input type="number" id="stats-ranged" value="0">
-                    </div>
-                    <div class="form-col form-group">
-                        <label>Acciones:</label>
-                        <input type="number" id="stats-actions" value="0">
-                    </div>
-                </div>
+    const MEJORAS_BARCO = [
+      'Bomba de Agotar','Campana de Buceo','Códice de Señales',
+      'Espolón','Mortero','Cañones reforzados','Velas de tormenta',
+      'Bodega ampliada','Casco reforzado','Ariete',
+    ];
+  </script>
 
-                <div class="form-row">
-                    <div class="form-col form-group">
-                        <label>Carisma:</label>
-                        <input type="number" id="stats-charisma" value="0">
-                    </div>
-                    <div class="form-col form-group">
-                        <label>Fuerza:</label>
-                        <input type="number" id="stats-strength" value="0">
-                    </div>
-                    <div class="form-col form-group">
-                        <label>Destreza:</label>
-                        <input type="number" id="stats-dexterity" value="0">
-                    </div>
-                    <div class="form-col form-group">
-                        <label>Inteligencia:</label>
-                        <input type="number" id="stats-intelligence" value="0">
-                    </div>
-                    <div class="form-col form-group">
-                        <label>Percepción:</label>
-                        <input type="number" id="stats-perception" value="0">
-                    </div>
-                </div>
+  <!-- TABS JUGADORES (generados) -->
+  <div id="tab-content-j1" class="tab-content activo"></div>
+  <div id="tab-content-j2" class="tab-content"></div>
+  <div id="tab-content-j3" class="tab-content"></div>
+  <div id="tab-content-j4" class="tab-content"></div>
 
-                <!-- Heridas Permanentes -->
-                <h3 class="section-title" style="font-size: 1.2rem;">🩹 Heridas Permanentes</h3>
-                <div class="form-row">
-                    <div class="form-col checkbox-group"><input type="checkbox" id="wound-leye"> Ojo Izq.</div>
-                    <div class="form-col checkbox-group"><input type="checkbox" id="wound-reye"> Ojo Der.</div>
-                    <div class="form-col checkbox-group"><input type="checkbox" id="wound-lhand"> Mano Izq.</div>
-                    <div class="form-col checkbox-group"><input type="checkbox" id="wound-rhand"> Mano Der.</div>
-                    <div class="form-col checkbox-group"><input type="checkbox" id="wound-lleg"> Pierna Izq.</div>
-                    <div class="form-col checkbox-group"><input type="checkbox" id="wound-rleg"> Pierna Der.</div>
-                </div>
+  <!-- TAB BARCO -->
+  <div id="tab-content-barco" class="tab-content"></div>
 
-                <!-- Inventario y Estado -->
-                <div class="form-row">
-                    <div class="form-col form-group">
-                        <label>Oro:</label>
-                        <input type="number" id="pj-gold" value="0">
-                    </div>
-                    <div class="form-col form-group">
-                        <label>Prestigio/Heridas:</label>
-                        <input type="text" id="pj-wounds" placeholder="Ej: 5 Prestigio">
-                    </div>
-                </div>
+  <a class="boton-retorno" href="index.htm">← Campañas</a>
+  <div id="toast">⚓ Guardado</div>
 
-                <div class="form-group">
-                    <label>Equipo:</label>
-                    <textarea id="pj-equipment" rows="3"></textarea>
-                </div>
+  <script>
+  /* ═══════════════════════════════════════════════════════
+     GENERACIÓN DE HTML DE PERSONAJE
+  ═══════════════════════════════════════════════════════ */
+  function htmlPersonaje(jid) {
+    const habilClase = `
+      <div class="fg">
+        <label>Clase de Personaje</label>
+        <select id="${jid}-clase" onchange="actualizarHabilidades('${jid}')">
+          <option value="">— Elegir clase —</option>
+          ${CLASES_BASE.map(c=>`<option>${c}</option>`).join('')}
+          <optgroup label="── Leyendas del Caribe ──">
+          ${CLASES_LEYENDAS.map(c=>`<option>${c}</option>`).join('')}
+          </optgroup>
+        </select>
+      </div>
+    `;
 
-                <div class="form-row">
-                    <div class="form-col form-group">
-                        <label>Cartas de Estrategia:</label>
-                        <textarea id="pj-strategy" rows="2"></textarea>
-                    </div>
-                    <div class="form-col form-group">
-                        <label>Cartas de Rumor:</label>
-                        <textarea id="pj-rumors" rows="2"></textarea>
-                    </div>
-                </div>
+    return `
+    <div class="pj-grid">
 
-                <!-- Aliados -->
-                <h3 class="section-title" style="font-size: 1.2rem;">🤝 Aliados</h3>
-                <div class="form-row">
-                    <div class="form-col form-group"><input type="text" id="ally-1" placeholder="Aliado 1"></div>
-                    <div class="form-col form-group"><input type="text" id="ally-2" placeholder="Aliado 2"></div>
-                </div>
-                <div class="form-row">
-                    <div class="form-col form-group"><input type="text" id="ally-3" placeholder="Aliado 3"></div>
-                    <div class="form-col form-group"><input type="text" id="ally-4" placeholder="Aliado 4"></div>
-                </div>
-
-
-                <button type="submit" class="btn-action" style="font-size: 1.2rem; width: 100%;">💾 Guardar
-                    Cambios</button>
-            </form>
-        </div>
-
-        <!-- Sección Copia de Seguridad -->
-        <div class="panel" style="border-left: 5px solid #2c3e50; background: #d0d0d0;">
-            <h2>💾 Copia de Seguridad</h2>
-            <p>Tus datos se guardan en este navegador. Para no perderlos, descarga tu copia.</p>
-
-            <button onclick="descargarCopia()" class="btn-action" style="background-color: #2c3e50;">⬇️ Descargar Copia
-                (JSON)</button>
-
-            <div style="margin-top: 15px;">
-                <input type="file" id="import-file" style="display: none;" onchange="importarCopia(this)">
-                <button onclick="document.getElementById('import-file').click()" class="btn-action" style="background-color: #d35400;">⬆️ Importar Copia</button>
+      <!-- IDENTIDAD -->
+      <div class="panel">
+        <div class="panel-header">☠ Identidad del Pirata</div>
+        <div class="panel-body">
+          <div class="row2 fg">
+            <div class="fg"><label>Nombre Pirata</label><input type="text" id="${jid}-nombre" placeholder="El Capitán..."></div>
+            <div class="fg"><label>Jugador</label><input type="text" id="${jid}-jugador" placeholder="Nombre real"></div>
+          </div>
+          <div class="row2 fg">
+            <div class="fg">${habilClase}</div>
+            <div class="fg"><label>Personaje</label>
+              <input type="text" id="${jid}-personaje" placeholder="Nombre del PJ"></div>
+          </div>
+          <div class="fg"><label>Historia / Trasfondo</label>
+            <input type="text" id="${jid}-historia" placeholder="Origen, motivación..."></div>
+          <div class="fg"><label>Aliado</label>
+            <input type="text" id="${jid}-aliado" placeholder="Nombre del aliado"></div>
+          <div class="fg" style="margin-top:8px;">
+            <div class="capitan-toggle" id="${jid}-capitan-toggle" onclick="toggleCapitan('${jid}')">
+              <div class="capitan-pip" id="${jid}-capitan-pip">☠</div>
+              <span id="${jid}-capitan-label">¿Capitán? NO</span>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ATRIBUTOS + VIDA -->
+      <div class="panel">
+        <div class="panel-header">⚔ Atributos</div>
+        <div class="panel-body">
+          <div class="atributos-grid" style="margin-bottom:14px;">
+            ${['Fuerza','Agilidad','Inteligencia','Percepción','Carisma'].map(a=>`
+              <div class="atrib-box">
+                <div class="atrib-nombre">${a.substring(0,4)}.</div>
+                <div class="atrib-valor">
+                  <button class="btn-atrib" onclick="cambiarAtrib('${jid}','${a}',-1)">−</button>
+                  <div class="atrib-num" id="${jid}-atrib-${a}">1</div>
+                  <button class="btn-atrib" onclick="cambiarAtrib('${jid}','${a}',1)">+</button>
+                </div>
+              </div>`).join('')}
+          </div>
+          <div class="fg">
+            <label>Puntos de Vida (clic para marcar herida)</label>
+            <div class="vida-container">
+              <span class="vida-label">❤ Vida</span>
+              <div class="vida-track" id="${jid}-vida-track">
+                ${Array(10).fill(0).map((_,i)=>`<div class="vida-pip" id="${jid}-vp-${i}" onclick="toggleVida('${jid}',${i})"></div>`).join('')}
+              </div>
+              <div>
+                <button class="btn-atrib" onclick="cambiarMaxVida('${jid}',-1)">−</button>
+                <span style="font-size:0.75rem;color:var(--texto-dim);padding:0 4px;" id="${jid}-maxvida">10</span>
+                <button class="btn-atrib" onclick="cambiarMaxVida('${jid}',1)">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="fg" style="margin-top:8px;">
+            <label>Puntos de Acción</label>
+            <div class="vida-container">
+              <span class="vida-label">⚡ PA</span>
+              <div class="vida-track" id="${jid}-pa-track">
+                ${Array(5).fill(0).map((_,i)=>`<div class="vida-pip pa-pip" id="${jid}-pa-${i}" onclick="togglePA('${jid}',${i})"></div>`).join('')}
+              </div>
+            </div>
+          </div>
+          <div class="row3 fg" style="margin-top:12px;">
+            <div class="fg"><label>Destino</label><input type="number" id="${jid}-destino" min="0" max="20" value="0" style="text-align:center;font-family:'Pirata One',cursive;font-size:1.1rem;"></div>
+            <div class="fg"><label>Moral</label><input type="number" id="${jid}-moral" min="0" max="10" value="0" style="text-align:center;font-family:'Pirata One',cursive;font-size:1.1rem;"></div>
+            <div class="fg"><label>Fama</label><input type="number" id="${jid}-fama" min="0" max="99" value="0" style="text-align:center;font-family:'Pirata One',cursive;font-size:1.1rem;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HERIDAS PERMANENTES + ESTADOS -->
+      <div class="panel">
+        <div class="panel-header">🩸 Heridas Permanentes & Estados</div>
+        <div class="panel-body">
+          <div class="heridas-grid" id="${jid}-heridas">
+            ${[
+              {n:'Ojo Izquierdo',s:'−1 Perc.',id:'ojo-izq'},
+              {n:'Ojo Derecho',s:'−1 Perc.',id:'ojo-der'},
+              {n:'Mano Izquierda',s:'',id:'mano-izq'},
+              {n:'Mano Derecha',s:'',id:'mano-der'},
+              {n:'Pierna Izquierda',s:'−1 Mov. −1 Ag.',id:'pierna-izq'},
+              {n:'Pierna Derecha',s:'−1 Mov. −1 Ag.',id:'pierna-der'},
+            ].map(h=>`
+              <div class="herida-item" id="${jid}-h-${h.id}" onclick="toggleHerida('${jid}','${h.id}')">
+                <div class="herida-check">✕</div>
+                <span class="herida-nombre">${h.n}</span>
+                ${h.s?`<span style="font-size:0.7rem;opacity:0.5;margin-left:auto;">${h.s}</span>`:''}
+              </div>`).join('')}
+          </div>
+          <div style="margin-top:12px;">
+            <label style="margin-bottom:6px;">Estados</label>
+            <div class="estados-row">
+              <div class="estado-item estado-mal" id="${jid}-e-maldito" onclick="toggleEstado('${jid}','maldito')">Maldito</div>
+              <div class="estado-item estado-mal" id="${jid}-e-deudor" onclick="toggleEstado('${jid}','deudor')">Deudor</div>
+              <div class="estado-item estado-bien" id="${jid}-e-bendecido" onclick="toggleEstado('${jid}','bendecido')">Bendecido</div>
+              <div class="estado-item estado-bien" id="${jid}-e-inspirado" onclick="toggleEstado('${jid}','inspirado')">Inspirado</div>
+            </div>
+          </div>
+          <div class="fg" style="margin-top:12px;">
+            <label>Carta de Rumor</label>
+            <input type="text" id="${jid}-rumor" placeholder="Rumor activo...">
+          </div>
+          <div class="fg">
+            <label>Cartas de Estrategia</label>
+            <input type="text" id="${jid}-estrategia" placeholder="Cartas en mano...">
+          </div>
+        </div>
+      </div>
+
+      <!-- LOGROS -->
+      <div class="panel">
+        <div class="panel-header">🏆 Logros & Botín</div>
+        <div class="panel-body">
+          <label style="margin-bottom:8px;">Logros</label>
+          <div class="logros-row">
+            ${['Valentía','Fama','Lujo','Liderazgo','Pirata Legendario'].map(l=>`
+              <div class="logro-item" id="${jid}-logro-${l.replace(/\s/g,'_')}" onclick="toggleLogro('${jid}','${l.replace(/\s/g,'_')}')">
+                <div class="logro-pip"></div>${l}
+              </div>`).join('')}
+          </div>
+          <div class="row2 fg" style="margin-top:14px;">
+            <div class="fg">
+              <label>💰 Botín Tripulación</label>
+              <div class="botin-row">
+                <span class="botin-icon">🪙</span>
+                <input type="number" class="botin-field" id="${jid}-botin-trip" min="0" value="0">
+              </div>
+            </div>
+            <div class="fg">
+              <label>🗺 Botín Escondido</label>
+              <div class="botin-row">
+                <span class="botin-icon">💎</span>
+                <input type="number" class="botin-field" id="${jid}-botin-esc" min="0" value="0">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HABILIDADES -->
+      <div class="panel panel-full">
+        <div class="panel-header">📜 Habilidades Aprendidas</div>
+        <div class="panel-body">
+          <div id="${jid}-habilidades-container">
+            <p style="opacity:0.5;font-style:italic;font-size:0.9rem;">Selecciona una clase para ver las habilidades disponibles.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- EQUIPO -->
+      <div class="panel">
+        <div class="panel-header">⚔ Equipo</div>
+        <div class="panel-body">
+          <div class="equipo-lista" id="${jid}-equipo-lista"></div>
+          <button class="btn-add" onclick="addEquipo('${jid}')">+ Añadir objeto</button>
+        </div>
+      </div>
+
+      <!-- MERCANCÍA -->
+      <div class="panel">
+        <div class="panel-header">📦 Mercancía Personal</div>
+        <div class="panel-body">
+          <div class="mercancias-grid">
+            ${MERCANCIA.map(m=>`
+              <div class="mercanc-item">
+                <span class="mercanc-nombre">${m.p} ${m.n}</span>
+                <div class="mercanc-valor">
+                  <input type="number" class="mercanc-num" id="${jid}-merc-${m.n.replace(/\s/g,'_')}" min="0" value="0">
+                </div>
+              </div>`).join('')}
+          </div>
+        </div>
+      </div>
+
+      <!-- DIARIO -->
+      <div class="panel panel-full">
+        <div class="panel-header">📖 Diario del Pirata</div>
+        <div class="panel-body">
+          <textarea class="diario-textarea" id="${jid}-diario" placeholder="Anota aquí los eventos importantes de la campaña, decisiones, pactos, enemigos derrotados..."></textarea>
+        </div>
+      </div>
+
+    </div>`;
+  }
+
+  /* ═══════════════════════════════════════════════════════
+     HTML DEL BARCO
+  ═══════════════════════════════════════════════════════ */
+  function htmlBarco() {
+    const stats = [
+      {id:'velas',n:'Velas',max:true},{id:'bodega',n:'Bodega',max:true},
+      {id:'canones',n:'Cañones',max:true},{id:'velocidad',n:'Velocidad',max:false},
+      {id:'grupo',n:'Grupo Piratas',max:false},{id:'moral-barco',n:'Moral Tripulación',max:false},
+    ];
+    return `
+    <div style="max-width:900px;margin:0 auto;">
+      <div class="barco-grid" style="margin-bottom:14px;">
+        <!-- DATOS BARCO -->
+        <div class="panel">
+          <div class="panel-header">🚢 El Barco</div>
+          <div class="panel-body">
+            <div class="fg"><label>Nombre del Barco</label>
+              <input type="text" id="barco-nombre" placeholder="La Dama del Sur..." style="font-family:'Pirata One',cursive;font-size:1.1rem;"></div>
+            <div class="fg"><label>Tipo de Barco</label>
+              <select id="barco-tipo">
+                <option>Goleta</option><option>Bergantín</option><option>Fragata</option>
+              </select>
+            </div>
+            <div class="fg"><label>Campaña Actual</label>
+              <input type="text" id="barco-campana" placeholder="Sombras del Caribe..."></div>
+            <div class="fg"><label>Capítulo Actual</label>
+              <input type="text" id="barco-capitulo" placeholder="Cap. 1 - El secreto..."></div>
+          </div>
         </div>
 
-    </main>
+        <!-- ESTADÍSTICAS BARCO -->
+        <div class="panel">
+          <div class="panel-header">⚙ Estadísticas</div>
+          <div class="panel-body">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+              ${stats.map(s=>`
+                <div class="barco-stat">
+                  <div class="barco-stat-nombre">${s.n}</div>
+                  <div class="barco-stat-valor">
+                    <button class="btn-atrib" onclick="cambiarBarcoStat('${s.id}',-1)">−</button>
+                    <span class="barco-num" id="barco-stat-${s.id}">0</span>
+                    ${s.max?`<span class="barco-sep">/</span><span class="barco-max"><input type="number" id="barco-max-${s.id}" min="1" max="20" value="5" style="width:32px;background:transparent;border:none;border-bottom:1px solid #1a3a6a;color:#4a7ab0;font-size:0.78rem;text-align:center;padding:0;"></span>`:''}
+                    <button class="btn-atrib" onclick="cambiarBarcoStat('${s.id}',1)">+</button>
+                  </div>
+                </div>`).join('')}
+            </div>
+          </div>
+        </div>
 
-    <script src="js/auth.js"></script>
-    <script>
-        // --- Lógica del Formulario Expandido ---
+        <!-- DAÑOS BARCO -->
+        <div class="panel">
+          <div class="panel-header">💥 Daños del Barco</div>
+          <div class="panel-body">
+            <label style="margin-bottom:6px;text-align:center;display:block;">Casco (clic para marcar daño)</label>
+            <div class="daños-barco" id="barco-daños-track">
+              ${Array(10).fill(0).map((_,i)=>`
+                <div class="daño-pip" id="barco-daño-${i}" onclick="toggleDaño(${i})">${10-i}</div>`).join('')}
+            </div>
+            <button class="btn-add" onclick="resetDaños()" style="margin-top:8px;">↺ Reparar Barco</button>
+          </div>
+        </div>
+      </div>
 
-        document.getElementById('pj-form').addEventListener('submit', (e) => {
-            e.preventDefault();
+      <div class="barco-grid">
+        <!-- MEJORAS -->
+        <div class="panel">
+          <div class="panel-header">🔧 Mejoras del Barco</div>
+          <div class="panel-body">
+            <div class="mejoras-grid">
+              ${MEJORAS_BARCO.map(m=>`
+                <div class="mejora-item" id="mejora-${m.replace(/\s/g,'_')}" onclick="toggleMejora('${m.replace(/\s/g,'_')}')">
+                  <div class="mejora-pip"></div>
+                  <span>${m}</span>
+                </div>`).join('')}
+            </div>
+            <div class="fg" style="margin-top:10px;">
+              <label>Otras mejoras</label>
+              <input type="text" id="barco-mejoras-extra" placeholder="Mejoras adicionales...">
+            </div>
+          </div>
+        </div>
 
-            // Recoger todos los datos
-            const pj = {
-                id: document.getElementById('pj-id').value || null,
-                name: document.getElementById('pj-name').value,
-                class: document.getElementById('pj-class').value,
-                player: document.getElementById('pj-player').value,
-                isCaptain: document.getElementById('pj-captain').checked,
+        <!-- MERCANCÍA BARCO -->
+        <div class="panel">
+          <div class="panel-header">📦 Bodega del Barco</div>
+          <div class="panel-body">
+            <div class="mercancias-grid">
+              ${MERCANCIA.map(m=>`
+                <div class="mercanc-item">
+                  <span class="mercanc-nombre">${m.p} ${m.n}</span>
+                  <input type="number" class="mercanc-num" id="barco-merc-${m.n.replace(/\s/g,'_')}" min="0" value="0">
+                </div>`).join('')}
+            </div>
+          </div>
+        </div>
 
-                stats: {
-                    melee: document.getElementById('stats-melee').value,
-                    ranged: document.getElementById('stats-ranged').value,
-                    actions: document.getElementById('stats-actions').value,
-                    charisma: document.getElementById('stats-charisma').value,
-                    strength: document.getElementById('stats-strength').value,
-                    dexterity: document.getElementById('stats-dexterity').value,
-                    intelligence: document.getElementById('stats-intelligence').value,
-                    perception: document.getElementById('stats-perception').value
-                },
+        <!-- NOTAS BARCO -->
+        <div class="panel">
+          <div class="panel-header">📝 Bitácora del Capitán</div>
+          <div class="panel-body">
+            <textarea class="diario-textarea" id="barco-bitacora" placeholder="Eventos de travesía, combates navales, rutas, tesoros encontrados..."></textarea>
+            <div class="fg" style="margin-top:10px;">
+              <label>Rumores & Encargos activos</label>
+              <textarea id="barco-rumores" style="min-height:60px;" class="diario-textarea" placeholder="Encargos del capitán pendientes..."></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }
 
-                wounds: {
-                    leye: document.getElementById('wound-leye').checked,
-                    reye: document.getElementById('wound-reye').checked,
-                    lhand: document.getElementById('wound-lhand').checked,
-                    rhand: document.getElementById('wound-rhand').checked,
-                    lleg: document.getElementById('wound-lleg').checked,
-                    rleg: document.getElementById('wound-rleg').checked
-                },
+  /* ═══════════════════════════════════════════════════════
+     INICIALIZACIÓN
+  ═══════════════════════════════════════════════════════ */
+  ['j1','j2','j3','j4'].forEach(jid => {
+    document.getElementById('tab-content-' + jid).innerHTML = htmlPersonaje(jid);
+    addEquipo(jid); // una fila inicial
+  });
+  document.getElementById('tab-content-barco').innerHTML = htmlBarco();
+  cargarTodo();
 
-                gold: document.getElementById('pj-gold').value,
-                status: document.getElementById('pj-wounds').value,
-                equipment: document.getElementById('pj-equipment').value,
-                strategy: document.getElementById('pj-strategy').value,
-                rumors: document.getElementById('pj-rumors').value,
+  /* ═══════════════════════════════════════════════════════
+     TABS
+  ═══════════════════════════════════════════════════════ */
+  function cambiarTab(id, el) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('activo'));
+    document.querySelectorAll('.tab-jugador').forEach(t => t.classList.remove('activo'));
+    document.getElementById('tab-content-' + id).classList.add('activo');
+    el.classList.add('activo');
+  }
 
-                allies: [
-                    document.getElementById('ally-1').value,
-                    document.getElementById('ally-2').value,
-                    document.getElementById('ally-3').value,
-                    document.getElementById('ally-4').value
-                ]
-            };
+  /* ═══════════════════════════════════════════════════════
+     CAPITÁN TOGGLE
+  ═══════════════════════════════════════════════════════ */
+  function toggleCapitan(jid) {
+    const tog = document.getElementById(jid + '-capitan-toggle');
+    const lbl = document.getElementById(jid + '-capitan-label');
+    const pip = document.getElementById(jid + '-capitan-pip');
+    const esC = tog.classList.toggle('es-capitan');
+    lbl.textContent = '¿Capitán? ' + (esC ? 'SÍ ⚓' : 'NO');
+    // Actualizar nombre en tab
+    const nombre = document.getElementById(jid + '-nombre').value || 'Jugador ' + jid[1];
+    document.getElementById('tab-' + jid).textContent = (esC ? '👑 ' : '⚓ ') + nombre;
+  }
 
-            Auth.savePj(pj);
+  /* ═══════════════════════════════════════════════════════
+     ATRIBUTOS
+  ═══════════════════════════════════════════════════════ */
+  function cambiarAtrib(jid, atrib, delta) {
+    const el = document.getElementById(jid + '-atrib-' + atrib);
+    const v = Math.max(1, Math.min(6, parseInt(el.textContent) + delta));
+    el.textContent = v;
+  }
 
-            // Reset id to avoid overwriting next time unless edit clicked
-            document.getElementById('pj-id').value = '';
-            document.getElementById('pj-form').reset();
+  /* ═══════════════════════════════════════════════════════
+     VIDA / PA
+  ═══════════════════════════════════════════════════════ */
+  function toggleVida(jid, i) {
+    document.getElementById(jid + '-vp-' + i).classList.toggle('lleno');
+  }
+  function togglePA(jid, i) {
+    document.getElementById(jid + '-pa-' + i).classList.toggle('lleno');
+  }
+  function cambiarMaxVida(jid, delta) {
+    const el = document.getElementById(jid + '-maxvida');
+    const track = document.getElementById(jid + '-vida-track');
+    let v = Math.max(1, Math.min(20, parseInt(el.textContent) + delta));
+    el.textContent = v;
+    track.innerHTML = Array(v).fill(0).map((_,i) =>
+      `<div class="vida-pip" id="${jid}-vp-${i}" onclick="toggleVida('${jid}',${i})"></div>`).join('');
+  }
 
-            renderPjs();
-            alert('Pirata guardado con éxito.');
-        });
+  /* ═══════════════════════════════════════════════════════
+     HERIDAS / ESTADOS / LOGROS
+  ═══════════════════════════════════════════════════════ */
+  function toggleHerida(jid, hid) {
+    document.getElementById(jid + '-h-' + hid).classList.toggle('marcada');
+  }
+  function toggleEstado(jid, eid) {
+    document.getElementById(jid + '-e-' + eid).classList.toggle('activo');
+  }
+  function toggleLogro(jid, lid) {
+    document.getElementById(jid + '-logro-' + lid).classList.toggle('conseguido');
+  }
 
-        function renderPjs() {
-            const pjs = Auth.getPjs();
-            const container = document.getElementById('pj-list');
-            container.innerHTML = '';
+  /* ═══════════════════════════════════════════════════════
+     HABILIDADES (actualizar al cambiar clase)
+  ═══════════════════════════════════════════════════════ */
+  function actualizarHabilidades(jid) {
+    const clase = document.getElementById(jid + '-clase').value;
+    const container = document.getElementById(jid + '-habilidades-container');
+    if (!clase || !HABILIDADES[clase]) {
+      container.innerHTML = '<p style="opacity:0.5;font-style:italic;font-size:0.9rem;">Selecciona una clase para ver las habilidades.</p>';
+      return;
+    }
+    const habs = HABILIDADES[clase];
+    container.innerHTML = `
+      <div style="margin-bottom:6px;font-size:0.78rem;color:var(--texto-dim);">
+        ⚓ = Habilidad de Travesía &nbsp;·&nbsp; Clic para marcar como aprendida
+      </div>
+      <div class="habilidades-cols">
+        ${habs.map(h => `
+          <div class="habil-item" id="${jid}-hab-${h.n.replace(/\s/g,'_')}" onclick="toggleHabil('${jid}','${h.n.replace(/\s/g,'_')}')">
+            <div class="habil-check">✓</div>
+            <span>${h.n}</span>
+            ${h.t ? '<span class="habil-travesia">⚓</span>' : ''}
+          </div>`).join('')}
+      </div>`;
+    // Restaurar estado guardado
+    const saved = cargarClave(jid + '-habs-' + clase);
+    if (saved) {
+      saved.forEach(hid => {
+        const el = document.getElementById(jid + '-hab-' + hid);
+        if (el) el.classList.add('aprendida');
+      });
+    }
+  }
+  function toggleHabil(jid, hid) {
+    const el = document.getElementById(jid + '-hab-' + hid);
+    if (!el) return;
+    el.classList.toggle('aprendida');
+    // Guardar estado de habilidades de esta clase
+    const clase = document.getElementById(jid + '-clase').value;
+    const aprendidas = [...document.querySelectorAll(`#${jid}-habilidades-container .habil-item.aprendida`)]
+      .map(e => e.id.replace(jid + '-hab-', ''));
+    guardarClave(jid + '-habs-' + clase, aprendidas);
+  }
 
-            if (pjs.length === 0) {
-                container.innerHTML = '<p>No tienes personajes registrados.</p>';
-                return;
-            }
+  /* ═══════════════════════════════════════════════════════
+     EQUIPO
+  ═══════════════════════════════════════════════════════ */
+  function addEquipo(jid, valor) {
+    const lista = document.getElementById(jid + '-equipo-lista');
+    const idx = lista.children.length;
+    const div = document.createElement('div');
+    div.className = 'equipo-item';
+    div.innerHTML = `<input type="text" id="${jid}-eq-${idx}" placeholder="Objeto..." value="${valor||''}">
+      <button class="btn-del" onclick="this.parentElement.remove()">✕</button>`;
+    lista.appendChild(div);
+  }
 
-            pjs.forEach(pj => {
-                const div = document.createElement('div');
-                div.className = 'list-item';
-                div.innerHTML = `
-                <div>
-                    <strong style="font-size:1.1rem; color:#8b0000;">${pj.name}</strong> (${pj.class})<br>
-                    <span>Jugador: ${pj.player || '-'} | Oro: ${pj.gold || 0}</span>
-                </div>
-                <div>
-                     <button class="btn-action" onclick="loadPjIntoForm('${pj.id}')" style="background-color: #555;">Editar</button>
-                    <button class="btn-action" onclick="deletePj('${pj.id}')" style="background-color: #333;">Borrar</button>
-                </div>
-            `;
-                container.appendChild(div);
-            });
-        }
+  /* ═══════════════════════════════════════════════════════
+     BARCO
+  ═══════════════════════════════════════════════════════ */
+  function cambiarBarcoStat(id, delta) {
+    const el = document.getElementById('barco-stat-' + id);
+    const maxEl = document.getElementById('barco-max-' + id);
+    const max = maxEl ? parseInt(maxEl.value) : 99;
+    el.textContent = Math.max(0, Math.min(max, parseInt(el.textContent) + delta));
+  }
+  function toggleDaño(i) {
+    document.getElementById('barco-daño-' + i).classList.toggle('dañado');
+  }
+  function resetDaños() {
+    if (!confirm('¿Reparar el barco? Se eliminan todos los daños.')) return;
+    document.querySelectorAll('.daño-pip').forEach(p => p.classList.remove('dañado'));
+  }
+  function toggleMejora(mid) {
+    document.getElementById('mejora-' + mid).classList.toggle('instalada');
+  }
 
-        function loadPjIntoForm(id) {
-            const pjs = Auth.getPjs();
-            const pj = pjs.find(p => p.id === id);
-            if (!pj) return;
+  /* ═══════════════════════════════════════════════════════
+     PERSISTENCIA (localStorage)
+  ═══════════════════════════════════════════════════════ */
+  const PREFIX = 'skullTales_perfil_';
+  function guardarClave(k, v) { localStorage.setItem(PREFIX + k, JSON.stringify(v)); }
+  function cargarClave(k) { try { return JSON.parse(localStorage.getItem(PREFIX + k)); } catch(e) { return null; } }
 
-            document.getElementById('pj-id').value = pj.id;
-            document.getElementById('pj-name').value = pj.name;
-            document.getElementById('pj-class').value = pj.class;
-            document.getElementById('pj-player').value = pj.player || '';
-            document.getElementById('pj-captain').checked = pj.isCaptain || false;
+  function recogerDatosJugador(jid) {
+    const d = {};
+    // Campos de texto
+    ['nombre','jugador','personaje','clase','historia','aliado','rumor','estrategia','diario'].forEach(f => {
+      const el = document.getElementById(jid + '-' + f);
+      if (el) d[f] = el.value;
+    });
+    // Capitán
+    d.capitan = document.getElementById(jid + '-capitan-toggle').classList.contains('es-capitan');
+    // Atributos
+    d.atributos = {};
+    ['Fuerza','Agilidad','Inteligencia','Percepción','Carisma'].forEach(a => {
+      const el = document.getElementById(jid + '-atrib-' + a);
+      if (el) d.atributos[a] = parseInt(el.textContent);
+    });
+    // Max vida
+    d.maxVida = parseInt(document.getElementById(jid + '-maxvida').textContent);
+    // Vida
+    d.vida = [];
+    document.querySelectorAll(`#${jid}-vida-track .vida-pip`).forEach(p => d.vida.push(p.classList.contains('lleno')));
+    // PA
+    d.pa = [];
+    document.querySelectorAll(`#${jid}-pa-track .pa-pip`).forEach(p => d.pa.push(p.classList.contains('lleno')));
+    // Números
+    ['destino','moral','fama','botin-trip','botin-esc'].forEach(f => {
+      const el = document.getElementById(jid + '-' + f);
+      if (el) d[f.replace('-','_')] = el.value;
+    });
+    // Heridas
+    d.heridas = {};
+    ['ojo-izq','ojo-der','mano-izq','mano-der','pierna-izq','pierna-der'].forEach(h => {
+      const el = document.getElementById(jid + '-h-' + h);
+      if (el) d.heridas[h] = el.classList.contains('marcada');
+    });
+    // Estados
+    d.estados = {};
+    ['maldito','deudor','bendecido','inspirado'].forEach(e => {
+      const el = document.getElementById(jid + '-e-' + e);
+      if (el) d.estados[e] = el.classList.contains('activo');
+    });
+    // Logros
+    d.logros = {};
+    ['Valentía','Fama','Lujo','Liderazgo','Pirata_Legendario'].forEach(l => {
+      const el = document.getElementById(jid + '-logro-' + l);
+      if (el) d.logros[l] = el.classList.contains('conseguido');
+    });
+    // Mercancía
+    d.mercancias = {};
+    MERCANCIA.forEach(m => {
+      const el = document.getElementById(jid + '-merc-' + m.n.replace(/\s/g,'_'));
+      if (el) d.mercancias[m.n] = el.value;
+    });
+    // Equipo
+    d.equipo = [];
+    document.querySelectorAll(`#${jid}-equipo-lista input`).forEach(i => { if(i.value) d.equipo.push(i.value); });
+    return d;
+  }
 
-            if (pj.stats) {
-                document.getElementById('stats-melee').value = pj.stats.melee;
-                document.getElementById('stats-ranged').value = pj.stats.ranged;
-                document.getElementById('stats-actions').value = pj.stats.actions;
-                document.getElementById('stats-charisma').value = pj.stats.charisma;
-                document.getElementById('stats-strength').value = pj.stats.strength;
-                document.getElementById('stats-dexterity').value = pj.stats.dexterity;
-                document.getElementById('stats-intelligence').value = pj.stats.intelligence;
-                document.getElementById('stats-perception').value = pj.stats.perception;
-            }
+  function aplicarDatosJugador(jid, d) {
+    if (!d) return;
+    ['nombre','jugador','personaje','clase','historia','aliado','rumor','estrategia','diario'].forEach(f => {
+      const el = document.getElementById(jid + '-' + f);
+      if (el && d[f] !== undefined) el.value = d[f];
+    });
+    if (d.clase) actualizarHabilidades(jid);
+    if (d.capitan) {
+      document.getElementById(jid + '-capitan-toggle').classList.add('es-capitan');
+      document.getElementById(jid + '-capitan-label').textContent = '¿Capitán? SÍ ⚓';
+      const nombre = d.nombre || 'Jugador ' + jid[1];
+      document.getElementById('tab-' + jid).textContent = '👑 ' + nombre;
+    }
+    if (d.atributos) {
+      Object.entries(d.atributos).forEach(([a,v]) => {
+        const el = document.getElementById(jid + '-atrib-' + a);
+        if (el) el.textContent = v;
+      });
+    }
+    if (d.maxVida) cambiarMaxVida(jid, d.maxVida - 10);
+    if (d.vida) {
+      d.vida.forEach((lleno, i) => {
+        const el = document.getElementById(jid + '-vp-' + i);
+        if (el && lleno) el.classList.add('lleno');
+      });
+    }
+    if (d.pa) {
+      d.pa.forEach((lleno, i) => {
+        const el = document.getElementById(jid + '-pa-' + i);
+        if (el && lleno) el.classList.add('lleno');
+      });
+    }
+    ['destino','moral','fama','botin-trip','botin-esc'].forEach(f => {
+      const el = document.getElementById(jid + '-' + f);
+      const key = f.replace('-','_');
+      if (el && d[key] !== undefined) el.value = d[key];
+    });
+    if (d.heridas) {
+      Object.entries(d.heridas).forEach(([h,v]) => {
+        const el = document.getElementById(jid + '-h-' + h);
+        if (el && v) el.classList.add('marcada');
+      });
+    }
+    if (d.estados) {
+      Object.entries(d.estados).forEach(([e,v]) => {
+        const el = document.getElementById(jid + '-e-' + e);
+        if (el && v) el.classList.add('activo');
+      });
+    }
+    if (d.logros) {
+      Object.entries(d.logros).forEach(([l,v]) => {
+        const el = document.getElementById(jid + '-logro-' + l);
+        if (el && v) el.classList.add('conseguido');
+      });
+    }
+    if (d.mercancias) {
+      Object.entries(d.mercancias).forEach(([m,v]) => {
+        const el = document.getElementById(jid + '-merc-' + m.replace(/\s/g,'_'));
+        if (el) el.value = v;
+      });
+    }
+    if (d.equipo && d.equipo.length) {
+      document.getElementById(jid + '-equipo-lista').innerHTML = '';
+      d.equipo.forEach(obj => addEquipo(jid, obj));
+    }
+    // Actualizar nombre en tab
+    if (d.nombre) {
+      const tab = document.getElementById('tab-' + jid);
+      const prefix = d.capitan ? '👑 ' : '⚓ ';
+      tab.textContent = prefix + d.nombre;
+    }
+  }
 
-            if (pj.wounds) {
-                document.getElementById('wound-leye').checked = pj.wounds.leye;
-                document.getElementById('wound-reye').checked = pj.wounds.reye;
-                document.getElementById('wound-lhand').checked = pj.wounds.lhand;
-                document.getElementById('wound-rhand').checked = pj.wounds.rhand;
-                document.getElementById('wound-lleg').checked = pj.wounds.lleg;
-                document.getElementById('wound-rleg').checked = pj.wounds.rleg;
-            }
+  function recogerDatosBarco() {
+    const d = {};
+    ['nombre','tipo','campana','capitulo','bitacora','rumores','mejoras-extra'].forEach(f => {
+      const el = document.getElementById('barco-' + f);
+      if (el) d[f] = el.value;
+    });
+    d.stats = {};
+    ['velas','bodega','canones','velocidad','grupo','moral-barco'].forEach(s => {
+      const el = document.getElementById('barco-stat-' + s);
+      const mx = document.getElementById('barco-max-' + s);
+      if (el) d.stats[s] = { v: parseInt(el.textContent), max: mx ? mx.value : null };
+    });
+    d.daños = [];
+    document.querySelectorAll('.daño-pip').forEach(p => d.daños.push(p.classList.contains('dañado')));
+    d.mejoras = {};
+    MEJORAS_BARCO.forEach(m => {
+      const el = document.getElementById('mejora-' + m.replace(/\s/g,'_'));
+      if (el) d.mejoras[m] = el.classList.contains('instalada');
+    });
+    d.mercancias = {};
+    MERCANCIA.forEach(m => {
+      const el = document.getElementById('barco-merc-' + m.n.replace(/\s/g,'_'));
+      if (el) d.mercancias[m.n] = el.value;
+    });
+    return d;
+  }
 
-            document.getElementById('pj-gold').value = pj.gold || 0;
-            document.getElementById('pj-wounds').value = pj.status || '';
-            document.getElementById('pj-equipment').value = pj.equipment || '';
-            document.getElementById('pj-strategy').value = pj.strategy || '';
-            document.getElementById('pj-rumors').value = pj.rumors || '';
+  function aplicarDatosBarco(d) {
+    if (!d) return;
+    ['nombre','tipo','campana','capitulo','bitacora','rumores','mejoras-extra'].forEach(f => {
+      const el = document.getElementById('barco-' + f);
+      if (el && d[f] !== undefined) el.value = d[f];
+    });
+    if (d.stats) {
+      Object.entries(d.stats).forEach(([s, sv]) => {
+        const el = document.getElementById('barco-stat-' + s);
+        const mx = document.getElementById('barco-max-' + s);
+        if (el) el.textContent = sv.v;
+        if (mx && sv.max) mx.value = sv.max;
+      });
+    }
+    if (d.daños) {
+      d.daños.forEach((dañado, i) => {
+        const el = document.getElementById('barco-daño-' + i);
+        if (el && dañado) el.classList.add('dañado');
+      });
+    }
+    if (d.mejoras) {
+      Object.entries(d.mejoras).forEach(([m,v]) => {
+        const el = document.getElementById('mejora-' + m.replace(/\s/g,'_'));
+        if (el && v) el.classList.add('instalada');
+      });
+    }
+    if (d.mercancias) {
+      Object.entries(d.mercancias).forEach(([m,v]) => {
+        const el = document.getElementById('barco-merc-' + m.replace(/\s/g,'_'));
+        if (el) el.value = v;
+      });
+    }
+  }
 
-            if (pj.allies) {
-                document.getElementById('ally-1').value = pj.allies[0] || '';
-                document.getElementById('ally-2').value = pj.allies[1] || '';
-                document.getElementById('ally-3').value = pj.allies[2] || '';
-                document.getElementById('ally-4').value = pj.allies[3] || '';
-            }
+  function guardarTodo() {
+    ['j1','j2','j3','j4'].forEach(jid => guardarClave(jid, recogerDatosJugador(jid)));
+    guardarClave('barco', recogerDatosBarco());
+    mostrarToast('⚓ Guardado con éxito');
+  }
 
-            window.scrollTo(0, document.getElementById('pj-form').offsetTop);
-        }
+  function cargarTodo() {
+    ['j1','j2','j3','j4'].forEach(jid => aplicarDatosJugador(jid, cargarClave(jid)));
+    aplicarDatosBarco(cargarClave('barco'));
+  }
 
-        function deletePj(id) {
-            if (confirm('¿Seguro que quieres borrar a este pirata?')) {
-                Auth.deletePj(id);
-                renderPjs();
-            }
-        }
+  function borrarTodo() {
+    if (!confirm('¿Borrar TODOS los datos del Cuaderno de Bitácora? Esta acción no se puede deshacer.')) return;
+    Object.keys(localStorage).filter(k => k.startsWith(PREFIX)).forEach(k => localStorage.removeItem(k));
+    location.reload();
+  }
 
-        // --- Funciones Exportar/Importar ---
-        function descargarCopia() {
-            const data = Auth.exportData();
-            const blob = new Blob([data], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `skull-tales-backup-${new Date().toISOString().slice(0, 10)}.json`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-        }
+  function exportarJSON() {
+    guardarTodo();
+    const data = {};
+    ['j1','j2','j3','j4'].forEach(jid => data[jid] = cargarClave(jid));
+    data.barco = cargarClave('barco');
+    const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'skull-tales-bitacora.json';
+    a.click();
+    mostrarToast('📤 Exportado');
+  }
 
-        function importarCopia(input) {
-            const file = input.files[0];
-            if (!file) return;
+  function importarJSON() {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.json';
+    input.onchange = e => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = ev => {
+        try {
+          const data = JSON.parse(ev.target.result);
+          ['j1','j2','j3','j4'].forEach(jid => { if(data[jid]) guardarClave(jid, data[jid]); });
+          if (data.barco) guardarClave('barco', data.barco);
+          cargarTodo();
+          mostrarToast('📥 Importado');
+        } catch(e) { alert('Error al leer el archivo.'); }
+      };
+      reader.readAsText(file);
+    };
+    input.click();
+  }
 
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                const content = e.target.result;
-                if (Auth.importData(content)) {
-                    alert('¡Datos importados correctamente! La página se recargará.');
-                    location.reload();
-                } else {
-                    alert('Error al importar el archivo. Asegúrate de que es un JSON válido de Skull Tales.');
-                }
-            };
-            reader.readAsText(file);
-        }
+  function mostrarToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('visible');
+    setTimeout(() => t.classList.remove('visible'), 2200);
+  }
 
-        // Init
-        renderPjs();
-    </script>
+  // Guardado automático cada 60 segundos
+  setInterval(guardarTodo, 60000);
+
+  // Modo oscuro heredado
+  (function() {
+    const saved = localStorage.getItem('skullTales_modoOscuro');
+    if (saved === '0') document.body.classList.add('modo-claro');
+    else document.body.classList.add('modo-oscuro');
+  })();
+  </script>
+
 </body>
-
 </html>
