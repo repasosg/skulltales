@@ -1,527 +1,622 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
   <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Skull Tales · A Toda Vela</title>
   <link href="css/estilos.css?v=2.1" rel="stylesheet" />
   <link href="css2?family=Pirata+One&display=swap" rel="stylesheet" />
   <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ══════════════════════ BASE ══════════════════════ */
     body {
-      margin: 0;
-      padding: 2rem;
-      display: flex;
-      justify-content: center;
       min-height: 100vh;
-      transition: background-color 0.3s, color 0.3s;
-    }
-
-    main {
-      width: 100%;
-      max-width: 820px;
-      padding: 2rem 2.5rem 2.5rem;
-      border-radius: 12px;
-      position: relative;
-    }
-
-    /* --- Modo oscuro (por defecto) --- */
-    body {
-      background-color: #110d07;
-      color: #e8d8b0;
-    }
-    main {
-      background-color: #1e1610;
-      background-image:
-        linear-gradient(to bottom, #221a10, #1a1208),
-        repeating-linear-gradient(0deg, transparent, transparent 28px,
-          rgba(100,70,20,0.07) 28px, rgba(100,70,20,0.07) 29px);
-      box-shadow: 0 0 50px rgba(0,0,0,0.8);
-    }
-
-    /* --- Modo claro (opt-in) --- */
-    body.modo-claro { background-color: #e8dcc0; color: #2e1a0a; }
-    body.modo-claro main {
-      background-color: #fdf3dc;
-      background-image:
-        linear-gradient(to bottom, #fdf3dc, #f5e8c4),
-        repeating-linear-gradient(0deg, transparent, transparent 28px,
-          rgba(180,140,80,0.05) 28px, rgba(180,140,80,0.05) 29px);
-      box-shadow: 0 0 40px rgba(30,12,0,0.45);
-    }
-
-    /* --- Calaveras decorativas en esquinas --- */
-    main::before, main::after {
-      content: "☠";
-      position: absolute;
-      font-size: 1.4rem;
-      opacity: 0.15;
-      pointer-events: none;
-      color: #c9a84c;
-    }
-    main::before { top: 14px; left: 18px; }
-    main::after  { top: 14px; right: 18px; }
-
-    /* --- Título --- */
-    .titulo-principal {
-      text-align: center;
-      margin: 0.3em 0 0.1em;
-      font-size: 2.6rem;
-      letter-spacing: 0.04em;
-      color: #c9a84c;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.7);
-    }
-    body.modo-claro .titulo-principal {
-      color: #5c3d1a;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
-    }
-
-    .subtitulo {
-      text-align: center;
-      font-size: 0.88rem;
-      font-style: italic;
-      margin-bottom: 0.8rem;
-      opacity: 0.55;
-    }
-
-    /* --- Frase pirata rotativa --- */
-    .frase-pirata {
-      text-align: center;
-      font-family: 'Pirata One', cursive;
-      font-size: 0.98rem;
-      color: #a07828;
-      min-height: 1.5em;
-      margin-bottom: 1.5rem;
-      letter-spacing: 0.02em;
-      transition: opacity 0.5s;
-      font-style: italic;
-    }
-    body.modo-claro .frase-pirata { color: #7a5020; }
-
-    /* --- Banner "Continuar partida" --- */
-    .continuar-wrap {
-      margin-bottom: 1.2rem;
-      padding: 13px 16px;
-      background: linear-gradient(135deg, #0f2a14, #081a0c);
-      border: 2px solid #306830;
-      border-radius: 10px;
+      font-family: 'Georgia', serif;
+      background-color: #0d0904;
+      color: #e0cfa8;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      box-shadow: 0 3px 12px rgba(0,0,0,0.5);
-      animation: pulseVerde 3.5s ease-in-out infinite;
+      padding: 0 0 40px;
+      transition: background-color 0.3s;
+    }
+    body.modo-claro {
+      background-color: #ddd0a8;
+      color: #2e1a0a;
+    }
+
+    /* ══════════════════════ HERO HEADER ══════════════════════ */
+    .hero {
+      width: 100%;
+      background:
+        linear-gradient(to bottom, rgba(10,6,2,0.92) 0%, rgba(20,12,4,0.85) 100%),
+        repeating-linear-gradient(
+          -45deg,
+          transparent 0px, transparent 18px,
+          rgba(180,130,40,0.04) 18px, rgba(180,130,40,0.04) 19px
+        );
+      border-bottom: 3px solid #7a5818;
+      padding: 28px 24px 22px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    body.modo-claro .hero {
+      background: linear-gradient(to bottom, #c8a840 0%, #b08820 100%);
+      border-bottom-color: #7a5010;
+    }
+
+    /* Decoración de olas en el hero */
+    .hero::after {
+      content: "〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰";
+      position: absolute;
+      bottom: -2px;
+      left: 0; right: 0;
+      font-size: 1.4rem;
+      color: #7a5818;
+      opacity: 0.4;
+      overflow: hidden;
+      height: 1.6rem;
+      letter-spacing: -4px;
+    }
+
+    .hero-skull {
+      font-size: 2.8rem;
+      line-height: 1;
+      margin-bottom: 4px;
+      filter: drop-shadow(0 0 12px rgba(200,160,40,0.4));
+    }
+
+    .hero-titulo {
+      font-family: 'Pirata One', cursive;
+      font-size: 3rem;
+      color: #c9a84c;
+      letter-spacing: 0.06em;
+      text-shadow: 0 0 20px rgba(200,160,40,0.3), 0 3px 8px rgba(0,0,0,0.8);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    body.modo-claro .hero-titulo { color: #2e1600; text-shadow: 0 1px 3px rgba(0,0,0,0.3); }
+
+    .hero-sub {
+      font-size: 0.82rem;
+      opacity: 0.5;
+      font-style: italic;
+      margin-bottom: 10px;
+    }
+
+    .frase-pirata {
+      font-family: 'Pirata One', cursive;
+      font-size: 0.92rem;
+      color: #9a7828;
+      font-style: italic;
+      min-height: 1.3em;
+      transition: opacity 0.5s;
+    }
+    body.modo-claro .frase-pirata { color: #5a3800; }
+
+    /* ══════════════════════ CONTENEDOR CENTRAL ══════════════════════ */
+    .centro {
+      width: 100%;
+      max-width: 860px;
+      padding: 20px 16px;
+    }
+
+    /* ══════════════════════ BANNER CONTINUAR ══════════════════════ */
+    .continuar-wrap {
+      display: none;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 18px;
+      background: linear-gradient(135deg, #0a2010 0%, #061408 100%);
+      border: 2px solid #2a6828;
+      border-left: 5px solid #40b050;
+      border-radius: 10px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.5), 0 0 0 1px rgba(60,160,80,0.1);
+      animation: pulsoVerde 3s ease-in-out infinite;
     }
     body.modo-claro .continuar-wrap {
-      background: linear-gradient(135deg, #d8f0d0, #bce0a8);
-      border-color: #508838;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+      background: linear-gradient(135deg, #c8ecc0 0%, #aad898 100%);
+      border-color: #40a030;
+      border-left-color: #288020;
       animation: none;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.15);
     }
-    @keyframes pulseVerde {
-      0%,100% { border-color: #306830; }
-      50%      { border-color: #50a850; box-shadow: 0 3px 18px rgba(50,160,70,0.3); }
+    @keyframes pulsoVerde {
+      0%,100% { box-shadow: 0 4px 16px rgba(0,0,0,0.5); }
+      50%      { box-shadow: 0 4px 24px rgba(50,150,70,0.25), 0 0 0 1px rgba(60,160,80,0.15); }
     }
-
-    .continuar-etiqueta {
-      font-size: 0.78rem;
-      color: #60a860;
+    .continuar-icono { font-size: 1.6rem; flex-shrink: 0; }
+    .continuar-info { flex: 1; min-width: 0; }
+    .continuar-label {
+      font-size: 0.72rem;
+      color: #50a060;
       text-transform: uppercase;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.08em;
       margin-bottom: 2px;
     }
-    body.modo-claro .continuar-etiqueta { color: #386020; }
-
+    body.modo-claro .continuar-label { color: #1a5010; }
     .continuar-nombre {
       font-family: 'Pirata One', cursive;
-      font-size: 1.1rem;
-      color: #98e888;
-    }
-    body.modo-claro .continuar-nombre { color: #1a4010; }
-
-    .btn-continuar {
+      font-size: 1.05rem;
+      color: #80e070;
       white-space: nowrap;
-      padding: 9px 18px;
-      background: linear-gradient(to bottom, #388848, #206828);
-      border: 2px solid #50a850;
-      border-radius: 8px;
-      color: #d8ffe8;
-      font-weight: bold;
-      font-size: 0.92rem;
-      text-decoration: none;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    body.modo-claro .continuar-nombre { color: #0a3008; }
+    .btn-seguir {
       flex-shrink: 0;
-      transition: background 0.2s, transform 0.12s;
-    }
-    .btn-continuar:hover {
-      background: linear-gradient(to bottom, #48a858, #287838);
-      transform: translateY(-1px);
+      padding: 9px 20px;
+      background: linear-gradient(to bottom, #30a040, #186828);
+      border: 2px solid #48c860;
+      border-radius: 8px;
+      color: #d0ffd8;
+      font-weight: bold;
+      font-size: 0.9rem;
       text-decoration: none;
-      color: #eafff0;
+      white-space: nowrap;
+      transition: transform 0.12s, background 0.2s;
+    }
+    .btn-seguir:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(to bottom, #40b850, #207838);
+      text-decoration: none;
+      color: #eaffe8;
     }
 
-    /* --- Botón perfil --- */
-    .perfil-btn-wrap {
-      text-align: center;
-      margin-bottom: 1.4rem;
+    /* ══════════════════════ BITÁCORA (Hero secundario) ══════════════════════ */
+    .bitacora-card {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 18px 22px;
+      background: linear-gradient(135deg, #241808 0%, #180e04 100%);
+      border: 2px solid #c9a84c;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,215,80,0.08);
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.15s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    body.modo-claro .bitacora-card {
+      background: linear-gradient(135deg, #f0d888 0%, #d8b840 100%);
+      border-color: #9a7010;
+      box-shadow: 0 5px 16px rgba(0,0,0,0.2);
+    }
+    .bitacora-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: repeating-linear-gradient(
+        0deg, transparent, transparent 22px,
+        rgba(200,160,40,0.03) 22px, rgba(200,160,40,0.03) 23px
+      );
+      pointer-events: none;
+    }
+    .bitacora-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,215,80,0.12);
+      text-decoration: none;
+      color: inherit;
+    }
+    .bitacora-emoji {
+      font-size: 2.8rem;
+      flex-shrink: 0;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+    }
+    .bitacora-texto { flex: 1; }
+    .bitacora-titulo {
+      font-family: 'Pirata One', cursive;
+      font-size: 1.5rem;
+      color: #f0d070;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+      margin-bottom: 3px;
+    }
+    body.modo-claro .bitacora-titulo { color: #2e1600; text-shadow: none; }
+    .bitacora-desc {
+      font-size: 0.82rem;
+      opacity: 0.65;
+      font-style: italic;
+    }
+    .bitacora-arrow {
+      font-size: 1.8rem;
+      color: #c9a84c;
+      opacity: 0.7;
+      flex-shrink: 0;
+      transition: transform 0.2s;
+    }
+    body.modo-claro .bitacora-arrow { color: #5a3800; }
+    .bitacora-card:hover .bitacora-arrow { transform: translateX(5px); opacity: 1; }
+
+    /* ══════════════════════ SECCIÓN CAMPAÑAS ══════════════════════ */
+    .seccion-titulo {
+      font-family: 'Pirata One', cursive;
+      font-size: 0.78rem;
+      color: #6a5020;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    body.modo-claro .seccion-titulo { color: #5a3808; }
+    .seccion-titulo::before,
+    .seccion-titulo::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, #5a4010, transparent);
     }
 
-    /* --- Grid de campañas --- */
+    /* ══════════════════════ CAMPAÑAS ══════════════════════ */
     .campanas-grid {
       display: flex;
       flex-direction: column;
       gap: 8px;
+      margin-bottom: 16px;
     }
 
+    /* Colores de acento por campaña */
+    .campana-card { --acento: #c9a84c; --acento-dim: #5a4010; }
+    #card-core    { --acento: #4a9ad0; --acento-dim: #1a3a60; }
+    #card-caldero { --acento: #e06030; --acento-dim: #602010; }
+    #card-ira     { --acento: #8060e0; --acento-dim: #302060; }
+    #card-vane    { --acento: #c04040; --acento-dim: #501010; }
+    #card-ctd     { --acento: #50a870; --acento-dim: #1a4030; }
+    .campana-fanmade { --acento: #50b840; --acento-dim: #184810; }
+
     .campana-card {
-      border: 2px solid #5a4010;
-      border-radius: 10px;
+      border: 1px solid rgba(120,88,24,0.3);
+      border-left: 4px solid var(--acento);
+      border-radius: 8px;
       overflow: hidden;
-      box-shadow: 0 3px 12px rgba(0,0,0,0.45);
-      transition: box-shadow 0.2s, transform 0.15s;
+      background: linear-gradient(to right, rgba(30,20,8,0.9), rgba(18,12,4,0.9));
+      box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+      transition: box-shadow 0.2s, transform 0.15s, border-color 0.2s;
     }
     body.modo-claro .campana-card {
-      border-color: #c9a84c;
-      box-shadow: 0 3px 8px rgba(30,12,0,0.18);
+      background: linear-gradient(to right, #fdf8ec, #f8f0dc);
+      border-color: rgba(180,140,60,0.3);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
     }
     .campana-card:hover {
-      box-shadow: 0 6px 22px rgba(0,0,0,0.6);
-      transform: translateY(-1px);
+      box-shadow: 0 4px 18px rgba(0,0,0,0.6);
+      transform: translateX(2px);
     }
 
     .campana-header {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      padding: 12px 16px;
+      padding: 13px 16px;
       cursor: pointer;
       user-select: none;
-      background: linear-gradient(to right, #2a1e0c, #1c1408);
-      border-bottom: 2px solid transparent;
-      transition: background 0.2s;
+      gap: 12px;
+      transition: background 0.15s;
     }
-    body.modo-claro .campana-header {
-      background: linear-gradient(to right, #e8d498, #f5e8c0);
-    }
-    .campana-header:hover {
-      background: linear-gradient(to right, #342812, #22180a);
-    }
-    body.modo-claro .campana-header:hover {
-      background: linear-gradient(to right, #f0df98, #fdf3cc);
-    }
-    .campana-header.abierta {
-      border-bottom-color: #7a5818;
-      background: linear-gradient(to right, #3a2c10, #281e0a);
-    }
-    body.modo-claro .campana-header.abierta {
-      border-bottom-color: #c9a84c;
-      background: linear-gradient(to right, #d8c070, #ecd898);
+    .campana-header:hover { background: rgba(255,255,255,0.03); }
+    body.modo-claro .campana-header:hover { background: rgba(0,0,0,0.04); }
+    .campana-header.abierta { background: rgba(255,255,255,0.02); }
+
+    .campana-acento-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--acento);
+      flex-shrink: 0;
+      box-shadow: 0 0 6px var(--acento);
+      opacity: 0.85;
     }
 
     .campana-titulo {
       font-family: 'Pirata One', cursive;
-      font-size: 1.18rem;
-      color: #d4a840;
+      font-size: 1.12rem;
+      color: var(--acento);
+      flex: 1;
+      min-width: 0;
       display: flex;
-      align-items: center;
+      align-items: baseline;
       gap: 10px;
       flex-wrap: wrap;
     }
-    body.modo-claro .campana-titulo { color: #3a2010; }
+    body.modo-claro .campana-titulo { color: var(--acento-dim); }
 
     .campana-badge {
       font-family: 'Georgia', serif;
-      font-size: 0.71rem;
-      background: #0c0906;
-      color: #b89830;
-      padding: 2px 8px;
-      border-radius: 20px;
+      font-size: 0.68rem;
+      color: var(--acento);
+      opacity: 0.6;
       font-style: normal;
       white-space: nowrap;
-      border: 1px solid #4a3808;
+      font-weight: normal;
     }
-    body.modo-claro .campana-badge {
-      background: #3a2010;
-      color: #f0d070;
-      border-color: transparent;
+
+    .campana-progreso {
+      font-size: 0.72rem;
+      color: var(--acento);
+      opacity: 0.5;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .campana-flecha {
-      font-size: 1.1rem;
-      color: #7a5818;
+      font-size: 1rem;
+      color: var(--acento);
+      opacity: 0.5;
       transition: transform 0.25s;
       flex-shrink: 0;
     }
-    .campana-header.abierta .campana-flecha { transform: rotate(90deg); }
+    .campana-header.abierta .campana-flecha { transform: rotate(90deg); opacity: 0.8; }
 
     /* Lista de capítulos */
     .lista-capitulos {
       display: none;
-      padding: 5px 0;
-      background-color: #130e08;
-      animation: slideDown 0.22s ease-out;
+      background: rgba(0,0,0,0.25);
+      border-top: 1px solid var(--acento-dim);
+      animation: slideDown 0.2s ease-out;
     }
-    body.modo-claro .lista-capitulos { background-color: #fdf8ec; }
-
-    @keyframes slideDown {
-      from { opacity: 0; transform: translateY(-5px); }
-      to   { opacity: 1; transform: translateY(0); }
+    body.modo-claro .lista-capitulos {
+      background: rgba(0,0,0,0.04);
     }
     .lista-capitulos.abierta { display: block; }
 
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-4px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
     .lista-capitulos li {
       list-style: none;
-      border-bottom: 1px solid rgba(120,88,24,0.15);
       display: flex;
       align-items: stretch;
+      border-bottom: 1px solid rgba(120,88,24,0.08);
     }
     .lista-capitulos li:last-child { border-bottom: none; }
 
     .lista-capitulos li a {
       flex: 1;
-      display: block;
-      padding: 9px 12px 9px 30px;
-      color: #c0a060;
-      font-weight: normal;
-      font-size: 0.96rem;
-      transition: background 0.15s, padding-left 0.15s, color 0.15s;
-      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 14px 9px 22px;
+      color: #b8a070;
+      font-size: 0.92rem;
       text-decoration: none;
+      transition: background 0.12s, color 0.12s, padding-left 0.12s;
+      position: relative;
     }
-    body.modo-claro .lista-capitulos li a { color: #4a2808; }
+    body.modo-claro .lista-capitulos li a { color: #4a2c08; }
 
-    .lista-capitulos li a::before {
-      content: "⚓";
-      font-size: 0.62rem;
-      position: absolute;
-      left: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      opacity: 0.35;
+    .lista-capitulos li a .cap-num {
+      font-family: 'Pirata One', cursive;
+      font-size: 0.75rem;
+      color: var(--acento);
+      opacity: 0.5;
+      min-width: 24px;
+      flex-shrink: 0;
     }
+
     .lista-capitulos li a:hover {
-      background: rgba(120,88,24,0.18);
-      padding-left: 36px;
-      color: #f0d070;
+      background: rgba(255,255,255,0.04);
+      color: var(--acento);
+      padding-left: 28px;
       text-decoration: none;
     }
     body.modo-claro .lista-capitulos li a:hover {
-      background: rgba(200,168,76,0.2);
-      color: #2e1a00;
+      background: rgba(0,0,0,0.06);
+      color: var(--acento-dim);
     }
-    .lista-capitulos li a:hover::before { opacity: 0.9; }
+    .lista-capitulos li a:hover .cap-num { opacity: 1; }
 
-    /* Check de completado */
+    /* Check completado */
     .cap-check {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 38px;
+      width: 40px;
       flex-shrink: 0;
       cursor: pointer;
+      color: var(--acento);
+      opacity: 0.18;
       font-size: 1rem;
-      opacity: 0.2;
-      color: #60c060;
-      border-left: 1px solid rgba(120,88,24,0.15);
+      border-left: 1px solid rgba(120,88,24,0.1);
       user-select: none;
-      transition: opacity 0.2s, transform 0.15s;
+      transition: opacity 0.18s, transform 0.15s;
     }
-    .cap-check:hover { opacity: 0.65; transform: scale(1.2); }
-    .cap-check.completado { opacity: 1; }
+    .cap-check:hover { opacity: 0.6; transform: scale(1.15); }
+    .cap-check.completado { opacity: 0.85; }
 
     /* Fan made */
-    .campana-fanmade .campana-header {
-      background: linear-gradient(to right, #0c1c0c, #081208);
-      cursor: default;
+    .campana-fanmade .campana-header { cursor: default; }
+    .campana-fanmade .campana-titulo { font-style: italic; }
+    .btn-jugar-fanmade {
+      font-size: 0.82rem;
+      font-weight: bold;
+      color: var(--acento);
+      text-decoration: none;
+      padding: 5px 12px;
+      border: 1px solid var(--acento);
+      border-radius: 6px;
+      white-space: nowrap;
+      opacity: 0.8;
+      transition: opacity 0.15s, background 0.15s;
     }
-    body.modo-claro .campana-fanmade .campana-header {
-      background: linear-gradient(to right, #dce8d8, #c8dcc0);
+    .btn-jugar-fanmade:hover {
+      opacity: 1;
+      background: rgba(80,184,64,0.15);
+      text-decoration: none;
     }
-    .campana-fanmade .campana-titulo { color: #68c058; }
-    body.modo-claro .campana-fanmade .campana-titulo { color: #2a5020; }
 
-    /* Separador */
-    .separador-nautico {
+    /* ══════════════════════ SEPARADOR ══════════════════════ */
+    .separador {
       text-align: center;
-      margin: 1.6rem 0 0.2rem;
-      color: #4a3808;
-      font-size: 1rem;
-      letter-spacing: 0.4em;
-      opacity: 0.45;
+      font-size: 0.9rem;
+      color: #3a2a08;
+      opacity: 0.5;
+      letter-spacing: 0.5em;
+      margin: 4px 0;
     }
 
-    /* ---- Móvil ---- */
+    /* ══════════════════════ MOBILE ══════════════════════ */
     @media (max-width: 520px) {
-      body { padding: 6px; }
-
-      main {
-        padding: 1.2rem 1rem 1.5rem;
-        border-radius: 8px;
-      }
-
-      .titulo-principal { font-size: 2rem; }
-      .subtitulo        { font-size: 0.82rem; }
-      .frase-pirata     { font-size: 0.9rem; margin-bottom: 1rem; }
-
-      /* Banner continuar: apilado en móvil */
-      .continuar-wrap {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-        padding: 12px 14px;
-      }
-      .btn-continuar {
-        width: 100%;
-        text-align: center;
-        padding: 12px;
-        font-size: 1rem;
-        box-sizing: border-box;
-      }
-      .continuar-nombre { font-size: 1rem; }
-
-      /* Botón perfil */
-      .boton-continuar {
-        display: block;
-        width: 100%;
-        box-sizing: border-box;
-        text-align: center;
-        font-size: 1rem;
-        padding: 14px;
-      }
-
-      /* Tarjetas campaña */
-      .campana-titulo   { font-size: 1.05rem; gap: 6px; }
-      .campana-badge    { font-size: 0.68rem; padding: 2px 6px; }
-      .campana-header   { padding: 11px 12px; }
-
-      /* Capítulos: área táctil grande */
-      .lista-capitulos li a {
-        padding: 11px 10px 11px 28px;
-        font-size: 1rem;
-        min-height: 44px;
-        display: flex;
-        align-items: center;
-      }
-      .cap-check {
-        width: 44px;
-        font-size: 1.1rem;
-        min-height: 44px;
-      }
+      .hero { padding: 20px 16px 18px; }
+      .hero-titulo { font-size: 2.2rem; }
+      .centro { padding: 14px 10px; }
+      .bitacora-card { padding: 14px 16px; gap: 12px; }
+      .bitacora-emoji { font-size: 2.2rem; }
+      .bitacora-titulo { font-size: 1.2rem; }
+      .bitacora-desc { display: none; }
+      .campana-titulo { font-size: 1rem; }
+      .campana-badge { display: none; }
+      .lista-capitulos li a { font-size: 0.9rem; padding: 10px 12px 10px 18px; min-height: 44px; }
+      .cap-check { width: 44px; min-height: 44px; }
+      .continuar-wrap { flex-direction: column; align-items: flex-start; }
+      .btn-seguir { width: 100%; text-align: center; }
     }
   </style>
 </head>
-
 <body>
-  <main>
-    <h1 class="titulo-principal">☠ Skull Tales</h1>
-    <p class="subtitulo">Companion App no oficial</p>
 
+  <!-- ══════════ HERO ══════════ -->
+  <header class="hero">
+    <div class="hero-skull">☠</div>
+    <h1 class="hero-titulo">Skull Tales</h1>
+    <p class="hero-sub">A Toda Vela · Companion App</p>
     <p class="frase-pirata" id="frase-pirata"></p>
+  </header>
 
-    <!-- Continuar partida -->
-    <div class="continuar-wrap" id="continuar-wrap" style="display:none;">
-      <div>
-        <div class="continuar-etiqueta">&#9875; Última partida</div>
+  <!-- ══════════ CONTENIDO ══════════ -->
+  <div class="centro">
+
+    <!-- Banner continuar partida -->
+    <div class="continuar-wrap" id="continuar-wrap">
+      <span class="continuar-icono">⚓</span>
+      <div class="continuar-info">
+        <div class="continuar-label">Última partida</div>
         <div class="continuar-nombre" id="continuar-nombre">—</div>
       </div>
-      <a href="#" id="continuar-link" class="btn-continuar">Continuar ›</a>
+      <a href="#" id="continuar-link" class="btn-seguir">Continuar ›</a>
     </div>
 
-    <!-- Perfil -->
-    <div class="perfil-btn-wrap">
-      <a href="perfil.html" class="boton-continuar">&#9875; Mi Perfil / Cuaderno de Bitácora</a>
-    </div>
+    <!-- Cuaderno de Bitácora — elemento protagonista -->
+    <a href="perfil.html" class="bitacora-card">
+      <div class="bitacora-emoji">📖</div>
+      <div class="bitacora-texto">
+        <div class="bitacora-titulo">Cuaderno de Bitácora</div>
+        <div class="bitacora-desc">Fichas de personaje · Estado del barco · Diario de campaña</div>
+      </div>
+      <div class="bitacora-arrow">›</div>
+    </a>
+
+    <!-- Título sección campañas -->
+    <div class="seccion-titulo">⚔ Selecciona una Aventura</div>
 
     <!-- Campañas -->
     <div class="campanas-grid">
 
       <div class="campana-card" id="card-core">
         <div class="campana-header" onclick="toggleCampana('core',this)">
-          <span class="campana-titulo">🌊 Sombras del Caribe <span class="campana-badge">Core · 10 Cap + 2 Anexos</span></span>
+          <div class="campana-acento-dot"></div>
+          <span class="campana-titulo">Sombras del Caribe <span class="campana-badge">· Campaña Core · 10 cap + 2 anexos</span></span>
+          <span class="campana-progreso" id="prog-core"></span>
           <span class="campana-flecha">›</span>
         </div>
         <ul class="lista-capitulos" id="capitulos-core">
-          <li><a href="capitulos/sombras-del-caribe-cap1.html?v=2.1" data-cap="sdc-cap1" data-nombre="Sombras del Caribe · Cap.1">Capítulo 1: El Secreto del Capitán Jones</a><span class="cap-check" onclick="toggleCheck(this,'sdc-cap1')">✓</span></li>
-          <li><a href="capitulos/sombras-del-caribe-cap2.html?v=2.1" data-cap="sdc-cap2" data-nombre="Sombras del Caribe · Cap.2">Capítulo 2: Despertar de la Oscuridad</a><span class="cap-check" onclick="toggleCheck(this,'sdc-cap2')">✓</span></li>
-          <li><a href="capitulos/sombras-del-caribe-cap3.html?v=2.1" data-cap="sdc-cap3" data-nombre="Sombras del Caribe · Cap.3">Capítulo 3: Exilio</a><span class="cap-check" onclick="toggleCheck(this,'sdc-cap3')">✓</span></li>
-          <li><a href="capitulos/sombras-del-caribe-cap4.html?v=2.1" data-cap="sdc-cap4" data-nombre="Sombras del Caribe · Cap.4">Capítulo 4: El Cristal Alquímico</a><span class="cap-check" onclick="toggleCheck(this,'sdc-cap4')">✓</span></li>
-          <li><a href="capitulos/sombras-del-caribe-cap5.html?v=2.1" data-cap="sdc-cap5" data-nombre="Sombras del Caribe · Cap.5">Capítulo 5: La Isla Maldita</a><span class="cap-check" onclick="toggleCheck(this,'sdc-cap5')">✓</span></li>
-          <li><a href="capitulos/sombras-del-caribe-cap6.html?v=2.1" data-cap="sdc-cap6" data-nombre="Sombras del Caribe · Cap.6">Capítulo 6: El Señor de los Caminos</a><span class="cap-check" onclick="toggleCheck(this,'sdc-cap6')">✓</span></li>
-          <li><a href="capitulos/sombras-del-caribe-cap7.html?v=2.1" data-cap="sdc-cap7" data-nombre="Sombras del Caribe · Cap.7">Capítulo 7: Piratas de Honor</a><span class="cap-check" onclick="toggleCheck(this,'sdc-cap7')">✓</span></li>
-          <li><a href="capitulos/sombras-del-caribe-cap8.html?v=2.1" data-cap="sdc-cap8" data-nombre="Sombras del Caribe · Cap.8">Capítulo 8: El Emisario de Yemaná</a><span class="cap-check" onclick="toggleCheck(this,'sdc-cap8')">✓</span></li>
-          <li><a href="capitulos/sombras-del-caribe-cap9.html?v=2.1" data-cap="sdc-cap9" data-nombre="Sombras del Caribe · Cap.9">Capítulo 9: Una Extraña Alianza</a><span class="cap-check" onclick="toggleCheck(this,'sdc-cap9')">✓</span></li>
-          <li><a href="capitulos/sombras-del-caribe-cap10.html?v=2.1" data-cap="sdc-cap10" data-nombre="Sombras del Caribe · Cap.10">Capítulo 10: La Última Canción Pirata</a><span class="cap-check" onclick="toggleCheck(this,'sdc-cap10')">✓</span></li>
-          <li><a href="capitulos/sombras-del-caribe-an1.html?v=2.1" data-cap="sdc-an1" data-nombre="Sombras del Caribe · Anexo I">📎 Anexo I: Naufragio</a><span class="cap-check" onclick="toggleCheck(this,'sdc-an1')">✓</span></li>
-          <li><a href="capitulos/sombras-del-caribe-an2.html?v=2.1" data-cap="sdc-an2" data-nombre="Sombras del Caribe · Anexo II">📎 Anexo II: Escapando de la Muerte</a><span class="cap-check" onclick="toggleCheck(this,'sdc-an2')">✓</span></li>
+          <li><a href="capitulos/sombras-del-caribe-cap1.html?v=2.1" data-cap="sdc-cap1" data-nombre="Sombras del Caribe · Cap.1"><span class="cap-num">01</span>El Secreto del Capitán Jones</a><span class="cap-check" onclick="toggleCheck(this,'sdc-cap1',event)">✓</span></li>
+          <li><a href="capitulos/sombras-del-caribe-cap2.html?v=2.1" data-cap="sdc-cap2" data-nombre="Sombras del Caribe · Cap.2"><span class="cap-num">02</span>Despertar de la Oscuridad</a><span class="cap-check" onclick="toggleCheck(this,'sdc-cap2',event)">✓</span></li>
+          <li><a href="capitulos/sombras-del-caribe-cap3.html?v=2.1" data-cap="sdc-cap3" data-nombre="Sombras del Caribe · Cap.3"><span class="cap-num">03</span>Exilio</a><span class="cap-check" onclick="toggleCheck(this,'sdc-cap3',event)">✓</span></li>
+          <li><a href="capitulos/sombras-del-caribe-cap4.html?v=2.1" data-cap="sdc-cap4" data-nombre="Sombras del Caribe · Cap.4"><span class="cap-num">04</span>El Cristal Alquímico</a><span class="cap-check" onclick="toggleCheck(this,'sdc-cap4',event)">✓</span></li>
+          <li><a href="capitulos/sombras-del-caribe-cap5.html?v=2.1" data-cap="sdc-cap5" data-nombre="Sombras del Caribe · Cap.5"><span class="cap-num">05</span>La Isla Maldita</a><span class="cap-check" onclick="toggleCheck(this,'sdc-cap5',event)">✓</span></li>
+          <li><a href="capitulos/sombras-del-caribe-cap6.html?v=2.1" data-cap="sdc-cap6" data-nombre="Sombras del Caribe · Cap.6"><span class="cap-num">06</span>El Señor de los Caminos</a><span class="cap-check" onclick="toggleCheck(this,'sdc-cap6',event)">✓</span></li>
+          <li><a href="capitulos/sombras-del-caribe-cap7.html?v=2.1" data-cap="sdc-cap7" data-nombre="Sombras del Caribe · Cap.7"><span class="cap-num">07</span>Piratas de Honor</a><span class="cap-check" onclick="toggleCheck(this,'sdc-cap7',event)">✓</span></li>
+          <li><a href="capitulos/sombras-del-caribe-cap8.html?v=2.1" data-cap="sdc-cap8" data-nombre="Sombras del Caribe · Cap.8"><span class="cap-num">08</span>El Emisario de Yemaná</a><span class="cap-check" onclick="toggleCheck(this,'sdc-cap8',event)">✓</span></li>
+          <li><a href="capitulos/sombras-del-caribe-cap9.html?v=2.1" data-cap="sdc-cap9" data-nombre="Sombras del Caribe · Cap.9"><span class="cap-num">09</span>Una Extraña Alianza</a><span class="cap-check" onclick="toggleCheck(this,'sdc-cap9',event)">✓</span></li>
+          <li><a href="capitulos/sombras-del-caribe-cap10.html?v=2.1" data-cap="sdc-cap10" data-nombre="Sombras del Caribe · Cap.10"><span class="cap-num">10</span>La Última Canción Pirata</a><span class="cap-check" onclick="toggleCheck(this,'sdc-cap10',event)">✓</span></li>
+          <li><a href="capitulos/sombras-del-caribe-an1.html?v=2.1" data-cap="sdc-an1" data-nombre="Sombras del Caribe · Anexo I"><span class="cap-num">A1</span>Anexo I: Naufragio</a><span class="cap-check" onclick="toggleCheck(this,'sdc-an1',event)">✓</span></li>
+          <li><a href="capitulos/sombras-del-caribe-an2.html?v=2.1" data-cap="sdc-an2" data-nombre="Sombras del Caribe · Anexo II"><span class="cap-num">A2</span>Anexo II: Escapando de la Muerte</a><span class="cap-check" onclick="toggleCheck(this,'sdc-an2',event)">✓</span></li>
         </ul>
       </div>
 
       <div class="campana-card" id="card-caldero">
         <div class="campana-header" onclick="toggleCampana('caldero',this)">
-          <span class="campana-titulo">🔥 El Caldero del Diablo <span class="campana-badge">Campaña II · 6 Cap</span></span>
+          <div class="campana-acento-dot"></div>
+          <span class="campana-titulo">El Caldero del Diablo <span class="campana-badge">· Campaña II · 6 cap</span></span>
+          <span class="campana-progreso" id="prog-caldero"></span>
           <span class="campana-flecha">›</span>
         </div>
         <ul class="lista-capitulos" id="capitulos-caldero">
-          <li><a href="capitulos/caldero-cap0.html?v=2.1" data-cap="cd-cap0" data-nombre="El Caldero del Diablo · Prólogo">Capítulo 0: Prólogo</a><span class="cap-check" onclick="toggleCheck(this,'cd-cap0')">✓</span></li>
-          <li><a href="capitulos/caldero-cap1.html?v=2.1" data-cap="cd-cap1" data-nombre="El Caldero del Diablo · Cap.1">Capítulo 1: Entre Llamas</a><span class="cap-check" onclick="toggleCheck(this,'cd-cap1')">✓</span></li>
-          <li><a href="capitulos/caldero-cap2.html?v=2.1" data-cap="cd-cap2" data-nombre="El Caldero del Diablo · Cap.2">Capítulo 2: La Isla del Diablo</a><span class="cap-check" onclick="toggleCheck(this,'cd-cap2')">✓</span></li>
-          <li><a href="capitulos/caldero-cap3.html?v=2.1" data-cap="cd-cap3" data-nombre="El Caldero del Diablo · Cap.3">Capítulo 3: El Templo del Horror</a><span class="cap-check" onclick="toggleCheck(this,'cd-cap3')">✓</span></li>
-          <li><a href="capitulos/caldero-cap4.html?v=2.1" data-cap="cd-cap4" data-nombre="El Caldero del Diablo · Cap.4">Capítulo 4: Piel de Cordero</a><span class="cap-check" onclick="toggleCheck(this,'cd-cap4')">✓</span></li>
-          <li><a href="capitulos/caldero-cap5.html?v=2.1" data-cap="cd-cap5" data-nombre="El Caldero del Diablo · Cap.5">Capítulo 5: El Pozo del Infierno</a><span class="cap-check" onclick="toggleCheck(this,'cd-cap5')">✓</span></li>
+          <li><a href="capitulos/caldero-cap0.html?v=2.1" data-cap="cd-cap0" data-nombre="El Caldero del Diablo · Prólogo"><span class="cap-num">00</span>Prólogo</a><span class="cap-check" onclick="toggleCheck(this,'cd-cap0',event)">✓</span></li>
+          <li><a href="capitulos/caldero-cap1.html?v=2.1" data-cap="cd-cap1" data-nombre="El Caldero del Diablo · Cap.1"><span class="cap-num">01</span>Entre Llamas</a><span class="cap-check" onclick="toggleCheck(this,'cd-cap1',event)">✓</span></li>
+          <li><a href="capitulos/caldero-cap2.html?v=2.1" data-cap="cd-cap2" data-nombre="El Caldero del Diablo · Cap.2"><span class="cap-num">02</span>La Isla del Diablo</a><span class="cap-check" onclick="toggleCheck(this,'cd-cap2',event)">✓</span></li>
+          <li><a href="capitulos/caldero-cap3.html?v=2.1" data-cap="cd-cap3" data-nombre="El Caldero del Diablo · Cap.3"><span class="cap-num">03</span>El Templo del Horror</a><span class="cap-check" onclick="toggleCheck(this,'cd-cap3',event)">✓</span></li>
+          <li><a href="capitulos/caldero-cap4.html?v=2.1" data-cap="cd-cap4" data-nombre="El Caldero del Diablo · Cap.4"><span class="cap-num">04</span>Piel de Cordero</a><span class="cap-check" onclick="toggleCheck(this,'cd-cap4',event)">✓</span></li>
+          <li><a href="capitulos/caldero-cap5.html?v=2.1" data-cap="cd-cap5" data-nombre="El Caldero del Diablo · Cap.5"><span class="cap-num">05</span>El Pozo del Infierno</a><span class="cap-check" onclick="toggleCheck(this,'cd-cap5',event)">✓</span></li>
         </ul>
       </div>
 
       <div class="campana-card" id="card-ira">
         <div class="campana-header" onclick="toggleCampana('ira',this)">
-          <span class="campana-titulo">🌀 La Ira de Tlanchana <span class="campana-badge">Campaña III · 6 Cap</span></span>
+          <div class="campana-acento-dot"></div>
+          <span class="campana-titulo">La Ira de Tlanchana <span class="campana-badge">· Campaña III · 6 cap</span></span>
+          <span class="campana-progreso" id="prog-ira"></span>
           <span class="campana-flecha">›</span>
         </div>
         <ul class="lista-capitulos" id="capitulos-ira">
-          <li><a href="capitulos/la-ira-de-tlanchana-cap0.html?v=2.1" data-cap="it-cap0" data-nombre="La Ira de Tlanchana · Prólogo">Capítulo 0: Prólogo</a><span class="cap-check" onclick="toggleCheck(this,'it-cap0')">✓</span></li>
-          <li><a href="capitulos/la-ira-de-tlanchana-cap1.html?v=2.1" data-cap="it-cap1" data-nombre="La Ira de Tlanchana · Cap.1">Capítulo 1: Marejada</a><span class="cap-check" onclick="toggleCheck(this,'it-cap1')">✓</span></li>
-          <li><a href="capitulos/la-ira-de-tlanchana-cap2.html?v=2.1" data-cap="it-cap2" data-nombre="La Ira de Tlanchana · Cap.2">Capítulo 2: Palabra de Cobarde</a><span class="cap-check" onclick="toggleCheck(this,'it-cap2')">✓</span></li>
-          <li><a href="capitulos/la-ira-de-tlanchana-cap3.html?v=2.1" data-cap="it-cap3" data-nombre="La Ira de Tlanchana · Cap.3">Capítulo 3: La Cueva de la Locura</a><span class="cap-check" onclick="toggleCheck(this,'it-cap3')">✓</span></li>
-          <li><a href="capitulos/la-ira-de-tlanchana-cap4.html?v=2.1" data-cap="it-cap4" data-nombre="La Ira de Tlanchana · Cap.4">Capítulo 4: El Cuenco de Acan</a><span class="cap-check" onclick="toggleCheck(this,'it-cap4')">✓</span></li>
-          <li><a href="capitulos/la-ira-de-tlanchana-cap5.html?v=2.1" data-cap="it-cap5" data-nombre="La Ira de Tlanchana · Cap.5">Capítulo 5: Adiós, Amigos</a><span class="cap-check" onclick="toggleCheck(this,'it-cap5')">✓</span></li>
+          <li><a href="capitulos/la-ira-de-tlanchana-cap0.html?v=2.1" data-cap="it-cap0" data-nombre="La Ira de Tlanchana · Prólogo"><span class="cap-num">00</span>Prólogo</a><span class="cap-check" onclick="toggleCheck(this,'it-cap0',event)">✓</span></li>
+          <li><a href="capitulos/la-ira-de-tlanchana-cap1.html?v=2.1" data-cap="it-cap1" data-nombre="La Ira de Tlanchana · Cap.1"><span class="cap-num">01</span>Marejada</a><span class="cap-check" onclick="toggleCheck(this,'it-cap1',event)">✓</span></li>
+          <li><a href="capitulos/la-ira-de-tlanchana-cap2.html?v=2.1" data-cap="it-cap2" data-nombre="La Ira de Tlanchana · Cap.2"><span class="cap-num">02</span>Palabra de Cobarde</a><span class="cap-check" onclick="toggleCheck(this,'it-cap2',event)">✓</span></li>
+          <li><a href="capitulos/la-ira-de-tlanchana-cap3.html?v=2.1" data-cap="it-cap3" data-nombre="La Ira de Tlanchana · Cap.3"><span class="cap-num">03</span>La Cueva de la Locura</a><span class="cap-check" onclick="toggleCheck(this,'it-cap3',event)">✓</span></li>
+          <li><a href="capitulos/la-ira-de-tlanchana-cap4.html?v=2.1" data-cap="it-cap4" data-nombre="La Ira de Tlanchana · Cap.4"><span class="cap-num">04</span>El Cuenco de Acan</a><span class="cap-check" onclick="toggleCheck(this,'it-cap4',event)">✓</span></li>
+          <li><a href="capitulos/la-ira-de-tlanchana-cap5.html?v=2.1" data-cap="it-cap5" data-nombre="La Ira de Tlanchana · Cap.5"><span class="cap-num">05</span>Adiós, Amigos</a><span class="cap-check" onclick="toggleCheck(this,'it-cap5',event)">✓</span></li>
         </ul>
       </div>
 
       <div class="campana-card" id="card-vane">
         <div class="campana-header" onclick="toggleCampana('vane',this)">
-          <span class="campana-titulo">💀 La Maldición de Vane <span class="campana-badge">Campaña IV · 6 Cap</span></span>
+          <div class="campana-acento-dot"></div>
+          <span class="campana-titulo">La Maldición de Vane <span class="campana-badge">· Campaña IV · 6 cap</span></span>
+          <span class="campana-progreso" id="prog-vane"></span>
           <span class="campana-flecha">›</span>
         </div>
         <ul class="lista-capitulos" id="capitulos-vane">
-          <li><a href="capitulos/la-maldicion-de-vane-cap0.html?v=2.1" data-cap="mv-cap0" data-nombre="La Maldición de Vane · Prólogo">Capítulo 0: Prólogo</a><span class="cap-check" onclick="toggleCheck(this,'mv-cap0')">✓</span></li>
-          <li><a href="capitulos/la-maldicion-de-vane-cap1.html?v=2.1" data-cap="mv-cap1" data-nombre="La Maldición de Vane · Cap.1">Capítulo 1: Incursión y Rescate</a><span class="cap-check" onclick="toggleCheck(this,'mv-cap1')">✓</span></li>
-          <li><a href="capitulos/la-maldicion-de-vane-cap2.html?v=2.1" data-cap="mv-cap2" data-nombre="La Maldición de Vane · Cap.2">Capítulo 2: Las Cuevas del Lamento</a><span class="cap-check" onclick="toggleCheck(this,'mv-cap2')">✓</span></li>
-          <li><a href="capitulos/la-maldicion-de-vane-cap3.html?v=2.1" data-cap="mv-cap3" data-nombre="La Maldición de Vane · Cap.3">Capítulo 3: El Secreto Inmortal</a><span class="cap-check" onclick="toggleCheck(this,'mv-cap3')">✓</span></li>
-          <li><a href="capitulos/la-maldicion-de-vane-cap4.html?v=2.1" data-cap="mv-cap4" data-nombre="La Maldición de Vane · Cap.4">Capítulo 4: El Pacto del Diablo</a><span class="cap-check" onclick="toggleCheck(this,'mv-cap4')">✓</span></li>
-          <li><a href="capitulos/la-maldicion-de-vane-cap5.html?v=2.1" data-cap="mv-cap5" data-nombre="La Maldición de Vane · Cap.5">Capítulo 5: Réquiem</a><span class="cap-check" onclick="toggleCheck(this,'mv-cap5')">✓</span></li>
+          <li><a href="capitulos/la-maldicion-de-vane-cap0.html?v=2.1" data-cap="mv-cap0" data-nombre="La Maldición de Vane · Prólogo"><span class="cap-num">00</span>Prólogo</a><span class="cap-check" onclick="toggleCheck(this,'mv-cap0',event)">✓</span></li>
+          <li><a href="capitulos/la-maldicion-de-vane-cap1.html?v=2.1" data-cap="mv-cap1" data-nombre="La Maldición de Vane · Cap.1"><span class="cap-num">01</span>Incursión y Rescate</a><span class="cap-check" onclick="toggleCheck(this,'mv-cap1',event)">✓</span></li>
+          <li><a href="capitulos/la-maldicion-de-vane-cap2.html?v=2.1" data-cap="mv-cap2" data-nombre="La Maldición de Vane · Cap.2"><span class="cap-num">02</span>Las Cuevas del Lamento</a><span class="cap-check" onclick="toggleCheck(this,'mv-cap2',event)">✓</span></li>
+          <li><a href="capitulos/la-maldicion-de-vane-cap3.html?v=2.1" data-cap="mv-cap3" data-nombre="La Maldición de Vane · Cap.3"><span class="cap-num">03</span>El Secreto Inmortal</a><span class="cap-check" onclick="toggleCheck(this,'mv-cap3',event)">✓</span></li>
+          <li><a href="capitulos/la-maldicion-de-vane-cap4.html?v=2.1" data-cap="mv-cap4" data-nombre="La Maldición de Vane · Cap.4"><span class="cap-num">04</span>El Pacto del Diablo</a><span class="cap-check" onclick="toggleCheck(this,'mv-cap4',event)">✓</span></li>
+          <li><a href="capitulos/la-maldicion-de-vane-cap5.html?v=2.1" data-cap="mv-cap5" data-nombre="La Maldición de Vane · Cap.5"><span class="cap-num">05</span>Réquiem</a><span class="cap-check" onclick="toggleCheck(this,'mv-cap5',event)">✓</span></li>
         </ul>
       </div>
 
       <div class="campana-card" id="card-ctd">
         <div class="campana-header" onclick="toggleCampana('ctd',this)">
-          <span class="campana-titulo">📖 El Contador de Historias <span class="campana-badge">Campaña V · 6 Cap</span></span>
+          <div class="campana-acento-dot"></div>
+          <span class="campana-titulo">El Contador de Historias <span class="campana-badge">· Campaña V · 6 cap</span></span>
+          <span class="campana-progreso" id="prog-ctd"></span>
           <span class="campana-flecha">›</span>
         </div>
         <ul class="lista-capitulos" id="capitulos-ctd">
-          <li><a href="capitulos/el-contador-de-historias-cap0.html?v=2.1" data-cap="ch-cap0" data-nombre="El Contador de Historias · Prólogo">Capítulo 0: Prólogo</a><span class="cap-check" onclick="toggleCheck(this,'ch-cap0')">✓</span></li>
-          <li><a href="capitulos/el-contador-de-historias-cap1.html?v=2.1" data-cap="ch-cap1" data-nombre="El Contador de Historias · Cap.1">Capítulo 1: La Traición</a><span class="cap-check" onclick="toggleCheck(this,'ch-cap1')">✓</span></li>
-          <li><a href="capitulos/el-contador-de-historias-cap2.html?v=2.1" data-cap="ch-cap2" data-nombre="El Contador de Historias · Cap.2">Capítulo 2: El Templo de Anansi</a><span class="cap-check" onclick="toggleCheck(this,'ch-cap2')">✓</span></li>
-          <li><a href="capitulos/el-contador-de-historias-cap3.html?v=2.1" data-cap="ch-cap3" data-nombre="El Contador de Historias · Cap.3">Capítulo 3: Más Allá del Fin del Mundo</a><span class="cap-check" onclick="toggleCheck(this,'ch-cap3')">✓</span></li>
-          <li><a href="capitulos/el-contador-de-historias-cap4.html?v=2.1" data-cap="ch-cap4" data-nombre="El Contador de Historias · Cap.4">Capítulo 4: Ix Chel</a><span class="cap-check" onclick="toggleCheck(this,'ch-cap4')">✓</span></li>
-          <li><a href="capitulos/el-contador-de-historias-cap5.html?v=2.1" data-cap="ch-cap5" data-nombre="El Contador de Historias · Cap.5">Capítulo 5: Cuentos y Leyendas</a><span class="cap-check" onclick="toggleCheck(this,'ch-cap5')">✓</span></li>
+          <li><a href="capitulos/el-contador-de-historias-cap0.html?v=2.1" data-cap="ch-cap0" data-nombre="El Contador de Historias · Prólogo"><span class="cap-num">00</span>Prólogo</a><span class="cap-check" onclick="toggleCheck(this,'ch-cap0',event)">✓</span></li>
+          <li><a href="capitulos/el-contador-de-historias-cap1.html?v=2.1" data-cap="ch-cap1" data-nombre="El Contador de Historias · Cap.1"><span class="cap-num">01</span>La Traición</a><span class="cap-check" onclick="toggleCheck(this,'ch-cap1',event)">✓</span></li>
+          <li><a href="capitulos/el-contador-de-historias-cap2.html?v=2.1" data-cap="ch-cap2" data-nombre="El Contador de Historias · Cap.2"><span class="cap-num">02</span>El Templo de Anansi</a><span class="cap-check" onclick="toggleCheck(this,'ch-cap2',event)">✓</span></li>
+          <li><a href="capitulos/el-contador-de-historias-cap3.html?v=2.1" data-cap="ch-cap3" data-nombre="El Contador de Historias · Cap.3"><span class="cap-num">03</span>Más Allá del Fin del Mundo</a><span class="cap-check" onclick="toggleCheck(this,'ch-cap3',event)">✓</span></li>
+          <li><a href="capitulos/el-contador-de-historias-cap4.html?v=2.1" data-cap="ch-cap4" data-nombre="El Contador de Historias · Cap.4"><span class="cap-num">04</span>Ix Chel</a><span class="cap-check" onclick="toggleCheck(this,'ch-cap4',event)">✓</span></li>
+          <li><a href="capitulos/el-contador-de-historias-cap5.html?v=2.1" data-cap="ch-cap5" data-nombre="El Contador de Historias · Cap.5"><span class="cap-num">05</span>Cuentos y Leyendas</a><span class="cap-check" onclick="toggleCheck(this,'ch-cap5',event)">✓</span></li>
         </ul>
       </div>
 
       <div class="campana-card campana-fanmade">
         <div class="campana-header">
-          <span class="campana-titulo">✨ La X Marca el Lugar
-            <span class="campana-badge" style="background:#081008;color:#68c058;border-color:#1e4818;">Fan Made · Celebfin</span>
-          </span>
+          <div class="campana-acento-dot"></div>
+          <span class="campana-titulo">La X Marca el Lugar <span class="campana-badge">· Fan Made · Celebfin</span></span>
           <a href="capitulos/la-x-marca-el-lugar.html?v=2.1"
-             onclick="guardarUltimo('la-x','La X Marca el Lugar');event.stopPropagation()"
-             style="font-size:0.9rem;font-weight:bold;color:#68c058;text-decoration:none;white-space:nowrap;">
+             class="btn-jugar-fanmade"
+             onclick="guardarUltimo('la-x','La X Marca el Lugar');event.stopPropagation()">
             Jugar ›
           </a>
         </div>
@@ -529,20 +624,19 @@
 
     </div>
 
-    <div class="separador-nautico">&#9875; &middot; &middot; &middot; &#9875; &middot; &middot; &middot; &#9875;</div>
-  </main>
+    <div class="separador">⚓ · · · ⚓ · · · ⚓</div>
+  </div>
 
   <img alt="Rosa de los Vientos" class="rosa-vientos" src="img/rosa-vientos.png" />
 
   <script>
     /* ── Modo oscuro por defecto ── */
     (function () {
-      const saved = localStorage.getItem('skullTales_modoOscuro');
-      if (saved === '0') document.body.classList.add('modo-claro');
-      // sin preferencia guardada = oscuro (sin clase extra)
+      if (localStorage.getItem('skullTales_modoOscuro') === '0')
+        document.body.classList.add('modo-claro');
     })();
 
-    /* ── Frases piratas rotativas ── */
+    /* ── Frases ── */
     const FRASES = [
       '«La muerte nos espera a todos... los cobardes llegan antes.»',
       '«El mar no perdona — tampoco nosotros.»',
@@ -558,22 +652,17 @@
     function mostrarFrase() {
       const el = document.getElementById('frase-pirata');
       el.style.opacity = 0;
-      setTimeout(() => {
-        el.textContent = FRASES[Math.floor(Math.random() * FRASES.length)];
-        el.style.opacity = 1;
-      }, 450);
+      setTimeout(() => { el.textContent = FRASES[Math.floor(Math.random() * FRASES.length)]; el.style.opacity = 1; }, 450);
     }
     mostrarFrase();
     setInterval(mostrarFrase, 13000);
 
     /* ── Último capítulo jugado ── */
     const KEY_ULTIMO = 'skullTales_ultimoCapitulo';
-
     function guardarUltimo(cap, nombre) {
-      const href = event.currentTarget ? event.currentTarget.href : '#';
+      const href = event && event.currentTarget ? event.currentTarget.href : '#';
       localStorage.setItem(KEY_ULTIMO, JSON.stringify({ cap, nombre, href }));
     }
-
     document.querySelectorAll('.lista-capitulos li a').forEach(a => {
       a.addEventListener('click', function () {
         localStorage.setItem(KEY_ULTIMO, JSON.stringify({
@@ -583,7 +672,6 @@
         }));
       });
     });
-
     (function cargarUltimo() {
       try {
         const d = JSON.parse(localStorage.getItem(KEY_ULTIMO));
@@ -594,27 +682,45 @@
       } catch (e) {}
     })();
 
-    /* ── Checks de capítulo completado ── */
+    /* ── Checks + progreso ── */
     const KEY_CHECKS = 'skullTales_capsCompletados';
-
     function getChecks() {
       try { return JSON.parse(localStorage.getItem(KEY_CHECKS)) || {}; } catch (e) { return {}; }
     }
-
-    function toggleCheck(el, capId) {
-      event.stopPropagation();
+    function toggleCheck(el, capId, ev) {
+      if (ev) ev.stopPropagation();
       const ch = getChecks();
       ch[capId] = !ch[capId];
       localStorage.setItem(KEY_CHECKS, JSON.stringify(ch));
       el.classList.toggle('completado', !!ch[capId]);
+      actualizarProgresos();
+    }
+
+    // Mapa de checks por campaña
+    const CAPS_POR_CAMPANA = {
+      core:    ['sdc-cap1','sdc-cap2','sdc-cap3','sdc-cap4','sdc-cap5','sdc-cap6','sdc-cap7','sdc-cap8','sdc-cap9','sdc-cap10','sdc-an1','sdc-an2'],
+      caldero: ['cd-cap0','cd-cap1','cd-cap2','cd-cap3','cd-cap4','cd-cap5'],
+      ira:     ['it-cap0','it-cap1','it-cap2','it-cap3','it-cap4','it-cap5'],
+      vane:    ['mv-cap0','mv-cap1','mv-cap2','mv-cap3','mv-cap4','mv-cap5'],
+      ctd:     ['ch-cap0','ch-cap1','ch-cap2','ch-cap3','ch-cap4','ch-cap5'],
+    };
+
+    function actualizarProgresos() {
+      const ch = getChecks();
+      Object.entries(CAPS_POR_CAMPANA).forEach(([camp, caps]) => {
+        const completados = caps.filter(c => ch[c]).length;
+        const el = document.getElementById('prog-' + camp);
+        if (el) el.textContent = completados > 0 ? completados + '/' + caps.length : '';
+      });
     }
 
     (function aplicarChecks() {
       const ch = getChecks();
       document.querySelectorAll('.cap-check').forEach(el => {
-        const m = el.getAttribute('onclick').match(/'([^']+)'\)/);
+        const m = el.getAttribute('onclick').match(/'([^']+)'/);
         if (m && ch[m[1]]) el.classList.add('completado');
       });
+      actualizarProgresos();
     })();
 
     /* ── Acordeón ── */
