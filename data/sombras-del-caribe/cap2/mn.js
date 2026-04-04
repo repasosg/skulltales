@@ -42,7 +42,7 @@
         <tr>
             <td style="border: 1px solid #b89b65;">Al buscar con éxito en la habitación E</td>
             <td style="border: 1px solid #b89b65;">
-                <button onclick="cargarTexto('MN23')">023</button>
+                <button onclick="cargarTexto('MN123')">123</button>
             </td>
         </tr>
         <tr>
