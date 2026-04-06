@@ -1085,3 +1085,167 @@ body.modo-oscuro #mn-buscar-input::placeholder {
 body.modo-oscuro #mn-buscar-btn {
   color: #c09040;
 }
+
+/* ============================================================
+   POPUP LOSETA UNIFICADO (imagen + panel de MNs)
+   ============================================================ */
+
+/* Resetear el comportamiento del click-to-close en el overlay */
+.popup-imagen {
+  cursor: default;
+}
+
+/* Contenedor interno: imagen + panel lateral */
+.popup-loseta-inner {
+  display: flex;
+  flex-direction: row;
+  max-width: 92vw;
+  max-height: 90vh;
+  background: linear-gradient(135deg, #1a1008 0%, #0d0904 100%);
+  border: 3px solid var(--oro);
+  border-radius: 10px;
+  box-shadow: 0 0 50px rgba(0,0,0,0.9), 0 0 20px rgba(200,160,40,0.15);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Zona de imagen */
+.popup-loseta-img-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(0,0,0,0.3);
+  border-right: 2px solid rgba(180,140,40,0.25);
+  flex-shrink: 0;
+}
+
+.popup-loseta-img-wrap img {
+  max-width: 55vw;
+  max-height: 82vh;
+  border: 2px solid rgba(200,160,40,0.4);
+  border-radius: 6px;
+  object-fit: contain;
+  /* Anular el estilo global del popup */
+  box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+}
+
+/* Panel lateral de MNs */
+.popup-loseta-panel {
+  width: 300px;
+  min-width: 260px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.popup-loseta-panel-header {
+  padding: 14px 18px 10px;
+  border-bottom: 1px solid rgba(180,140,40,0.2);
+  flex-shrink: 0;
+}
+
+.popup-loseta-panel-header h3 {
+  font-family: 'Pirata One', cursive;
+  font-size: 1rem;
+  color: var(--oro);
+  margin: 0 0 3px;
+  letter-spacing: 0.06em;
+}
+
+.popup-loseta-panel-header p {
+  font-size: 0.72rem;
+  color: rgba(180,150,80,0.55);
+  margin: 0;
+  font-style: italic;
+}
+
+.popup-loseta-panel-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0;
+}
+
+.popup-loseta-panel-list::-webkit-scrollbar {
+  width: 5px;
+}
+.popup-loseta-panel-list::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.2);
+}
+.popup-loseta-panel-list::-webkit-scrollbar-thumb {
+  background: rgba(180,140,40,0.3);
+  border-radius: 3px;
+}
+
+/* Cada item de MN en el panel */
+.popup-mn-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(120,88,24,0.12);
+  transition: background 0.15s;
+  text-align: left;
+}
+
+.popup-mn-item:last-child {
+  border-bottom: none;
+}
+
+.popup-mn-item:hover {
+  background: rgba(200,160,40,0.08);
+}
+
+.popup-mn-num {
+  font-family: 'Pirata One', cursive;
+  font-size: 1.1rem;
+  color: var(--oro);
+  min-width: 38px;
+  text-align: center;
+  flex-shrink: 0;
+  opacity: 0.9;
+}
+
+.popup-mn-texto {
+  font-size: 0.82rem;
+  color: #c8a86a;
+  line-height: 1.35;
+}
+
+.popup-mn-item:hover .popup-mn-num {
+  color: #f0d070;
+}
+
+.popup-mn-item:hover .popup-mn-texto {
+  color: #e0c080;
+}
+
+/* Botón cerrar en la esquina */
+.popup-loseta-cerrar {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: rgba(200,160,40,0.5);
+  font-size: 1.3rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 4px 6px;
+  border-radius: 4px;
+  transition: color 0.15s, background 0.15s;
+  z-index: 10;
+}
+
+.popup-loseta-cerrar:hover {
+  color: var(--oro);
+  background: rgba(200,160,40,0.1);
+}
+
+/* Sobreescribir el img global del popup cuando está dentro del nuevo layout */
+.popup-loseta-inner img {
+  max-width: unset;
+  max-height: unset;
+  border: 2px solid rgba(200,160,40,0.4);
+}

@@ -1,4 +1,4 @@
-ChapterLoader.registerContent('mn', `
+﻿ChapterLoader.registerContent('mn', `
 <center>
     <h2>Momentos Narrativos y tablas</h2>
 </center>
@@ -20,8 +20,8 @@ ChapterLoader.registerContent('mn', `
             <td style="border: 1px solid #b89b65;">Si se explora la loseta i11</td>
             <td style="border: 1px solid #b89b65;"><button onclick="cargarTexto('MN126')">126</button></td>
             <td style="border: 1px solid #b89b65;">
-                <button onclick="mostrarPopupLoseta('losetas/Cap 3 - loseta i11.png', [
-                    {id:'MN126', num:'126', texto:'Si se explora la loseta i11'}
+            <button onclick="mostrarPopupLoseta('losetas/Cap 3 - loseta i11.png', [
+                    {id:'MN126', num:'126', texto:"Si se explora la loseta i11"}
                 ])">I11</button>
             </td>
         </tr>
@@ -30,7 +30,7 @@ ChapterLoader.registerContent('mn', `
             <td style="border: 1px solid #b89b65;"><button onclick="cargarTexto('MN27')">027</button></td>
             <td style="border: 1px solid #b89b65;">
                 <button onclick="mostrarPopupLoseta('losetas/Cap 3 - loseta i10.png', [
-                    {id:'MN27', num:'027', texto:'Si se explora la loseta i10'}
+                    {id:'MN27', num:'027', texto:"Si se explora la loseta i10"}
                 ])">I10</button>
             </td>
         </tr>
@@ -39,7 +39,7 @@ ChapterLoader.registerContent('mn', `
             <td style="border: 1px solid #b89b65;"><button onclick="cargarTexto('MN10')">010</button></td>
             <td style="border: 1px solid #b89b65;">
                 <button onclick="mostrarPopupLoseta('losetas/Cap 3 - loseta i16.png', [
-                    {id:'MN10', num:'010', texto:'Al Buscar con exito en la Loseta i16'}
+                    {id:'MN10', num:'010', texto:"Al Buscar con éxito en la Loseta i16"}
                 ])">I16</button>
             </td>
         </tr>
@@ -48,7 +48,7 @@ ChapterLoader.registerContent('mn', `
             <td style="border: 1px solid #b89b65;"><button onclick="cargarTexto('MN128')">128</button></td>
             <td style="border: 1px solid #b89b65;">
                 <button onclick="mostrarPopupLoseta('losetas/Cap 3 - loseta c1.png', [
-                    {id:'MN128', num:'128', texto:'Al Buscar con exito en la Loseta c1'}
+                    {id:'MN128', num:'128', texto:"Al Buscar con éxito en la Loseta c1"}
                 ])">C1</button>
             </td>
         </tr>
@@ -57,7 +57,7 @@ ChapterLoader.registerContent('mn', `
             <td style="border: 1px solid #b89b65;"><button onclick="cargarTexto('MN24')">024</button></td>
             <td style="border: 1px solid #b89b65;">
                 <button onclick="mostrarPopupLoseta('losetas/Cap 3 - loseta c2.png', [
-                    {id:'MN24', num:'024', texto:'Si se explora la loseta c2'}
+                    {id:'MN24', num:'024', texto:"Si se explora la loseta c2"}
                 ])">C2</button>
             </td>
         </tr>
@@ -78,3 +78,4 @@ ChapterLoader.registerContent('mn', `
         </tr>
     </tbody>
 </table>`);
+

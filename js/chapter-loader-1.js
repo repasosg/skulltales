@@ -363,6 +363,9 @@ ChapterLoader.registerContent = function (id, content) {
         // Corrección para los onclick="mostrarPopupImagen('...')"
         content = content.replace(/mostrarPopupImagen\(['"](img\/|variosimg\/|losetas\/|abc\/)/g, `mostrarPopupImagen('${pathPrefix}$1`);
 
+        // Corrección para los onclick="mostrarPopupLoseta('...')"
+        content = content.replace(/mostrarPopupLoseta\(['"](img\/|variosimg\/|losetas\/|abc\/)/g, `mostrarPopupLoseta('${pathPrefix}$1`);
+
         // Corrección para estilos inline con url(...) preservando comillas (o ausencia)
         content = content.replace(/url\((['"]?)(img\/|variosimg\/|losetas\/|abc\/)/g, `url($1${pathPrefix}$2`);
 
@@ -393,9 +396,37 @@ ChapterLoader.registerContent = function (id, content) {
 };
 
 function mostrarPopupImagen(ruta) {
+    // Compatibilidad: abre el popup solo con imagen (sin panel MN)
     const popup = document.getElementById('popupImagen');
     const img = document.getElementById('popupImagenContenido');
     img.src = ruta;
+    const panel = document.getElementById('popupLosetaPanel');
+    if (panel) panel.style.display = 'none';
+    popup.classList.add('visible');
+}
+
+function mostrarPopupLoseta(ruta, mns, fn) {
+    fn = fn || 'cargarTexto';
+    const popup = document.getElementById('popupImagen');
+    const img = document.getElementById('popupImagenContenido');
+    img.src = ruta;
+
+    const panel = document.getElementById('popupLosetaPanel');
+    const list = document.getElementById('popupLosetaList');
+
+    if (panel && list && mns && mns.length > 0) {
+        list.innerHTML = mns.map(mn => `
+            <div class="popup-mn-item" onclick="cerrarPopupImagen(); ${fn}('${mn.id}')">
+                <span class="popup-mn-num">${mn.num}</span>
+                <span class="popup-mn-texto">${mn.texto}</span>
+            </div>
+        `).join('');
+        panel.style.display = 'flex';
+        panel.style.flexDirection = 'column';
+    } else if (panel) {
+        panel.style.display = 'none';
+    }
+
     popup.classList.add('visible');
 }
 
@@ -403,6 +434,13 @@ function cerrarPopupImagen() {
     const popup = document.getElementById('popupImagen');
     popup.classList.remove('visible');
     document.getElementById('popupImagenContenido').src = '';
+}
+
+function cerrarPopupImagenOverlay(event) {
+    // Solo cierra si se hace clic en el overlay, no en el contenido interior
+    if (event.target === document.getElementById('popupImagen')) {
+        cerrarPopupImagen();
+    }
 }
 
 // Lógica para el Selector de Objetivos

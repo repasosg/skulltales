@@ -16,7 +16,9 @@
     <tr>
       <td style="border: 1px solid #b89b65; padding: 10px;">Si se explora la loseta p5</td>
       <td style="border: 1px solid #b89b65; padding: 10px; text-align: center;"><button class="ojo-button" onclick="ChapterLoader.mostrarMN('MN2997')">2997</button></td>
-      <td style="border: 1px solid #b89b65; padding: 10px; text-align: center;"><button class="ojo-button" onclick="mostrarPopupImagen('losetas/3/Cam 3 - Cap 1 - loseta p5.png')">p5</button></td>
+      <td style="border: 1px solid #b89b65; padding: 10px; text-align: center;"><button class="ojo-button" onclick="mostrarPopupLoseta('losetas/3/Cam 3 - Cap 1 - loseta p5.png', [
+                    {id:'MN2997', num:'2997', texto:"Si se explora la loseta p5"}
+                ], 'ChapterLoader.mostrarMN')">p5</button></td>
     </tr>
     <tr>
       <td style="border: 1px solid #b89b65; padding: 10px;">Si se agota la pila de marcadores de loseta del pantano</td>
@@ -26,7 +28,9 @@
     <tr>
       <td style="border: 1px solid #b89b65; padding: 10px;">Si se explora la loseta p2</td>
       <td style="border: 1px solid #b89b65; padding: 10px; text-align: center;"><button class="ojo-button" onclick="ChapterLoader.mostrarMN('MN1474')">1474</button></td>
-      <td style="border: 1px solid #b89b65; padding: 10px; text-align: center;"><button class="ojo-button" onclick="mostrarPopupImagen('losetas/3/Cam 3 - Cap 1 - loseta p2.png')">p2</button></td>
+      <td style="border: 1px solid #b89b65; padding: 10px; text-align: center;"><button class="ojo-button" onclick="mostrarPopupLoseta('losetas/3/Cam 3 - Cap 1 - loseta p2.png', [
+                    {id:'MN1474', num:'1474', texto:"Si se explora la loseta p2"}
+                ], 'ChapterLoader.mostrarMN')">p2</button></td>
     </tr>
     <tr>
       <td style="border: 1px solid #b89b65; padding: 10px;">Si los Personajes logran continuar a la siguiente Aventura</td>

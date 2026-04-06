@@ -11,7 +11,11 @@
     <tr>
       <td style="border: 1px solid #b89b65; padding: 8px;">Al iniciar la Fase de Aventura</td>
       <td style="border: 1px solid #b89b65; padding: 8px;"><button class="boton-mn" onclick="cargarTexto('MN1595')">1595</button></td>
-      <td style="border: 1px solid #b89b65; padding: 8px;" rowspan="3"><button class="boton-dorado" onclick="mostrarPopupImagen('losetas/2/Cam 2 - Cap 4 - loseta v1-v4.png')">Ver V1-V4</button></td>
+      <td style="border: 1px solid #b89b65; padding: 8px;" rowspan="3"><button class="boton-dorado" onclick="mostrarPopupLoseta('losetas/2/Cam 2 - Cap 4 - loseta v1-v4.png', [
+                    {id:'MN1595', num:'1595', texto:"Al iniciar la Fase de Aventura"},
+                    {id:'MN1959', num:'1959', texto:"Si se entra en la habitación B"},
+                    {id:'MN2644', num:'2644', texto:"Si se entra en la habitación C"}
+                ])">Ver V1-V4</button></td>
     </tr>
     <tr>
         <td style="border: 1px solid #b89b65; padding: 8px;">Si se entra en la habitacion B</td>
@@ -44,17 +48,23 @@
     <tr>
         <td style="border: 1px solid #b89b65; padding: 8px;">Si se explora la loseta s1</td>
         <td style="border: 1px solid #b89b65; padding: 8px;"><button class="boton-mn" onclick="cargarTexto('MN2917')">2917</button></td>
-        <td style="border: 1px solid #b89b65; padding: 8px;"><button class="boton-dorado" onclick="mostrarPopupImagen('losetas/2/Cam 2 - Cap 4 - loseta s1.png')">Ver S1</button></td>
+        <td style="border: 1px solid #b89b65; padding: 8px;"><button class="boton-dorado" onclick="mostrarPopupLoseta('losetas/2/Cam 2 - Cap 4 - loseta s1.png', [
+                    {id:'MN2917', num:'2917', texto:"Si se explora la loseta s1"}
+                ])">Ver S1</button></td>
     </tr>
     <tr>
         <td style="border: 1px solid #b89b65; padding: 8px;">Si se explora la loseta s3</td>
         <td style="border: 1px solid #b89b65; padding: 8px;"><button class="boton-mn" onclick="cargarTexto('MN2879')">2879</button></td>
-        <td style="border: 1px solid #b89b65; padding: 8px;"><button class="boton-dorado" onclick="mostrarPopupImagen('losetas/2/Cam 2 - Cap 4 - loseta s3.png')">Ver S3</button></td>
+        <td style="border: 1px solid #b89b65; padding: 8px;"><button class="boton-dorado" onclick="mostrarPopupLoseta('losetas/2/Cam 2 - Cap 4 - loseta s3.png', [
+                    {id:'MN2879', num:'2879', texto:"Si se explora la loseta s3"}
+                ])">Ver S3</button></td>
     </tr>
     <tr>
         <td style="border: 1px solid #b89b65; padding: 8px;">Si se explora la loseta s4</td>
         <td style="border: 1px solid #b89b65; padding: 8px;"><button class="boton-mn" onclick="cargarTexto('MN1556')">1556</button></td>
-        <td style="border: 1px solid #b89b65; padding: 8px;"><button class="boton-dorado" onclick="mostrarPopupImagen('losetas/2/Cam 2 - Cap 4 - loseta s4.png')">Ver S4</button></td>
+        <td style="border: 1px solid #b89b65; padding: 8px;"><button class="boton-dorado" onclick="mostrarPopupLoseta('losetas/2/Cam 2 - Cap 4 - loseta s4.png', [
+                    {id:'MN1556', num:'1556', texto:"Si se explora la loseta s4"}
+                ])">Ver S4</button></td>
     </tr>
     <tr>
         <td style="border: 1px solid #b89b65; padding: 8px;">La primera vez que te enfrentes a un Cazarrecompensas</td>

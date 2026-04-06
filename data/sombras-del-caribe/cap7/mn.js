@@ -11,7 +11,9 @@
     <tr>
        <td style="border: 1px solid #b89b65; padding: 8px;">Si se explora la loseta v1</td>
        <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="cargarTexto('MN101')">101</button></td>
-       <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="mostrarPopupImagen('losetas/Cap 7 - loseta v1.png')">V1</button></td>
+       <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="mostrarPopupLoseta('losetas/Cap 7 - loseta v1.png', [
+                    {id:'MN101', num:'101', texto:'Si se explora la loseta v1'}
+                ])">V1</button></td>
     </tr>
     <tr>
        <td style="border: 1px solid #b89b65; padding: 8px;">Si se revela el marcador de loseta c1</td>
@@ -37,7 +39,10 @@
        <td style="border: 1px solid #b89b65; padding: 8px;">Cuando se intenta abrir la puerta A</td>
        <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="cargarTexto('MN147')">147</button></td>
        <td style="border: 1px solid #b89b65; padding: 8px;" rowspan="2">
-       <button onclick="mostrarPopupImagen('losetas/Cap 7 - loseta v3.png')">V3</button></td>
+       <button onclick="mostrarPopupLoseta('losetas/Cap 7 - loseta v3.png', [
+                    {id:'MN147', num:'147', texto:'Cuando se intenta abrir la puerta A'},
+                    {id:'MN61', num:'061', texto:'Cuando se intenta abrir la puerta B'}
+                ])">V3</button></td>
     </tr>
     <tr>
        <td style="border: 1px solid #b89b65; padding: 8px;">Cuando se intenta abrir la puerta B</td>

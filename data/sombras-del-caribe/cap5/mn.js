@@ -20,23 +20,31 @@
             <td style="border: 1px solid #b89b65;">Al Buscar con éxito en la loseta i2</td>
             <td style="border: 1px solid #b89b65;"><button onclick="cargarTexto('MN57')">057</button></td>
             <td style="border: 1px solid #b89b65;">
-            <button onclick="mostrarPopupImagen('losetas/Cap 5 - loseta i2.png')">I2</button>
+            <button onclick="mostrarPopupLoseta('losetas/Cap 5 - loseta i2.png', [
+                    {id:'MN57', num:'057', texto:'Al Buscar con éxito en la loseta i2'}
+                ])">I2</button>
             </td>
         </tr>
         <tr>
             <td style="border: 1px solid #b89b65;">Si se Explora la loseta i4</td>
             <td style="border: 1px solid #b89b65;"><button onclick="cargarTexto('MN80')">080</button></td>
-            <td style="border: 1px solid #b89b65;"><button onclick="mostrarPopupImagen('losetas/Cap 5 - loseta i4.png')">I4</button></td>
+            <td style="border: 1px solid #b89b65;"><button onclick="mostrarPopupLoseta('losetas/Cap 5 - loseta i4.png', [
+                    {id:'MN80', num:'080', texto:'Si se Explora la loseta i4'}
+                ])">I4</button></td>
         </tr>
         <tr>
             <td style="border: 1px solid #b89b65;">Si se Explora la loseta i10</td>
             <td style="border: 1px solid #b89b65;"><button onclick="cargarTexto('MN104')">104</button></td>
-            <td style="border: 1px solid #b89b65;"><button onclick="mostrarPopupImagen('losetas/Cap 5 - loseta i10.png')">I10</button></td>
+            <td style="border: 1px solid #b89b65;"><button onclick="mostrarPopupLoseta('losetas/Cap 5 - loseta i10.png', [
+                    {id:'MN104', num:'104', texto:'Si se Explora la loseta i10'}
+                ])">I10</button></td>
         </tr>
         <tr>
             <td style="border: 1px solid #b89b65;">Si se Explora la loseta t2</td>
             <td style="border: 1px solid #b89b65;"><button onclick="cargarTexto('MN129')">129</button></td>
-            <td style="border: 1px solid #b89b65;"><button onclick="mostrarPopupImagen('losetas/Cap 5 - loseta t2.png')">T2</button></td>
+            <td style="border: 1px solid #b89b65;"><button onclick="mostrarPopupLoseta('losetas/Cap 5 - loseta t2.png', [
+                    {id:'MN129', num:'129', texto:'Si se Explora la loseta t2'}
+                ])">T2</button></td>
         </tr>
         <tr>
             <td colspan="3" style="border: 1px solid #b89b65; text-align: center;">

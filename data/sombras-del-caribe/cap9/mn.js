@@ -21,7 +21,10 @@
     <tr>
        <td style="border: 1px solid #b89b65; padding: 8px;">Al Buscar con éxito en la habitación A</td>
        <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="cargarTexto('MN107')">107</button></td>
-       <td style="border: 1px solid #b89b65; padding: 8px;" rowspan=2"><button onclick="mostrarPopupImagen('losetas/Cap 9 - loseta v1.png')">V1</button></td>
+       <td style="border: 1px solid #b89b65; padding: 8px;" rowspan=2"><button onclick="mostrarPopupLoseta('losetas/Cap 9 - loseta v1.png', [
+                    {id:'MN107', num:'107', texto:'Al Buscar con éxito en la habitación A'},
+                    {id:'MN56', num:'056', texto:'Al Buscar con éxito en la habitación B'}
+                ])">V1</button></td>
     </tr>
     <tr>
        <td style="border: 1px solid #b89b65; padding: 8px;">Al Buscar con éxito en la habitación B</td>
@@ -30,7 +33,9 @@
     <tr>
        <td style="border: 1px solid #b89b65; padding: 8px;">Al Buscar con éxito en la habitación C</td>
        <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="cargarTexto('MN14')">014</button></td>
-       <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="mostrarPopupImagen('losetas/Cap 9 - loseta v3.png')">V3</button></td>
+       <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="mostrarPopupLoseta('losetas/Cap 9 - loseta v3.png', [
+                    {id:'MN14', num:'014', texto:'Al Buscar con éxito en la habitación C'}
+                ])">V3</button></td>
     </tr>
     <tr>
        <td style="border: 1px solid #b89b65; padding: 8px;">Si los personajes logran continuar a la siguiente aventura</td>

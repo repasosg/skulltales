@@ -20,7 +20,11 @@
             <td style="border: 1px solid #b89b65;">Cuando se intente abrir la puerta A</td>
             <td style="border: 1px solid #b89b65;"><button onclick="cargarTexto('MN121')">121</button></td>
             <td rowspan="3" style="border: 1px solid #b89b65;">
-            <button onclick="mostrarPopupImagen('losetas/Cap 4 - loseta v1-s4.png')">V1-S4</button>
+            <button onclick="mostrarPopupLoseta('losetas/Cap 4 - loseta v1-s4.png', [
+                    {id:'MN121', num:'121', texto:'Cuando se intente abrir la puerta A'},
+                    {id:'MN119', num:'119', texto:'Si un Personaje con el Objetivo 3 está en la habitación B sin Enemigos'},
+                    {id:'MN88', num:'088', texto:'Cuando se intente abrir la puerta C'}
+                ])">V1-S4</button>
             </td>
         </tr>
         <tr>
@@ -34,13 +38,18 @@
         <tr>
             <td style="border: 1px solid #b89b65;">Al buscar con éxito en la loseta c1</td>
             <td style="border: 1px solid #b89b65;"><button onclick="cargarTexto('MN13')">013</button></td>
-            <td style="border: 1px solid #b89b65;"><button onclick="mostrarPopupImagen('losetas/Cap 4 - loseta c1.png')">C1</button></td>
+            <td style="border: 1px solid #b89b65;"><button onclick="mostrarPopupLoseta('losetas/Cap 4 - loseta c1.png', [
+                    {id:'MN13', num:'013', texto:'Al buscar con éxito en la loseta c1'}
+                ])">C1</button></td>
         </tr>
         <tr>
             <td style="border: 1px solid #b89b65;">Cuando se intente abrir la puerta F desde el exterior</td>
             <td style="border: 1px solid #b89b65;"><button onclick="cargarTexto('MN133')">133</button></td>
             <td rowspan="2" style="border: 1px solid #b89b65;">
-            <button onclick="mostrarPopupImagen('losetas/Cap 4 - loseta v3-s1.png')">V3-S1</button>
+            <button onclick="mostrarPopupLoseta('losetas/Cap 4 - loseta v3-s1.png', [
+                    {id:'MN133', num:'133', texto:'Cuando se intente abrir la puerta F desde el exterior'},
+                    {id:'MN62', num:'062', texto:'Cuando se intente abrir la puerta G'}
+                ])">V3-S1</button>
             </td>
         </tr>
         <tr>

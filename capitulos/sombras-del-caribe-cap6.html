@@ -128,9 +128,21 @@
             }
       </script>
 
-      <div class="popup-imagen" id="popupImagen" onclick="cerrarPopupImagen()">
-            <img id="popupImagenContenido" alt="Loseta">
+        <div id="popupImagen" class="popup-imagen" onclick="cerrarPopupImagenOverlay(event)">
+    <div class="popup-loseta-inner" id="popupLosetaInner">
+      <button class="popup-loseta-cerrar" onclick="cerrarPopupImagen()">✕</button>
+      <div class="popup-loseta-img-wrap">
+        <img id="popupImagenContenido" src="" alt="Loseta">
       </div>
+      <div class="popup-loseta-panel" id="popupLosetaPanel">
+        <div class="popup-loseta-panel-header">
+          <h3>⚔ Eventos en esta loseta</h3>
+          <p>Haz clic para leer el narrativo</p>
+        </div>
+        <div class="popup-loseta-panel-list" id="popupLosetaList"></div>
+      </div>
+    </div>
+  </div>
 
       <script>
             ChapterLoader.init('sombras-del-caribe', 'cap6', '../');

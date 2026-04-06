@@ -16,7 +16,11 @@
     <tr>
        <td style="border: 1px solid #b89b65; padding: 8px;">Cuando se intente abrir la puerta A</td>
        <td style="border: 1px solid #b89b65; padding: 8px;"><button class="btn-mn" onclick="cargarTexto('MN6')">006</button></td>
-       <td style="border: 1px solid #b89b65; padding: 8px;" rowspan="3"><button onclick="mostrarPopupImagen('losetas/Anexo 2- loseta s1-v3.png')">S1-V3</button></td>
+       <td style="border: 1px solid #b89b65; padding: 8px;" rowspan="3"><button onclick="mostrarPopupLoseta('losetas/Anexo 2- loseta s1-v3.png', [
+                    {id:'MN6', num:'006', texto:'Cuando se intente abrir la puerta A'},
+                    {id:'MN36', num:'036', texto:'Cuando se intente abrir la puerta B'},
+                    {id:'MN114', num:'114', texto:'Cuando se intente abrir la puerta C'}
+                ])">S1-V3</button></td>
     </tr>
     <tr>
        <td style="border: 1px solid #b89b65; padding: 8px;">Cuando se intente abrir la puerta B</td>
@@ -29,7 +33,11 @@
     <tr>
        <td style="border: 1px solid #b89b65; padding: 8px;">Cuando se intente abrir la puerta D</td>
        <td style="border: 1px solid #b89b65; padding: 8px;"><button class="btn-mn" onclick="cargarTexto('MN125')">125</button></td>
-       <td style="border: 1px solid #b89b65; padding: 8px;" rowspan="3"><button onclick="mostrarPopupImagen('losetas/Anexo 2- loseta v1.png')">V1</button></td>
+       <td style="border: 1px solid #b89b65; padding: 8px;" rowspan="3"><button onclick="mostrarPopupLoseta('losetas/Anexo 2- loseta v1.png', [
+                    {id:'MN125', num:'125', texto:'Cuando se intente abrir la puerta D'},
+                    {id:'MN50', num:'050', texto:'Cuando se intente abrir la puerta E'},
+                    {id:'MN28', num:'028', texto:'Cuando se intente abrir la puerta F'}
+                ])">V1</button></td>
     </tr>
     <tr>
        <td style="border: 1px solid #b89b65; padding: 8px;">Cuando se intente abrir la puerta E</td>
@@ -42,12 +50,16 @@
     <tr>
        <td style="border: 1px solid #b89b65; padding: 8px;">Cuando se intente abrir la puerta G</td>
        <td style="border: 1px solid #b89b65; padding: 8px;"><button class="btn-mn" onclick="cargarTexto('MN78')">078</button></td>
-       <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="mostrarPopupImagen('losetas/Anexo 2- loseta v4.png')">V4</button></td>
+       <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="mostrarPopupLoseta('losetas/Anexo 2- loseta v4.png', [
+                    {id:'MN78', num:'078', texto:'Cuando se intente abrir la puerta G'}
+                ])">V4</button></td>
     </tr>
     <tr>
        <td style="border: 1px solid #b89b65; padding: 8px;">Cuando se intente abrir la puerta H</td>
        <td style="border: 1px solid #b89b65; padding: 8px;"><button class="btn-mn" onclick="cargarTexto('MN91')">091</button></td>
-       <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="mostrarPopupImagen('losetas/Anexo 2- loseta v2.png')">V2</button></td>
+       <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="mostrarPopupLoseta('losetas/Anexo 2- loseta v2.png', [
+                    {id:'MN91', num:'091', texto:'Cuando se intente abrir la puerta H'}
+                ])">V2</button></td>
     </tr>
     <tr>
        <td style="border: 1px solid #b89b65; padding: 8px;">Cuando se realice el primer ataque a distancia</td>

@@ -1,4 +1,4 @@
-﻿ChapterLoader.registerContent('mn', `
+ChapterLoader.registerContent('mn', `
 <center>
     <h2>Momentos Narrativos y tablas</h2>
 </center>
@@ -23,8 +23,13 @@
             <td style="border: 1px solid #b89b65;">
                 <button onclick="cargarTexto('MN43')">043</button>
             </td>
-            <td rowspan="4" style="border: 1px solid #b89b65;">
-                <button onclick="mostrarPopupImagen('losetas/Cap 2 - loseta v1.png')">V1</button>
+            <td rowspan="4" style="border: 1px solid #b89b65; text-align:center; vertical-align:middle;">
+                <button onclick="mostrarPopupLoseta('losetas/Cap 2 - loseta v1.png', [
+                    {id:'MN43', num:'043', texto:'Cuando se intenta abrir la puerta B'},
+                    {id:'MN130', num:'130', texto:'Al registrar al Enemigo C'},
+                    {id:'MN135', num:'135', texto:'Cuando se intenta abrir la puerta D'},
+                    {id:'MN123', num:'123', texto:'Al buscar con éxito en la habitación E'}
+                ])">V1</button>
             </td>
         </tr>
         <tr>
@@ -50,8 +55,13 @@
             <td style="border: 1px solid #b89b65;">
                 <button onclick="cargarTexto('MN8')">008</button>
             </td>
-            <td rowspan="4" style="border: 1px solid #b89b65;">
-                <button onclick="mostrarPopupImagen('losetas/Cap 2 - loseta v3.png')">V3</button>
+            <td rowspan="4" style="border: 1px solid #b89b65; text-align:center; vertical-align:middle;">
+                <button onclick="mostrarPopupLoseta('losetas/Cap 2 - loseta v3.png', [
+                    {id:'MN8', num:'008', texto:'Cuando se intenta abrir la puerta F'},
+                    {id:'MN112', num:'112', texto:'Al buscar con éxito en la habitación G'},
+                    {id:'MN92', num:'092', texto:'Al buscar con éxito en la habitación H'},
+                    {id:'MN9', num:'009', texto:'Cuando se intenta abrir la puerta I'}
+                ])">V3</button>
             </td>
         </tr>
         <tr>
@@ -77,8 +87,10 @@
             <td style="border: 1px solid #b89b65;">
                 <button onclick="cargarTexto('MN122')">122</button>
             </td>
-            <td style="border: 1px solid #b89b65;">
-                <button onclick="mostrarPopupImagen('losetas/Cap 2 - loseta v4.png')">V4</button>
+            <td style="border: 1px solid #b89b65; text-align:center; vertical-align:middle;">
+                <button onclick="mostrarPopupLoseta('losetas/Cap 2 - loseta v4.png', [
+                    {id:'MN122', num:'122', texto:'Cuando se intenta abrir la puerta J'}
+                ])">V4</button>
             </td>
         </tr>
         <tr>

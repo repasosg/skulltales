@@ -14,7 +14,9 @@
       <button class="boton-mn" onclick="cargarTexto('MN2418')">2418</button>
       </td>
       <td style="border: 1px solid #b89b65; padding: 8px;">
-        <button class="boton-mn" onclick="mostrarPopupImagen('losetas/2/Cam 2 - Cap 2 - loseta i2.png')">I2</button>
+        <button class="boton-mn" onclick="mostrarPopupLoseta('losetas/2/Cam 2 - Cap 2 - loseta i2.png', [
+                    {id:'MN2418', num:'2418', texto:"Si se explora la loseta i2"}
+                ])">I2</button>
       </td>
     </tr>
     <tr>
@@ -23,7 +25,9 @@
         <button class="boton-mn" onclick="cargarTexto('MN2246')">2246</button>
       </td>
       <td style="border: 1px solid #b89b65; padding: 8px;">
-        <button class="boton-mn" onclick="mostrarPopupImagen('losetas/2/Cam 2 - Cap 2 - loseta i3.png')">I3</button>
+        <button class="boton-mn" onclick="mostrarPopupLoseta('losetas/2/Cam 2 - Cap 2 - loseta i3.png', [
+                    {id:'MN2246', num:'2246', texto:"Si se explora la loseta i3"}
+                ])">I3</button>
       </td>
     </tr>
     <tr>
@@ -32,7 +36,9 @@
         <button class="boton-mn" onclick="cargarTexto('MN1705')">1705</button>
       </td>
       <td style="border: 1px solid #b89b65; padding: 8px;">
-        <button class="boton-mn" onclick="mostrarPopupImagen('losetas/2/Cam 2 - Cap 2 - loseta i4.png')">I4</button>
+        <button class="boton-mn" onclick="mostrarPopupLoseta('losetas/2/Cam 2 - Cap 2 - loseta i4.png', [
+                    {id:'MN1705', num:'1705', texto:"Si se explora la loseta i4"}
+                ])">I4</button>
       </td>
     </tr>
     <tr>
@@ -41,7 +47,9 @@
         <button class="boton-mn" onclick="cargarTexto('MN1881')">1881</button>
       </td>
       <td style="border: 1px solid #b89b65; padding: 8px;">
-        <button class="boton-mn" onclick="mostrarPopupImagen('losetas/2/Cam 2 - Cap 2 - loseta i5.png')">I5</button>
+        <button class="boton-mn" onclick="mostrarPopupLoseta('losetas/2/Cam 2 - Cap 2 - loseta i5.png', [
+                    {id:'MN1881', num:'1881', texto:"Si se explora la loseta i5"}
+                ])">I5</button>
       </td>
     </tr>
     <tr>
@@ -50,7 +58,9 @@
         <button class="boton-mn" onclick="cargarTexto('MN2492')">2492</button>
       </td>
       <td style="border: 1px solid #b89b65; padding: 8px;">
-        <button class="boton-mn" onclick="mostrarPopupImagen('losetas/2/Cam 2 - Cap 2 - loseta i8.png')">I8</button>
+        <button class="boton-mn" onclick="mostrarPopupLoseta('losetas/2/Cam 2 - Cap 2 - loseta i8.png', [
+                    {id:'MN2492', num:'2492', texto:"Si se explora la loseta i8"}
+                ])">I8</button>
       </td>
     </tr>
     <tr>

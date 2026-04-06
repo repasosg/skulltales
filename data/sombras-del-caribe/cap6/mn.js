@@ -32,7 +32,9 @@
                 <button onclick="cargarTexto('MN113')">113</button>
             </td>
             <td style="border: 1px solid #b89b65; padding: 8px; text-align: center;">
-                <button onclick="mostrarPopupImagen('losetas/Cap 6 - loseta i4.png')">I4</button>
+                <button onclick="mostrarPopupLoseta('losetas/Cap 6 - loseta i4.png', [
+                    {id:'MN113', num:'113', texto:'Si se explora la Loseta i4'}
+                ])">I4</button>
             </td>
         </tr>
         <tr>
@@ -57,7 +59,9 @@
                 <button onclick="cargarTexto('MN12')">012</button>
             </td>
             <td style="border: 1px solid #b89b65; padding: 8px; text-align: center;">
-                <button onclick="mostrarPopupImagen('losetas/Cap 6 - loseta i13.png')">I13</button>
+                <button onclick="mostrarPopupLoseta('losetas/Cap 6 - loseta i13.png', [
+                    {id:'MN12', num:'012', texto:'Si se explora la Loseta i13'}
+                ])">I13</button>
             </td>
         </tr>
         <tr>

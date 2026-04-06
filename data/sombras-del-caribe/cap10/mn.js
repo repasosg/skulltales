@@ -11,27 +11,37 @@
     <tr>
        <td style="border: 1px solid #b89b65; padding: 8px;">Si se Explora la Loseta i3</td>
        <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="cargarTexto('MN47')">047</button></td>
-       <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="mostrarPopupImagen('losetas/Cap 10 - loseta i3.png')">I3</button></td>
+       <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="mostrarPopupLoseta('losetas/Cap 10 - loseta i3.png', [
+                    {id:'MN47', num:'047', texto:'Si se Explora la Loseta i3'}
+                ])">I3</button></td>
     </tr>
     <tr>
        <td style="border: 1px solid #b89b65; padding: 8px;">Si se Explora la Loseta i4</td>
        <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="cargarTexto('MN48')">048</button></td>
-       <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="mostrarPopupImagen('losetas/Cap 10 - loseta i4.png')">I4</button></td>
+       <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="mostrarPopupLoseta('losetas/Cap 10 - loseta i4.png', [
+                    {id:'MN48', num:'048', texto:'Si se Explora la Loseta i4'}
+                ])">I4</button></td>
     </tr>
     <tr>
        <td style="border: 1px solid #b89b65; padding: 8px;">Si se Explora la Loseta i9</td>
        <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="cargarTexto('MN60')">060</button></td>
-       <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="mostrarPopupImagen('losetas/Cap 10 - loseta i9.png')">I9</button></td>
+       <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="mostrarPopupLoseta('losetas/Cap 10 - loseta i9.png', [
+                    {id:'MN60', num:'060', texto:'Si se Explora la Loseta i9'}
+                ])">I9</button></td>
     </tr>
     <tr>
        <td style="border: 1px solid #b89b65; padding: 8px;">Si se Explora la Loseta i10</td>
        <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="cargarTexto('MN33')">033</button></td>
-       <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="mostrarPopupImagen('losetas/Cap 10 - loseta i10.png')">I10</button></td>
+       <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="mostrarPopupLoseta('losetas/Cap 10 - loseta i10.png', [
+                    {id:'MN33', num:'033', texto:'Si se Explora la Loseta i10'}
+                ])">I10</button></td>
     </tr>
     <tr>
        <td style="border: 1px solid #b89b65; padding: 8px;">Si se Explora la Loseta i13</td>
        <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="cargarTexto('MN75')">075</button></td>
-       <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="mostrarPopupImagen('losetas/Cap 10 - loseta i13.png')">I13</button></td>
+       <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="mostrarPopupLoseta('losetas/Cap 10 - loseta i13.png', [
+                    {id:'MN75', num:'075', texto:'Si se Explora la Loseta i13'}
+                ])">I13</button></td>
     </tr>
     <tr>
        <td style="border: 1px solid #b89b65; padding: 8px;">Cuando los Personajes hayan obtenido 2 Objetivos</td>

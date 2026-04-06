@@ -21,22 +21,30 @@
     <tr>
        <td style="border: 1px solid #b89b65; padding: 8px;">Si se Explora la Loseta c6</td>
        <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="cargarTexto('MN83')">083</button></td>
-       <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="mostrarPopupImagen('losetas/Cap 8 - loseta c6.png')">C6</button></td>
+       <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="mostrarPopupLoseta('losetas/Cap 8 - loseta c6.png', [
+                    {id:'MN83', num:'083', texto:'Si se Explora la Loseta c6'}
+                ])">C6</button></td>
     </tr>
     <tr>
        <td style="border: 1px solid #b89b65; padding: 8px;">Al Buscar con éxito en la loseta t1</td>
        <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="cargarTexto('MN149')">149</button></td>
-       <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="mostrarPopupImagen('losetas/Cap 8 - loseta t1.png')">T1</button></td>
+       <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="mostrarPopupLoseta('losetas/Cap 8 - loseta t1.png', [
+                    {id:'MN149', num:'149', texto:'Al Buscar con éxito en la loseta t1'}
+                ])">T1</button></td>
     </tr>
     <tr>
        <td style="border: 1px solid #b89b65; padding: 8px;">Cuando los Personajes entren en la Loseta t2</td>
        <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="cargarTexto('MN102')">102</button></td>
-       <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="mostrarPopupImagen('losetas/Cap 8 - loseta t2.png')">T2</button></td>
+       <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="mostrarPopupLoseta('losetas/Cap 8 - loseta t2.png', [
+                    {id:'MN102', num:'102', texto:'Cuando los Personajes entren en la Loseta t2'}
+                ])">T2</button></td>
     </tr>
     <tr>
        <td style="border: 1px solid #b89b65; padding: 8px;">Cuando los Personajes entren en la Loseta t5</td>
        <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="cargarTexto('MN87')">087</button></td>
-       <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="mostrarPopupImagen('losetas/Cap 8 - loseta t5.png')">T5</button></td>
+       <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="mostrarPopupLoseta('losetas/Cap 8 - loseta t5.png', [
+                    {id:'MN87', num:'087', texto:'Cuando los Personajes entren en la Loseta t5'}
+                ])">T5</button></td>
     </tr>
     <tr>
        <td style="border: 1px solid #b89b65; padding: 8px;">Si los Personajes logran continuar a la siguiente aventura</td>

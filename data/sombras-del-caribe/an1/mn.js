@@ -16,27 +16,37 @@
     <tr>
        <td style="border: 1px solid #b89b65; padding: 8px;">Si se explora la Loseta i3</td>
        <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="cargarTexto('MN76')">076</button></td>
-       <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="mostrarPopupImagen('losetas/Anexo 1- loseta i3.png')">I3</button></td>
+       <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="mostrarPopupLoseta('losetas/Anexo 1- loseta i3.png', [
+                    {id:'MN76', num:'076', texto:'Si se explora la Loseta i3'}
+                ])">I3</button></td>
     </tr>
     <tr>
        <td style="border: 1px solid #b89b65; padding: 8px;">Si se explora la Loseta i4</td>
        <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="cargarTexto('MN136')">136</button></td>
-       <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="mostrarPopupImagen('losetas/Anexo 1- loseta i4.png')">I4</button></td>
+       <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="mostrarPopupLoseta('losetas/Anexo 1- loseta i4.png', [
+                    {id:'MN136', num:'136', texto:'Si se explora la Loseta i4'}
+                ])">I4</button></td>
     </tr>
     <tr>
        <td style="border: 1px solid #b89b65; padding: 8px;">Si se explora la Loseta i6</td>
        <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="cargarTexto('MN49')">049</button></td>
-       <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="mostrarPopupImagen('losetas/Anexo 1- loseta i6.png')">I6</button></td>
+       <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="mostrarPopupLoseta('losetas/Anexo 1- loseta i6.png', [
+                    {id:'MN49', num:'049', texto:'Si se explora la Loseta i6'}
+                ])">I6</button></td>
     </tr>
     <tr>
        <td style="border: 1px solid #b89b65; padding: 8px;">Si se explora la Loseta i7</td>
        <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="cargarTexto('MN84')">084</button></td>
-       <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="mostrarPopupImagen('losetas/Anexo 1- loseta i7.png')">I7</button></td>
+       <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="mostrarPopupLoseta('losetas/Anexo 1- loseta i7.png', [
+                    {id:'MN84', num:'084', texto:'Si se explora la Loseta i7'}
+                ])">I7</button></td>
     </tr>
     <tr>
        <td style="border: 1px solid #b89b65; padding: 8px;">Si se explora la Loseta i13</td>
        <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="cargarTexto('MN29')">029</button></td>
-       <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="mostrarPopupImagen('losetas/Anexo 1- loseta i13.png')">I13</button></td>
+       <td style="border: 1px solid #b89b65; padding: 8px;"><button onclick="mostrarPopupLoseta('losetas/Anexo 1- loseta i13.png', [
+                    {id:'MN29', num:'029', texto:'Si se explora la Loseta i13'}
+                ])">I13</button></td>
     </tr>
     <tr>
        <td style="border: 1px solid #b89b65; padding: 8px;">Cuando los Personajes hayan obtenido 4 Objetivos</td>

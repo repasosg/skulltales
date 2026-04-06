@@ -36,12 +36,18 @@
 		<tr>
 			<td style="border: 1px solid #b89b65; padding: 8px;">Se <strong>Explora</strong> la loseta <strong>i2</strong></td>
 			<td style="border: 1px solid #b89b65; padding: 8px;"><button class="boton-mn" onclick="cargarTexto('MN1323')">1323</button></td>
-			<td style="border: 1px solid #b89b65; padding: 8px;"><button class="boton-dorado" onclick="mostrarPopupImagen('losetas/2/Cam 2 - Cap 3 - loseta i2.png')">Ver i2</button></td>
+			<td style="border: 1px solid #b89b65; padding: 8px;"><button class="boton-dorado" onclick="mostrarPopupLoseta('losetas/2/Cam 2 - Cap 3 - loseta i2.png', [
+                    {id:'MN1323', num:'1323', texto:"Se Explora la loseta i2"}
+                ])">Ver i2</button></td>
 		</tr>
 		<tr>
 			<td style="border: 1px solid #b89b65; padding: 8px;">Se intenta abrir la <strong>Puerta A</strong></td>
 			<td style="border: 1px solid #b89b65; padding: 8px;"><button class="boton-mn" onclick="cargarTexto('MN2944')">2944</button></td>
-			<td rowspan="3" style="border: 1px solid #b89b65; padding: 8px; vertical-align: middle;"><button class="boton-dorado" onclick="mostrarPopupImagen('losetas/2/Cam 2 - Cap 3 - losetatemplo.png')">Ver Templo</button></td>
+			<td rowspan="3" style="border: 1px solid #b89b65; padding: 8px; vertical-align: middle;"><button class="boton-dorado" onclick="mostrarPopupLoseta('losetas/2/Cam 2 - Cap 3 - losetatemplo.png', [
+                    {id:'MN2944', num:'2944', texto:"Se intenta abrir la Puerta A"},
+                    {id:'MN2967', num:'2967', texto:"Algún Personaje entra en la loseta t1 por primera vez"},
+                    {id:'MN1581', num:'1581', texto:"Se intenta abrir la Puerta B"}
+                ])">Ver Templo</button></td>
 		</tr>
 		<tr>
 			<td style="border: 1px solid #b89b65; padding: 8px;">Algún Personaje entra en la loseta <strong>t1</strong> por primera vez</td>
