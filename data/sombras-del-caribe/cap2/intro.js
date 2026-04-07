@@ -2,7 +2,7 @@
 <div class="reproductor-opcional">
 	<p class="audio-titulo">🎧 <strong>Audio Narrativo:</strong></p>
 	<audio controls>
-		<source src="audio/intro2.mp3" type="audio/mpeg">
+		<source src="audio/cap2.wav" type="audio/mpeg">
 		Tu navegador no soporta audio HTML5.
 	</audio>
 </div>
