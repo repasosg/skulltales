@@ -1090,7 +1090,6 @@ body.modo-oscuro #mn-buscar-btn {
    POPUP LOSETA UNIFICADO (imagen + panel de MNs)
    ============================================================ */
 
-/* Resetear el comportamiento del click-to-close en el overlay */
 .popup-imagen {
   cursor: default;
 }
@@ -1099,8 +1098,9 @@ body.modo-oscuro #mn-buscar-btn {
 .popup-loseta-inner {
   display: flex;
   flex-direction: row;
-  max-width: 92vw;
-  max-height: 90vh;
+  /* Ocupa hasta el 95% del viewport pero nunca más */
+  width:  min(95vw, 1400px);
+  height: min(92vh, 900px);
   background: linear-gradient(135deg, #1a1008 0%, #0d0904 100%);
   border: 3px solid var(--oro);
   border-radius: 10px;
@@ -1109,25 +1109,30 @@ body.modo-oscuro #mn-buscar-btn {
   position: relative;
 }
 
-/* Zona de imagen */
+/* Zona de imagen: ocupa todo el espacio que sobre tras el panel */
 .popup-loseta-img-wrap {
+  flex: 1 1 auto;       /* crece y encoge libremente */
+  min-width: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 16px;
   background: rgba(0,0,0,0.3);
   border-right: 2px solid rgba(180,140,40,0.25);
-  flex-shrink: 0;
+  overflow: hidden;
 }
 
+/* La imagen se adapta al espacio disponible sin distorsionarse */
 .popup-loseta-img-wrap img {
-  max-width: 55vw;
-  max-height: 82vh;
+  max-width:  100%;
+  max-height: 100%;
+  width:  auto;
+  height: auto;
+  object-fit: contain;
   border: 2px solid rgba(200,160,40,0.4);
   border-radius: 6px;
-  object-fit: contain;
-  /* Anular el estilo global del popup */
   box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+  display: block;
 }
 
 /* Panel lateral de MNs */
@@ -1243,9 +1248,3 @@ body.modo-oscuro #mn-buscar-btn {
   background: rgba(200,160,40,0.1);
 }
 
-/* Sobreescribir el img global del popup cuando está dentro del nuevo layout */
-.popup-loseta-inner img {
-  max-width: unset;
-  max-height: unset;
-  border: 2px solid rgba(200,160,40,0.4);
-}
